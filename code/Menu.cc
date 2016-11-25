@@ -26,7 +26,7 @@ void Menu::run()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
 
-            //game.run();
+            game.run(window);
         }
 
         window.display();

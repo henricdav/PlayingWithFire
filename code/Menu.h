@@ -22,7 +22,7 @@ private:
     std::vector<int> playerColors;
     sf::RenderWindow window;
 
-    GameEngine game();
+    GameEngine game;
 };
 
 #endif

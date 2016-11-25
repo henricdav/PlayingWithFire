@@ -13,9 +13,9 @@
 class GameEngine
 {
 public:
-    GameEngine();
-    ~GameEngine() {};
-    void run(); //std::vector<std::string>, std::vector<int>);//, sf::renderWindow*)
+    GameEngine() = default;
+    ~GameEngine() = default;
+    void run(sf::renderWindow windowPtr);    //std::vector<std::string>, std::vector<int>);//, sf::renderWindow*)
 };
 
 #endif
