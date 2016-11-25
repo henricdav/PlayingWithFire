@@ -2,8 +2,10 @@
 
 #include "GameEngine.h"
 
-void GameEngine::run(sf::renderWindow windowPtr) //std::vector<std::string> playerNames, std::vector<int> playerColors)//, sf::renderWindow* windowPtr)
+int GameEngine::run(sf::RenderWindow* windowPtr)
 {
     std::cout << "hej" << std::endl;
-    windowPtr.clear(sf::Color::Green);
+    windowPtr->clear(sf::Color::Green);
+    
+    return 0;
 }

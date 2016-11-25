@@ -4,12 +4,14 @@
 
 
 Menu::Menu()
-    :   playerNames{}, playerColors{}, window(sf::VideoMode(750,750), "Lek inte med elden II")
+    :   playerNames{}, playerColors{},
+        window(sf::VideoMode(750,750), "Lek inte med elden II"),
+        game{}
 {
     window.setFramerateLimit(60);
 }
 
-void Menu::run()
+int Menu::run()
 {
     while (window.isOpen())
     {
@@ -25,10 +27,10 @@ void Menu::run()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-
-            game.run(window);
+            game.run(&window);
         }
 
         window.display();
     }
+    return 0;
 }

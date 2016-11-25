@@ -16,7 +16,7 @@ public:
     Menu();
     ~Menu() {};
 
-    void run();
+    int run();
 private:
     std::vector<std::string> playerNames;
     std::vector<int> playerColors;

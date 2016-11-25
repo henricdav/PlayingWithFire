@@ -7,15 +7,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-
-
-
 class GameEngine
 {
 public:
     GameEngine() = default;
     ~GameEngine() = default;
-    void run(sf::renderWindow windowPtr);    //std::vector<std::string>, std::vector<int>);//, sf::renderWindow*)
+    int run(sf::RenderWindow* windowPtr);    
 };
 
 #endif
