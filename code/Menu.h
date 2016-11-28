@@ -29,6 +29,7 @@ private:
 
     GameEngine game;
     int item_index;
+    bool game_running;
 
     void draw();
     void moveUp();

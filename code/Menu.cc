@@ -3,7 +3,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(750,750), "Lek inte med elden II"), font{},
-        game{}, item_index{}
+        game{}, item_index{}, game_running{}
 {
     window.setFramerateLimit(60);
 
@@ -32,69 +32,72 @@ Menu::Menu()
     menu[2].setPosition(sf::Vector2f(width/2-15, height/(NUMBER_OF_ITEMS+1)*3));
 
     item_index = 0;
+    game_running = false;
 }
 
 int Menu::run()
 {
     while (window.isOpen())
     {
-        window.clear(sf::Color::Black);
 
-        // Check window events
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            switch (event.type)
             {
+            case sf::Event::Closed:
                 window.close();
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            {
-                moveUp();
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            {
-                moveDown();
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-                switch (selectedItem())
+                break;
+            case sf::Event::KeyReleased:
+                switch (event.key.code)
                 {
-                    case 0:
+                case sf::Keyboard::Up:
+                    moveUp();
+                    break;
+
+                case sf::Keyboard::Down:
+                    moveDown();
+                    break;
+
+                case sf::Keyboard::Space:
+                    switch (selectedItem())
                     {
-                        std::cout << "PLAY!" << std::endl;
-                        while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+                    case 0:
+                        configBeforeRun();
+                        if (playerNames.size() == 2)
                         {
-                            configBeforeRun();
+                            game_running = true;
+                        }
+
+                        while (game_running)
+                        {
                             game.run(&playerNames, &playerColors, &window);
                         }
-                    }
                     case 1:
-                    {
                         while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
                         {
-                            // GO TO HIGHSCORE LIST
+                            std::cout << "GO TO HIGHSCORE LIST" << std::endl;
                         }
-                    }
+                        break;
                     case 2:
-                    {
-                        std::cout << "EXIT" << std::endl;
-                        // FUCKAR UPP AV NÅGON ANLEDNING
-                        //window.close();
+                        window.close();
+                        break;
                     }
+                    default: break;
+                case sf::Keyboard::Escape:
+                    window.close();
+                    break;
                 }
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                window.close();
+                default: break;
             }
         }
 
+        window.clear(sf::Color::Black);
+
         draw();
+
         window.display();
-        sf::sleep(sf::milliseconds(10));
+        //sf::sleep(sf::milliseconds(10));
     }
     return 0;
 }
@@ -134,11 +137,12 @@ int Menu::selectedItem()
 
 int Menu::configBeforeRun()
 {
-    playerNames.push_back("NiPPeHaXxX");
+
+    playerNames.push_back("NiPPeFlaXxX");
     playerNames.push_back("FriPPeFlaXxX");
     playerColors.push_back(1);
     playerColors.push_back(2);
-    //window.clear(sf::Color::Blue);
-    //window.display();
+    window.clear(sf::Color::Blue);
+    window.display();
     return 0;
 }
