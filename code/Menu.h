@@ -10,6 +10,8 @@ Klassen Menu
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 
+#define NUMBER_OF_ITEMS 1
+
 class Menu
 {
 public:
@@ -21,6 +23,10 @@ private:
     std::vector<std::string> playerNames;
     std::vector<int> playerColors;
     sf::RenderWindow window;
+    sf::Text menu[NUMBER_OF_ITEMS];
+    //sf::Font font;
+
+    void draw();
 
     GameEngine game;
 };
