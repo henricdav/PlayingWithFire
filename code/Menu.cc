@@ -4,7 +4,7 @@
 
 
 Menu::Menu()
-    :   playerNames{}, playerColors{},
+    :   playerNames{"Henric"}, playerColors{1},
         window(sf::VideoMode(750,750), "Lek inte med elden II"),
         game{}
 {
@@ -27,10 +27,11 @@ int Menu::run()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            game.run(&window);
+            game.run(&playerNames, &playerColors, &window);
         }
 
         window.display();
+        sf::sleep(sf::milliseconds(10));
     }
     return 0;
 }
