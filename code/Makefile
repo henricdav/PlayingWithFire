@@ -17,7 +17,7 @@ CCFLAGS += -g -std=c++11 -Wpedantic -Wall -Wextra -Werror -Weffc++
 # CPPFLAGS += -I$(CODE)
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o
+OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o Map.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 playingwithfire: $(OBJECTS) Makefile
@@ -29,8 +29,8 @@ playingwithfire: $(OBJECTS) Makefile
 # expression_test: test_main.o Expression.o $(EXPRESSION)/expression-test.cc Expression_Tree.o
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) test_main.o Expression.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression-test.cc -o expression_test
 #
-# variable_test: test_main.o Variable_Table.o variable_test.cc Variable_Table.o
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) test_main.o Variable_Table.o variable_test.cc -o variable_test
+map_test: Map.o map_test.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game
 
 # Delmål (flaggan -c avbryter innan länkning, objektkodsfil erhålls)
 playingwithfire.o: playingwithfire.cc
@@ -50,6 +50,9 @@ Character.o: Character.h Character.cc
 
 Bomb.o: Bomb.h Bomb.cc
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Bomb.cc
+
+Map.o: Map.h Map.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Map.cc
 
 
 # Expression.o: $(EXPRESSION)/Expression.h $(EXPRESSION)/Expression.cc
@@ -71,7 +74,7 @@ clean:
 # 'make zap' tar även bort det körbara programmet och reservkopior (filer
 # som slutar med tecknet '~').
 zap: clean
-	@ \rm -rf playingwithfire *~
+	@ \rm -rf playingwithfire.game *~
 
 # Se upp vid eventuell ändring, '*' får absolut inte finnas för sig!!!
 #
