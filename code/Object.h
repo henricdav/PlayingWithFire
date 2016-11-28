@@ -13,13 +13,14 @@ class Object
 {
 public:
   Object() = default;
-  virtual ~Object();
+  ~Object() = default;
   void move(int Speed, std::vector<bool> direction);
+  sf::Sprite sprite{};
+
 
 private:
-  sf::Sprite sprite;
-  sf::IntRect rect;
-  int mapCoord;
+  sf::IntRect rect{};
+  int mapCoord{};
 };
 
 #endif

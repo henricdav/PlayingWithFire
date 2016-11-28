@@ -20,14 +20,14 @@ public:
   void dropBomb();
 
 private:
-  std::string name;
-  int bombRadius;
-  bool bomMover;
-  int speed;
-  int lives;
-  int color;
-  sf::Clock respawnTimer;
-  sf::Clock timeToNextBomb;
+  std::string name{};
+  int bombRadius{};
+  bool bomMover{};
+  int speed{};
+  int lives{};
+  int color{};
+  sf::Clock respawnTimer{};
+  sf::Clock timeToNextBomb{};
 };
 
 #endif
