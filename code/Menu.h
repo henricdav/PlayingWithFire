@@ -19,12 +19,13 @@ public:
     ~Menu() {};
 
     int run();
+
 private:
     std::vector<std::string> playerNames;
     std::vector<int> playerColors;
     sf::RenderWindow window;
+    sf::Font font;
     sf::Text menu[NUMBER_OF_ITEMS];
-    //sf::Font font;
 
     void draw();
 
