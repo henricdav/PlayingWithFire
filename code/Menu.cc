@@ -25,11 +25,11 @@ int Menu::run()
             window.close();
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        {
+        //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        //{
             game.run(&playerNames, &playerColors, &window);
-        }
-
+        //}
+        
         window.display();
         sf::sleep(sf::milliseconds(10));
     }
