@@ -17,7 +17,7 @@ CCFLAGS += -g -std=c++11 -Wpedantic -Wall -Wextra -Werror -Weffc++
 # CPPFLAGS += -I$(CODE)
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = playingwithfire.o Menu.o GameEngine.o
+OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 playingwithfire: $(OBJECTS) Makefile
@@ -42,6 +42,14 @@ Menu.o: Menu.h Menu.cc
 GameEngine.o: GameEngine.h GameEngine.cc
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c GameEngine.cc
 
+Object.o: Object.h Object.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Object.cc
+
+Character.o: Character.h Character.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Character.cc
+
+Bomb.o: Bomb.h Bomb.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Bomb.cc
 
 
 # Expression.o: $(EXPRESSION)/Expression.h $(EXPRESSION)/Expression.cc
