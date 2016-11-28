@@ -10,7 +10,7 @@ Klassen Menu
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 
-#define NUMBER_OF_ITEMS 1
+#define NUMBER_OF_ITEMS 3
 
 class Menu
 {
@@ -27,9 +27,15 @@ private:
     sf::Font font;
     sf::Text menu[NUMBER_OF_ITEMS];
 
-    void draw();
-
     GameEngine game;
+    int item_index;
+
+    void draw();
+    void moveUp();
+    void moveDown();
+    int selectedItem();
+    int configBeforeRun();
+
 };
 
 #endif
