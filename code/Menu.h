@@ -11,6 +11,7 @@ Klassen Menu
 #include "GameEngine.h"
 
 #define NUMBER_OF_ITEMS 3
+#define NUMBER_OF_SPRITES 3
 
 class Menu
 {
@@ -30,7 +31,8 @@ private:
     GameEngine game;
     int item_index;
     bool game_running;
-    sf::RectangleShape rect;
+    sf::Sprite start_page_sprite[NUMBER_OF_SPRITES];
+    sf::Texture start_page_tex[NUMBER_OF_SPRITES];
 
     void draw();
     void moveUp();
