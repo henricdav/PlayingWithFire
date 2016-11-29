@@ -10,7 +10,7 @@ Klassen Menu
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 
-#define NUMBER_OF_ITEMS 3
+#define NUMBER_OF_ITEMS 4
 #define NUMBER_OF_SPRITES 3
 
 class Menu

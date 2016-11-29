@@ -11,7 +11,6 @@ Menu::Menu()
     if (!font.loadFromFile("Figures/arial.ttf"))
     {
         std::cout << "Failed to load font" << std::endl;
-        //return EXIT_FAILURE
     }
 
     double width = window.getSize().x;
@@ -28,34 +27,36 @@ Menu::Menu()
     {
         std::cout << "Failed to load monster sprite" << std::endl;
     }
-
     start_page_sprite[1].setTexture(start_page_tex[1]);
     start_page_sprite[1].setPosition(width-350, height-250);
 
-    if (!start_page_tex[2].loadFromFile("Figures/menu-title.png"))
+    if (!start_page_tex[2].loadFromFile("Figures/title_sprite.png"))
     {
         std::cout << "Failed to load title" << std::endl;
     }
     start_page_sprite[2].setTexture(start_page_tex[2]);
-    start_page_sprite[2].setPosition(100, 30);
-    start_page_sprite[2].setTextureRect(sf::IntRect(0, 0, 534, 214));
-
-    // SET THE WIDTH BELOW IN A BETTER WAY!
+    start_page_sprite[2].setPosition(100, 50);
+    start_page_sprite[2].setTextureRect(sf::IntRect(0, 0, 534, 165));
 
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::White);
     menu[0].setString("Play");
-    menu[0].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+25));
+    menu[0].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+50));
 
     menu[1].setFont(font);
     menu[1].setColor(sf::Color::White);
     menu[1].setString("Highscore");
-    menu[1].setPosition(sf::Vector2f(width/2-75, height/(NUMBER_OF_ITEMS)+75));
+    menu[1].setPosition(sf::Vector2f(width/2-75, height/(NUMBER_OF_ITEMS)+100));
 
     menu[2].setFont(font);
     menu[2].setColor(sf::Color::White);
-    menu[2].setString("Exit");
-    menu[2].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+125));
+    menu[2].setString("About");
+    menu[2].setPosition(sf::Vector2f(width/2-50, height/(NUMBER_OF_ITEMS)+150));
+
+    menu[3].setFont(font);
+    menu[3].setColor(sf::Color::White);
+    menu[3].setString("Exit");
+    menu[3].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+200));
 
     item_index = 0;
     count1 = 0;
@@ -92,10 +93,6 @@ int Menu::run()
                     {
                     case 0: // PLAY GAME
                         configBeforeRun(event);
-                        if (playerNames.size() == 2)  // REMOVE HÅRDKOD
-                        {
-                            game_running = true;
-                        }
                         while (game_running)
                         {
                             game.run(&playerNames, &playerColors, &window);
@@ -105,11 +102,15 @@ int Menu::run()
                     case 1: // OPEN HIGHSCORE
                         while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
                         {
-                            std::cout << "HIGHSCORE VIEW OPENS HERE" << std::endl;
+                            std::cout << "OPEN HIGHSCORE" << std::endl;
                         }
                         break;
 
-                    case 2: // EXIT GAME
+                    case 2: // ABOUT
+                        std::cout << "ABOUT PAGE" << std::endl;
+                        break;
+
+                    case 3: // EXIT GAME
                         window.close();
                         break;
                     }
@@ -224,7 +225,7 @@ int Menu::configBeforeRun(sf::Event event)
     config_text[4].setFont(font);
 
     sf::Texture tex;
-    tex.loadFromFile("Figures/WalkingGirl-300px.png");
+    tex.loadFromFile("Figures/girl_sprite.png");
     sf::Sprite menu_girl;
     menu_girl.setTexture(tex);
     menu_girl.setPosition(50, 200-87/2);
@@ -233,8 +234,9 @@ int Menu::configBeforeRun(sf::Event event)
     {
         while(window.pollEvent(event))
         {
-            if (event.type == sf::Event::TextEntered)
+            switch (event.type)
             {
+            case sf::Event::TextEntered:
                 if (event.text.unicode >= 32 && event.text.unicode <= 126)
                 {
                     name.push_back(static_cast<char>(event.text.unicode));
@@ -247,31 +249,40 @@ int Menu::configBeforeRun(sf::Event event)
                         config_text[4].setString(name);
                     }
                 }
-            }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-            {
-                if (name.size() > 0)
+                break;
+
+            case sf::Event::KeyReleased:
+                switch (event.key.code)
                 {
-                    name.pop_back();
-                    if (playerNames.size() == 0)
+                case sf::Keyboard::BackSpace:
+                    if (name.size() > 0)
                     {
-                        config_text[2].setString(name);
+                        name.pop_back();
+                        if (playerNames.size() == 0)
+                        {
+                            config_text[2].setString(name);
+                        }
+                        else
+                        {
+                            config_text[4].setString(name);
+                        }
                     }
-                    else
+                    break;
+
+                case sf::Keyboard::Return:
+                    if (name.size() > 0)
                     {
-                        config_text[4].setString(name);
+                        playerNames.push_back(name);
+                        name = "";
                     }
+                    break;
+
+                    default: break;
                 }
-            }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-            {
-                if (name.size() > 0)
-                {
-                    playerNames.push_back(name);
-                    name = "";
-                }
+                default: break;
             }
         }
+
         menu_girl.setTextureRect(sf::IntRect(300/4 * count, 0, 300/4, 87));
         sf::sleep(sf::milliseconds(100));
         count++;
@@ -289,15 +300,15 @@ int Menu::configBeforeRun(sf::Event event)
         window.draw(menu_girl);
 
         // playerColors are binded to player1 and player2 atm.
-        if (playerNames.size() == 2)
-        {
-            playerColors.push_back(1);
-            playerColors.push_back(2);
-            std::cout << playerColors.size() << std::endl;
-        }
 
         window.display();
-
+    }
+    
+    if (playerNames.size() == 2)
+    {
+        game_running = true;
+        playerColors.push_back(1);
+        playerColors.push_back(2);
     }
     return 0;
 
