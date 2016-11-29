@@ -6,11 +6,10 @@ int GameEngine::run(std::vector<std::string>* playerNamesPtr, std::vector<int>* 
 {
     windowPtr->clear(sf::Color::Green);
 
-    std::cout << "NAME: " << playerNamesPtr->at(0) <<
-    " - COLOR: " << playerColorsPtr->at(0) << std::endl;
-
-    std::cout << "NAME: " << playerNamesPtr->at(1) <<
-    " - COLOR: " << playerColorsPtr->at(1) << std::endl;
+    std::cout << "Player1: " << playerNamesPtr->at(0)
+              << " - COLOR: " << playerColorsPtr->at(0) << std::endl;
+    std::cout << "Player2: " << playerNamesPtr->at(1)
+              << " - COLOR: " << playerColorsPtr->at(1) << std::endl;
 
     windowPtr->display();
 

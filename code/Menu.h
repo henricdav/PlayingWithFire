@@ -30,12 +30,13 @@ private:
     GameEngine game;
     int item_index;
     bool game_running;
+    sf::RectangleShape rect;
 
     void draw();
     void moveUp();
     void moveDown();
     int selectedItem();
-    int configBeforeRun();
+    int configBeforeRun(sf::Event);
 
 };
 
