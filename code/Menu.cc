@@ -3,32 +3,26 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(750,750), "Lek inte med elden II - Aterkomsten"),
-        font{}, game{}, item_index{}, game_running{}
+        font{}, game{}, item_index{}, count1{}, count2{}, game_running{}
 {
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(false);
 
     if (!font.loadFromFile("Figures/arial.ttf"))
     {
-        std::cout << "fontfail" << std::endl;
+        std::cout << "Failed to load font" << std::endl;
         //return EXIT_FAILURE
     }
 
     double width = window.getSize().x;
     double height = window.getSize().y;
-    /*
-    rect.setSize(sf::Vector2f(200, 500));
-    rect.setFillColor(sf::Color::Black);
-    rect.setOutlineColor(sf::Color::White);
-    rect.setOutlineThickness(5);
-    rect.setPosition(sf::Vector2f(width/10, height/3));
-    */
+
     if (!start_page_tex[0].loadFromFile("Figures/flame_sprite.png"))
     {
         std::cout << "Failed to load flame sprite" << std::endl;
     }
     start_page_sprite[0].setTexture(start_page_tex[0]);
-    start_page_sprite[0].setPosition(width/2-50, height/2);
+    start_page_sprite[0].setPosition(width/5, height-300);
 
     if (!start_page_tex[1].loadFromFile("Figures/monster_sprite.png"))
     {
@@ -36,7 +30,7 @@ Menu::Menu()
     }
 
     start_page_sprite[1].setTexture(start_page_tex[1]);
-    start_page_sprite[1].setPosition(width-200, height-300);
+    start_page_sprite[1].setPosition(width-350, height-250);
 
     if (!start_page_tex[2].loadFromFile("Figures/menu-title.png"))
     {
@@ -51,28 +45,28 @@ Menu::Menu()
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::White);
     menu[0].setString("Play");
-    menu[0].setPosition(sf::Vector2f(width/6, height/(NUMBER_OF_ITEMS+1)*1+100));
+    menu[0].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+25));
 
     menu[1].setFont(font);
     menu[1].setColor(sf::Color::White);
     menu[1].setString("Highscore");
-    menu[1].setPosition(sf::Vector2f(width/6, height/(NUMBER_OF_ITEMS+1)*2+100));
+    menu[1].setPosition(sf::Vector2f(width/2-75, height/(NUMBER_OF_ITEMS)+75));
 
     menu[2].setFont(font);
     menu[2].setColor(sf::Color::White);
     menu[2].setString("Exit");
-    menu[2].setPosition(sf::Vector2f(width/6, height/(NUMBER_OF_ITEMS+1)*3+100));
+    menu[2].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+125));
 
     item_index = 0;
+    count1 = 0;
+    count2 = 0;
     game_running = false;
 }
 
 int Menu::run()
-{   int count1 = 0;
-    int count2 = 0;
+{
     while (window.isOpen())
     {
-
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -111,7 +105,7 @@ int Menu::run()
                     case 1: // OPEN HIGHSCORE
                         while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
                         {
-                            std::cout << "GO TO HIGHSCORE LIST" << std::endl;
+                            std::cout << "HIGHSCORE VIEW OPENS HERE" << std::endl;
                         }
                         break;
 
@@ -121,31 +115,21 @@ int Menu::run()
                     }
                     default: break;
 
-                case sf::Keyboard::Escape:  // MAYBE REMOVE THIS LATER
+                case sf::Keyboard::Escape:
                     window.close();
                     break;
                 }
                 default: break;
+
+            case sf::Event::MouseButtonPressed:
+                std::cout << "Mouse click not supported" << std::endl;
+                break;
             }
         }
 
-        start_page_sprite[0].setTextureRect(sf::IntRect(1536/6*count1, 0, 1536/6, 256));
-        count1++;
-        if (count1 == 5)
-        {
-            count1 = 0;
-        }
-
-        start_page_sprite[1].setTextureRect(sf::IntRect(910/7*count2, 0, 910/7, 130));
-        count2++;
-        if (count2 == 6)
-        {
-            count2 = 0;
-        }
-
         window.clear(sf::Color::Black);
-        //window.draw(rect);
-        draw();
+        drawText();
+        drawSprites();
 
         window.display();
         sf::sleep(sf::milliseconds(50));
@@ -153,11 +137,28 @@ int Menu::run()
     return 0;
 }
 
-void Menu::draw()
+void Menu::drawText()
 {
     for (int i=0; i < NUMBER_OF_ITEMS; i++)
     {
         window.draw(menu[i]);
+    }
+}
+
+void Menu::drawSprites()
+{
+    start_page_sprite[0].setTextureRect(sf::IntRect(1536/6*count1, 0, 1536/6, 256));
+    count1++;
+    if (count1 == 5)
+    {
+        count1 = 0;
+    }
+
+    start_page_sprite[1].setTextureRect(sf::IntRect(910/7*count2, 0, 910/7, 130));
+    count2++;
+    if (count2 == 6)
+    {
+        count2 = 0;
     }
     for (int i=0; i < NUMBER_OF_SPRITES; i++)
     {
@@ -227,18 +228,9 @@ int Menu::configBeforeRun(sf::Event event)
     sf::Sprite menu_girl;
     menu_girl.setTexture(tex);
     menu_girl.setPosition(50, 200-87/2);
-    //menu_girl.setTextureRect(sf::IntRect(300/4 * count, 0, 300/4, 87));
 
     while (playerNames.size() < 2)
     {
-        menu_girl.move(0, 0);
-        menu_girl.setTextureRect(sf::IntRect(300/4 * count, 0, 300/4, 87));
-        sf::sleep(sf::milliseconds(100));
-        count++;
-        if (count == 3)
-        {
-            count = 0;
-        }
         while(window.pollEvent(event))
         {
             if (event.type == sf::Event::TextEntered)
@@ -280,6 +272,13 @@ int Menu::configBeforeRun(sf::Event event)
                 }
             }
         }
+        menu_girl.setTextureRect(sf::IntRect(300/4 * count, 0, 300/4, 87));
+        sf::sleep(sf::milliseconds(100));
+        count++;
+        if (count == 3)
+        {
+            count = 0;
+        }
 
         window.clear(sf::Color::Black);
 
@@ -289,8 +288,14 @@ int Menu::configBeforeRun(sf::Event event)
         }
         window.draw(menu_girl);
 
-        playerColors.push_back(1);
-        playerColors.push_back(2);
+        // playerColors are binded to player1 and player2 atm.
+        if (playerNames.size() == 2)
+        {
+            playerColors.push_back(1);
+            playerColors.push_back(2);
+            std::cout << playerColors.size() << std::endl;
+        }
+
         window.display();
 
     }

@@ -30,11 +30,14 @@ private:
 
     GameEngine game;
     int item_index;
+    int count1;
+    int count2;
     bool game_running;
     sf::Sprite start_page_sprite[NUMBER_OF_SPRITES];
     sf::Texture start_page_tex[NUMBER_OF_SPRITES];
 
-    void draw();
+    void drawText();
+    void drawSprites();
     void moveUp();
     void moveDown();
     int selectedItem();
