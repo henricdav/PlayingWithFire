@@ -46,6 +46,7 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
       //windowPtr->clear(sf::Color::Green);
       windowPtr->display();
       sf::sleep(sf::milliseconds(10));
+
     }
 
     // std::cout << playerNamesPtr->at(0) << std::endl;
@@ -85,6 +86,7 @@ void GameEngine::getCommands()
 
 void GameEngine::moveObjects()
 {
+
   if (commands[0]){player1.sprite.move(-1, 0);
     //if (!(objects.check_move(player1.player, map.boundings))){player1.player.move(player1.moving_speed, 0);}
     //else if (rectSourceSprite.left == 90){
