@@ -16,13 +16,15 @@ public:
   Object() = default;
   virtual ~Object() = default;
 
-  void move(sf::Vector2f direction, Map* mappen);
+  void move(sf::Vector2f, Map*);
+  bool checkCollisions(sf::Vector2f, Map*);
   sf::Sprite sprite{};
 
 
 private:
   sf::IntRect rect{};
-  int mapCoord{};
+  int xIndexMap{};
+  int yIndexMap{};
 };
 
 #endif

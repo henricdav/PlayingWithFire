@@ -56,13 +56,13 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
 
     void GameEngine::drawWindowFromMap(sf::RenderWindow* windowPtr)
     {
-        for (int i{1}; i <= 13; i++)
+        for (int i{0}; i < TILES_X; i++)
         {
-            for (int j = 1; j<=13; j++)
+            for (int j{0}; j < TILES_Y; j++)
             {
                 int A = map.getCoord(i, j);
                 if (A==1){
-                    static_object.setPosition(sf::Vector2f(j*50, i*50));
+                    static_object.setPosition(sf::Vector2f(X_OFFSET+i*50, Y_OFFSET+j*50));
                     windowPtr->draw(static_object);
                 }
             }
@@ -92,14 +92,14 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
         if (commands[2]) {player1.move(sf::Vector2f(0, -player1.getSpeed()), &map);}
         if (commands[3]) {player1.move(sf::Vector2f(0, player1.getSpeed()), &map);}
         if (commands[4]) {}
-        if (commands[5]) {player2.sprite.move(-player2.getSpeed(), 0);}
-        if (commands[6]) {player2.sprite.move(player2.getSpeed(), 0);}
-        if (commands[7]) {player2.sprite.move(0, -player2.getSpeed());}
-        if (commands[8]) {player2.sprite.move(0, player2.getSpeed());}
+        if (commands[5]) {player2.move(sf::Vector2f(-player2.getSpeed(), 0), &map);}
+        if (commands[6]) {player2.move(sf::Vector2f(player2.getSpeed(), 0), &map);}
+        if (commands[7]) {player2.move(sf::Vector2f(0, -player2.getSpeed()), &map);}
+        if (commands[8]) {player2.move(sf::Vector2f(0, player2.getSpeed()), &map);}
         if (commands[9]) {}
     }
 
 
 
     void GameEngine::dropBombs(){}
-    bool GameEngine::checkCollisions(){return true;}
+    //bool GameEngine::checkCollisions(){return true;}
