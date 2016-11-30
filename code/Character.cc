@@ -15,5 +15,6 @@ Character::Character()
 void Character::setAttribute(int attribute)
 {
   color = attribute;
+
   sprite.setColor(sf::Color::Black);
 }

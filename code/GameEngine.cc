@@ -87,7 +87,7 @@ void GameEngine::getCommands()
 void GameEngine::moveObjects()
 {
 
-  if (commands[0]){player1.sprite.move(-1, 0);
+  if (commands[0]){player1.sprite.move(-2, 0);
     //if (!(objects.check_move(player1.player, map.boundings))){player1.player.move(player1.moving_speed, 0);}
     //else if (rectSourceSprite.left == 90){
     //  player1.counter_rendering = 0;
@@ -96,9 +96,9 @@ void GameEngine::moveObjects()
     //  if (player1.counter_rendering <= 2){player1.counter_rendering++;}
     //}
   }
-  if (commands[1]){player1.sprite.move(1, 0);}
-  if (commands[2]){player1.sprite.move(0, -1);}
-  if (commands[3]){player1.sprite.move(0, 1);}
+  if (commands[1]){player1.sprite.move(2, 0);}
+  if (commands[2]){player1.sprite.move(0, -2);}
+  if (commands[3]){player1.sprite.move(0, 2);}
   if (commands[4]){}
   if (commands[5]){player2.sprite.move(-1, 0);}
   if (commands[6]){player2.sprite.move(1, 0);}

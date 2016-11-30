@@ -11,7 +11,7 @@
 #include "Character.h"
 #include "Map.h"
 
-enum validCommands {A = 0, D, W, S, B, Left, Right, Up, Down, Numpad0};
+//enum validCommands {A = 0, D, W, S, B, Left, Right, Up, Down, Numpad0};
 
 class GameEngine
 {
