@@ -18,6 +18,7 @@ public:
 
   void move(sf::Vector2f, Map*);
   bool checkCollisions(sf::Vector2f, Map*);
+  void animate_sprite(sf::Vector2f);
   sf::Sprite sprite{};
 
 
@@ -25,6 +26,7 @@ private:
   sf::IntRect rect{};
   int xIndexMap{};
   int yIndexMap{};
-};  
+  int counter_rendering{};
+};
 
 #endif
