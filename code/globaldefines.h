@@ -1,8 +1,8 @@
 #ifndef GLOBALDEFINES_H
 #define GLOBALDEFINES_H
 
-#define TILE_WIDTH 16
-#define TILE_HEIGHT 16
+#define TILE_WIDTH 50
+#define TILE_HEIGHT 50
 #define TILES_X 13
 #define TILES_Y 13
 

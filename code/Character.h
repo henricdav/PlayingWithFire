@@ -12,14 +12,15 @@ Klassen Character
 class Character : public Object
 {
 public:
-  Character() = default;
+  Character(); //{sprite.setPosition(sf::Vector2f(50, 50));};
   ~Character() = default;
   void setAttribute(int attribute);
-  std::string getName(){return "hej";};
-  void eraseLife();
+  std::string getName(){return name;};
+  void eraseLife(){if(lives >= 1){lives = lives -1;}};
   void dropBomb();
 
 private:
+  sf::Texture player_texture{};
   std::string name{};
   int bombRadius{};
   bool bomMover{};

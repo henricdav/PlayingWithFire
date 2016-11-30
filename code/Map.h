@@ -16,17 +16,18 @@ enum tile{empty = 0, wall = 1, emptybox, shoebox};
 class Map
 {
 public:
-    Map(std::string & fileName);
-    ~Map() = default;
-    void setCoord(int xCoord, int yCoord, int type);
-    int getCoord(int xCoord, int yCoord) const;
-    sf::IntRect getBoundings(int xCoord, int yCoord) const;
+  Map(); //(std::string & fileName);
+  ~Map() = default;
+  void setCoord(int xCoord, int yCoord, int type);
+  int getCoord(int xCoord, int yCoord) const;
+  sf::IntRect getBoundings(int xCoord, int yCoord) const;
 
-    //For testing
-    void print();
+  //For testing
+  void print();
+
 private:
-    std::vector<int> mapArray;
-    bool validIndices(int, int) const;
+  std::vector<int> mapArray{};
+  bool validIndices(int, int) const;
 };
 
 

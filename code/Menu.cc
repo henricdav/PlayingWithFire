@@ -29,7 +29,7 @@ int Menu::run()
         //{
             game.run(&playerNames, &playerColors, &window);
         //}
-        
+
         window.display();
         sf::sleep(sf::milliseconds(10));
     }

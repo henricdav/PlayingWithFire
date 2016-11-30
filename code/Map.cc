@@ -1,9 +1,10 @@
 
 #include "Map.h"
 
-Map::Map(std::string & fileName)
+Map::Map()
     : mapArray{}
 {
+    std::string fileName = "level_template.map";
     std::ifstream mapFile;
     mapFile.open(fileName);
     int tile;
