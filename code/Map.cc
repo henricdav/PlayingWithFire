@@ -31,12 +31,22 @@ int Map::getCoord(int xCoord, int yCoord) const
     return mapArray.at((yCoord)*TILES_X + xCoord);
 }
 
-sf::IntRect Map::getBoundings(int xCoord, int yCoord) const
+sf::Sprite Map::getBoundings(int xCoord, int yCoord) const
 {
     if (!validIndices(xCoord, yCoord))
         throw std::out_of_range("Tried to set index out of range in Map::getBoundings");
 
-    return sf::IntRect(X_OFFSET + (xCoord - 1)*TILE_WIDTH, Y_OFFSET + (yCoord - 1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+    sf::Sprite tempStaticSprite;
+    tempStaticSprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    if (getCoord(xCoord, yCoord) == 1)
+    {
+        tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + (xCoord-1)*TILE_WIDTH, Y_OFFSET + (yCoord-1)*TILE_HEIGHT));
+        //std::cout << (X_OFFSET + (xCoord)*TILE_WIDTH) << std::endl;
+        //std::cout << (Y_OFFSET + (yCoord)*TILE_HEIGHT) << std::endl;
+    }
+    return tempStaticSprite;
+
+    //return sf::IntRect(X_OFFSET + (xCoord - 1)*TILE_WIDTH, Y_OFFSET + (yCoord - 1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 }
 
 bool Map::validIndices(int xCoord, int yCoord) const

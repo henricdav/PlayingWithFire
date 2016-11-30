@@ -102,4 +102,3 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
 
 
     void GameEngine::dropBombs(){}
-    //bool GameEngine::checkCollisions(){return true;}

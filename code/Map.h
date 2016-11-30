@@ -20,7 +20,7 @@ public:
   ~Map() = default;
   void setCoord(int xCoord, int yCoord, int type);
   int getCoord(int xCoord, int yCoord) const;
-  sf::IntRect getBoundings(int xCoord, int yCoord) const;
+  sf::Sprite getBoundings(int xCoord, int yCoord) const;
 
   //For testing
   void print();
@@ -28,6 +28,7 @@ public:
 private:
   std::vector<int> mapArray{};
   bool validIndices(int, int) const;
+  //sf::Sprite tempStaticSprite{};
 };
 
 

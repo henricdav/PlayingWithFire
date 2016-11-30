@@ -24,7 +24,6 @@ public:
     void getCommands();
     void moveObjects();
     void dropBombs();
-    //bool checkCollisions();
 
 private:
     std::vector<bool> commands{};
