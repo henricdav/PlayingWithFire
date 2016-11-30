@@ -15,6 +15,7 @@ class Object
 public:
   Object() = default;
   virtual ~Object() = default;
+
   void move(sf::Vector2f direction, Map* mappen);
   sf::Sprite sprite{};
 
