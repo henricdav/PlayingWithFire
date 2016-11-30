@@ -13,7 +13,7 @@ class Object
 {
 public:
   Object() = default;
-  ~Object() = default;
+  virtual ~Object() = default;
   void move(int Speed, std::vector<bool> direction);
   sf::Sprite sprite{};
 
