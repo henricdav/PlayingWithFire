@@ -25,6 +25,6 @@ private:
   sf::IntRect rect{};
   int xIndexMap{};
   int yIndexMap{};
-};
+};  
 
 #endif

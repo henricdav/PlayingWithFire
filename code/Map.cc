@@ -37,13 +37,13 @@ sf::Sprite Map::getBoundings(int xCoord, int yCoord) const
         throw std::out_of_range("Tried to set index out of range in Map::getBoundings");
 
     sf::Sprite tempStaticSprite;
-    tempStaticSprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    tempStaticSprite.setTextureRect(sf::IntRect(0, 0, TILE_WIDTH, TILE_HEIGHT));
     if (getCoord(xCoord, yCoord) == 1)
     {
-        tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + (xCoord-1)*TILE_WIDTH, Y_OFFSET + (yCoord-1)*TILE_HEIGHT));
-        //std::cout << (X_OFFSET + (xCoord)*TILE_WIDTH) << std::endl;
-        //std::cout << (Y_OFFSET + (yCoord)*TILE_HEIGHT) << std::endl;
+        tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + (xCoord)*TILE_WIDTH, Y_OFFSET + (yCoord)*TILE_HEIGHT));
     }
+    else {tempStaticSprite.setPosition(sf::Vector2f(0, 0));}
+
     return tempStaticSprite;
 
     //return sf::IntRect(X_OFFSET + (xCoord - 1)*TILE_WIDTH, Y_OFFSET + (yCoord - 1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);

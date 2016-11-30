@@ -7,7 +7,7 @@ Character::Character()
     player_texture.loadFromFile("Figures/capguy_sprite_resized.png");
     sprite.setTexture(player_texture);
     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    speed = 1;
+    speed = 2;
 }
 
 
