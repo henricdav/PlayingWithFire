@@ -21,7 +21,7 @@ OBJECTS = playingwithfire.o Menu.o GameEngine.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 playingwithfire: $(OBJECTS) Makefile
-	$(CCC) $(CPPFLAGS) $(CCFLAGS) $(LDFLAGS) -o playingwithfire $(OBJECTS) $(LIBS)
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) $(LDFLAGS) -o playingwithfire.game $(OBJECTS) $(LIBS)
 
 # menu_test: test_main.o Expression_Tree.o $(EXPRESSION)/expression_tree-test.cc
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -g test_main.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression_tree-test.cc -o expression_tree_test
