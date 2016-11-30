@@ -20,7 +20,7 @@ void Map::setCoord(int xCoord, int yCoord, int type)
     if (!validIndices(xCoord, yCoord))
         throw std::out_of_range("Tried to set index out of range in Map::setCoord");
 
-    mapArray.at((yCoord - 1)*TILES_X + xCoord - 1) = type;
+    mapArray.at((yCoord)*TILES_X + xCoord) = type;
 }
 
 int Map::getCoord(int xCoord, int yCoord) const
@@ -28,7 +28,7 @@ int Map::getCoord(int xCoord, int yCoord) const
     if (!validIndices(xCoord, yCoord))
         throw std::out_of_range("Tried to set index out of range in Map::getCoord");
 
-    return mapArray.at((yCoord - 1)*TILES_X + xCoord - 1);
+    return mapArray.at((yCoord)*TILES_X + xCoord);
 }
 
 sf::IntRect Map::getBoundings(int xCoord, int yCoord) const
@@ -41,7 +41,7 @@ sf::IntRect Map::getBoundings(int xCoord, int yCoord) const
 
 bool Map::validIndices(int xCoord, int yCoord) const
 {
-    return (xCoord <= TILES_X || yCoord <= TILES_Y || xCoord >= 1 || yCoord >= 1);
+    return (xCoord <= TILES_X || yCoord <= TILES_Y || xCoord >= 0 || yCoord >= 0);
 }
 
 // Only for testing
