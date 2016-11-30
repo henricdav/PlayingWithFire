@@ -9,9 +9,11 @@ Klassen Menu
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
+#include "globaldefines.h"
 
-#define NUMBER_OF_ITEMS 4
+#define NUMBER_OF_TEXT_FIELDS 4
 #define NUMBER_OF_SPRITES 3
+#define NUMBER_OF_PLAYERS 2
 
 class Menu
 {
@@ -34,7 +36,7 @@ private:
 
     sf::RenderWindow window;
     sf::Font font;
-    sf::Text menu[NUMBER_OF_ITEMS];
+    sf::Text menu[NUMBER_OF_TEXT_FIELDS];
     sf::Sprite start_page_sprite[NUMBER_OF_SPRITES];
     sf::Texture start_page_tex[NUMBER_OF_SPRITES];
 
