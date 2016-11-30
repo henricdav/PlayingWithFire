@@ -59,8 +59,6 @@ Menu::Menu()
     menu[3].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+200));
 
     item_index = 0;
-    //count1 = 0;
-    //count2 = 0;
     game_running = false;
 }
 
@@ -323,6 +321,7 @@ int Menu::configBeforeRun(sf::Event event)
         window.draw(input_text[1]);
         window.draw(show_character[0]);
         window.draw(show_character[1]);
+        
         window.display();
 
     }
