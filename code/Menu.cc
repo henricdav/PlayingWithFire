@@ -3,7 +3,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(750,750), "Lek inte med elden II - Aterkomsten"),
-        font{}, game{}, item_index{}, count1{}, count2{}, game_running{}
+        font{}, item_index{}, game_running{}, game{}
 {
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(false);
@@ -59,8 +59,8 @@ Menu::Menu()
     menu[3].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+200));
 
     item_index = 0;
-    count1 = 0;
-    count2 = 0;
+    //count1 = 0;
+    //count2 = 0;
     game_running = false;
 }
 
@@ -129,8 +129,8 @@ int Menu::run()
         }
 
         window.clear(sf::Color::Black);
-        drawText();
-        drawSprites();
+        drawMenuText();
+        drawMenuSprites();
 
         window.display();
         sf::sleep(sf::milliseconds(50));
@@ -138,7 +138,7 @@ int Menu::run()
     return 0;
 }
 
-void Menu::drawText()
+void Menu::drawMenuText()
 {
     for (int i=0; i < NUMBER_OF_ITEMS; i++)
     {
@@ -146,7 +146,7 @@ void Menu::drawText()
     }
 }
 
-void Menu::drawSprites()
+void Menu::drawMenuSprites()
 {
     start_page_sprite[0].setTextureRect(sf::IntRect(1536/6*count1, 0, 1536/6, 256));
     count1++;
@@ -194,41 +194,61 @@ int Menu::selectedItem()
 
 int Menu::configBeforeRun(sf::Event event)
 {
-    std::string name;
-    sf::Text config_text[5];
-    int count = 0;
-
-    config_text[0].setPosition(750/2-100, 50);
-    config_text[0].setColor(sf::Color::Green);
-    config_text[0].setFont(font);
-    config_text[0].setString("CONFIG MENU");
-    config_text[0].setStyle(sf::Text::Underlined);
-
-    config_text[1].setPosition(200, 200);
-    config_text[1].setColor(sf::Color::White);
-    config_text[1].setFont(font);
-    config_text[1].setString("Player 1: ");
+    sf::Text input_text[2];
 
     //INPUT PLAYER 1
-    config_text[2].setPosition(425, 200);
-    config_text[2].setColor(sf::Color::White);
-    config_text[2].setFont(font);
-
-    config_text[3].setPosition(200, 400);
-    config_text[3].setColor(sf::Color::White);
-    config_text[3].setFont(font);
-    config_text[3].setString("Player 2: ");
+    input_text[0].setPosition(330, 225);
+    input_text[0].setColor(sf::Color::White);
+    input_text[0].setFont(font);
 
     //INPUT PLAYER 2
-    config_text[4].setPosition(425, 400);
-    config_text[4].setColor(sf::Color::White);
-    config_text[4].setFont(font);
+    input_text[1].setPosition(330, 325);
+    input_text[1].setColor(sf::Color::White);
+    input_text[1].setFont(font);
 
-    sf::Texture tex;
-    tex.loadFromFile("Figures/girl_sprite.png");
-    sf::Sprite menu_girl;
-    menu_girl.setTexture(tex);
-    menu_girl.setPosition(50, 200-87/2);
+    sf::Text config_text[4];
+
+    config_text[0].setPosition(200, 225);
+    config_text[0].setColor(sf::Color::White);
+    config_text[0].setFont(font);
+    config_text[0].setString("Player 1: ");
+
+    config_text[1].setPosition(200, 325);
+    config_text[1].setColor(sf::Color::White);
+    config_text[1].setFont(font);
+    config_text[1].setString("Player 2: ");
+
+    config_text[2].setPosition(750/2-100, 50);
+    config_text[2].setColor(sf::Color::Green);
+    config_text[2].setFont(font);
+    config_text[2].setString("CONFIG MENU");
+    config_text[2].setStyle(sf::Text::Underlined);
+
+    config_text[3].setPosition(750/2-125, 100);
+    config_text[3].setColor(sf::Color::White);
+    config_text[3].setFont(font);
+    config_text[3].setCharacterSize(22);
+    config_text[3].setString("Enter name and press enter");
+
+    sf::RectangleShape line;
+    line.setSize(sf::Vector2f(700, 300));
+    line.setOutlineColor(sf::Color::White);
+    line.setFillColor(sf::Color::Black);
+    line.setOutlineThickness(1);
+    line.setPosition(750/2-350, 150);
+
+    sf::Texture tex[2];
+    tex[0].loadFromFile("Figures/capguy_sprite.png");
+    tex[1].loadFromFile("Figures/minecraft_sprite.png");
+
+    sf::Sprite show_character[2];
+    show_character[0].setTexture(tex[0]);
+    show_character[0].setPosition(50, 180);
+    show_character[1].setTexture(tex[1]);
+    show_character[1].setPosition(50, 280);
+
+    std::string tmp_name;
+    int count = 0;
 
     while (playerNames.size() < 2)
     {
@@ -239,14 +259,14 @@ int Menu::configBeforeRun(sf::Event event)
             case sf::Event::TextEntered:
                 if (event.text.unicode >= 32 && event.text.unicode <= 126)
                 {
-                    name.push_back(static_cast<char>(event.text.unicode));
+                    tmp_name.push_back(static_cast<char>(event.text.unicode));
                     if (playerNames.size() == 0)
                     {
-                        config_text[2].setString(name);
+                        input_text[0].setString(tmp_name);
                     }
                     else
                     {
-                        config_text[4].setString(name);
+                        input_text[1].setString(tmp_name);
                     }
                 }
                 break;
@@ -255,25 +275,25 @@ int Menu::configBeforeRun(sf::Event event)
                 switch (event.key.code)
                 {
                 case sf::Keyboard::BackSpace:
-                    if (name.size() > 0)
+                    if (tmp_name.size() > 0)
                     {
-                        name.pop_back();
+                        tmp_name.pop_back();
                         if (playerNames.size() == 0)
                         {
-                            config_text[2].setString(name);
+                            input_text[0].setString(tmp_name);
                         }
                         else
                         {
-                            config_text[4].setString(name);
+                            input_text[1].setString(tmp_name);
                         }
                     }
                     break;
 
                 case sf::Keyboard::Return:
-                    if (name.size() > 0)
+                    if (tmp_name.size() > 0 && tmp_name != " ")
                     {
-                        playerNames.push_back(name);
-                        name = "";
+                        playerNames.push_back(tmp_name);
+                        tmp_name = "";
                     }
                     break;
 
@@ -283,27 +303,31 @@ int Menu::configBeforeRun(sf::Event event)
             }
         }
 
-        menu_girl.setTextureRect(sf::IntRect(300/4 * count, 0, 300/4, 87));
-        sf::sleep(sf::milliseconds(100));
+        show_character[0].setTextureRect(sf::IntRect(394/8 * count, 0, 394/8, 87));
+        show_character[1].setTextureRect(sf::IntRect(394/8 * count, 0, 394/8, 87));
+        sf::sleep(sf::milliseconds(50));
         count++;
-        if (count == 3)
+        if (count == 7)
         {
             count = 0;
         }
 
         window.clear(sf::Color::Black);
 
-        for (int i=0; i < 5; i++)
-        {
-            window.draw(config_text[i]);
-        }
-        window.draw(menu_girl);
-
-        // playerColors are binded to player1 and player2 atm.
-
+        window.draw(line);
+        window.draw(config_text[0]);
+        window.draw(config_text[1]);
+        window.draw(config_text[2]);
+        window.draw(config_text[3]);
+        window.draw(input_text[0]);
+        window.draw(input_text[1]);
+        window.draw(show_character[0]);
+        window.draw(show_character[1]);
         window.display();
+
     }
-    
+
+    // playerColors are binded to player1 and player2 atm.
     if (playerNames.size() == 2)
     {
         game_running = true;
