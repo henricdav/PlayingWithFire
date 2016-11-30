@@ -18,6 +18,7 @@ public:
   std::string getName(){return name;};
   void eraseLife(){if(lives >= 1){lives = lives -1;}};
   void dropBomb();
+  int getSpeed(){return speed;};
 
 private:
   sf::Texture player_texture{};

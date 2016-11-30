@@ -8,13 +8,14 @@ Klassen Object
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Map.h"
 
 class Object
 {
 public:
   Object() = default;
-  ~Object() = default;
-  void move(int Speed, std::vector<bool> direction);
+  virtual ~Object() = default;
+  void move(sf::Vector2f direction, Map* mappen);
   sf::Sprite sprite{};
 
 
