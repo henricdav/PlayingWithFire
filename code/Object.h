@@ -24,7 +24,7 @@ public:
   sf::Sprite sprite{};
 
 
-private:
+protected:
   sf::IntRect rect{};
   int xIndexMap{};
   int yIndexMap{};
