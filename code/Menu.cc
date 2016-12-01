@@ -39,22 +39,22 @@ Menu::Menu()
     start_page_sprite[2].setTextureRect(sf::IntRect(0, 0, 534, 165));
 
     menu[0].setFont(font);
-    menu[0].setColor(sf::Color::White);
+    menu[0].setFillColor(sf::Color::White);
     menu[0].setString("Play");
     menu[0].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+50));
 
     menu[1].setFont(font);
-    menu[1].setColor(sf::Color::White);
+    menu[1].setFillColor(sf::Color::White);
     menu[1].setString("Highscore");
     menu[1].setPosition(sf::Vector2f(width/2-75, height/(NUMBER_OF_ITEMS)+100));
 
     menu[2].setFont(font);
-    menu[2].setColor(sf::Color::White);
+    menu[2].setFillColor(sf::Color::White);
     menu[2].setString("About");
     menu[2].setPosition(sf::Vector2f(width/2-50, height/(NUMBER_OF_ITEMS)+150));
 
     menu[3].setFont(font);
-    menu[3].setColor(sf::Color::White);
+    menu[3].setFillColor(sf::Color::White);
     menu[3].setString("Exit");
     menu[3].setPosition(sf::Vector2f(width/2-35, height/(NUMBER_OF_ITEMS)+200));
 
@@ -169,9 +169,9 @@ void Menu::moveUp()
 {
     if (item_index - 1 >= 0)
     {
-        menu[item_index].setColor(sf::Color::White);
+        menu[item_index].setFillColor(sf::Color::White);
         item_index--;
-        menu[item_index].setColor(sf::Color::Green);
+        menu[item_index].setFillColor(sf::Color::Green);
     }
 }
 
@@ -179,9 +179,9 @@ void Menu::moveDown()
 {
     if (item_index + 1 < NUMBER_OF_ITEMS)
     {
-        menu[item_index].setColor(sf::Color::White);
+        menu[item_index].setFillColor(sf::Color::White);
         item_index++;
-        menu[item_index].setColor(sf::Color::Green);
+        menu[item_index].setFillColor(sf::Color::Green);
     }
 }
 
@@ -196,34 +196,34 @@ int Menu::configBeforeRun(sf::Event event)
 
     //INPUT PLAYER 1
     input_text[0].setPosition(330, 225);
-    input_text[0].setColor(sf::Color::White);
+    input_text[0].setFillColor(sf::Color::White);
     input_text[0].setFont(font);
 
     //INPUT PLAYER 2
     input_text[1].setPosition(330, 325);
-    input_text[1].setColor(sf::Color::White);
+    input_text[1].setFillColor(sf::Color::White);
     input_text[1].setFont(font);
 
     sf::Text config_text[4];
 
     config_text[0].setPosition(200, 225);
-    config_text[0].setColor(sf::Color::White);
+    config_text[0].setFillColor(sf::Color::White);
     config_text[0].setFont(font);
     config_text[0].setString("Player 1: ");
 
     config_text[1].setPosition(200, 325);
-    config_text[1].setColor(sf::Color::White);
+    config_text[1].setFillColor(sf::Color::White);
     config_text[1].setFont(font);
     config_text[1].setString("Player 2: ");
 
     config_text[2].setPosition(750/2-100, 50);
-    config_text[2].setColor(sf::Color::Green);
+    config_text[2].setFillColor(sf::Color::Green);
     config_text[2].setFont(font);
     config_text[2].setString("CONFIG MENU");
     config_text[2].setStyle(sf::Text::Underlined);
 
     config_text[3].setPosition(750/2-125, 100);
-    config_text[3].setColor(sf::Color::White);
+    config_text[3].setFillColor(sf::Color::White);
     config_text[3].setFont(font);
     config_text[3].setCharacterSize(22);
     config_text[3].setString("Enter name and press enter");
