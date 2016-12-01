@@ -233,7 +233,7 @@ int Menu::configBeforeRun(sf::Event event)
     config_text[3].setColor(sf::Color::White);
     config_text[3].setFont(font);
     config_text[3].setCharacterSize(22);
-    config_text[3].setString("Enter name and press return - Esc to go back");
+    config_text[3].setString("Enter name and press space - Esc to go back");
 
     sf::RectangleShape line;
     line.setSize(sf::Vector2f(700+X_OFFSET, 300+Y_OFFSET));
@@ -266,7 +266,7 @@ int Menu::configBeforeRun(sf::Event event)
                 if (event.text.unicode >= 32 && event.text.unicode <= 126)
                 {
                     tmp_name.push_back(static_cast<char>(event.text.unicode));
-                    if (playerNames.size() == 0)
+                    if (playerNames.empty())
                     {
                         input_text[0].setString(tmp_name);
                     }
@@ -281,10 +281,10 @@ int Menu::configBeforeRun(sf::Event event)
                 switch (event.key.code)
                 {
                 case sf::Keyboard::BackSpace:
-                    if (tmp_name.size() > 0)
+                    if (!tmp_name.empty())
                     {
                         tmp_name.pop_back();
-                        if (playerNames.size() == 0)
+                        if (playerNames.empty())
                         {
                             input_text[0].setString(tmp_name);
                         }
@@ -295,8 +295,8 @@ int Menu::configBeforeRun(sf::Event event)
                     }
                     break;
 
-                case sf::Keyboard::Return:
-                    if (tmp_name.size() > 0 && tmp_name != " ")
+                case sf::Keyboard::Space:
+                    if (!tmp_name.empty() && tmp_name != " ")
                     {
                         playerNames.push_back(tmp_name);
                         tmp_name = "";
