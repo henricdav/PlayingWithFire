@@ -105,13 +105,12 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
     {
         if (!(bombs.empty()) && (*bombs.begin())->isDetonated())
         {
-            delete *bombs.begin();
             bombs.erase(bombs.begin());
         }
 
         if (commands[4])
         {
-            bombs.push_back(new Bomb(&player1, &map));
+            bombs.push_back(std::make_shared<Bomb>(&player1, &map));
             std::cout << "Dropping bombs!" << std::endl;
         }
     }
