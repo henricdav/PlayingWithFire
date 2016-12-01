@@ -7,6 +7,7 @@ Klassen Menu
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 

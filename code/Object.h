@@ -7,6 +7,7 @@ Klassen Object
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "Map.h"
 
@@ -16,8 +17,8 @@ public:
   Object() = default;
   virtual ~Object() = default;
 
-  void move(sf::Vector2f, Map*);
-  bool checkCollisions(sf::Vector2f, Map*);
+  void move(sf::Vector2f, std::shared_ptr<Map>);
+  bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
   void animate_sprite(sf::Vector2f);
   sf::Sprite sprite{};
 

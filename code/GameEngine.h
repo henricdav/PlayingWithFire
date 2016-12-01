@@ -21,13 +21,13 @@ class GameEngine
 public:
     GameEngine();
     ~GameEngine() = default;
-    void run(std::vector<std::string>*, std::vector<int>*, sf::RenderWindow*);
-    void drawWindowFromMap(sf::RenderWindow*);
+    void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
+    void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
     void dropBombs();
 
-    void drawObjects(sf::RenderWindow*);
+    void drawObjects(sf::RenderWindow &);
     void updateBombs();
 
 

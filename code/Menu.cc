@@ -91,10 +91,7 @@ int Menu::run()
                     {
                     case 0: // PLAY GAME
                         configBeforeRun(event);
-                        while (game_running)
-                        {
-                            game.run(&playerNames, &playerColors, &window);
-                        }
+                        game.run(playerNames, playerColors, window);
                         break;
 
                     case 1: // OPEN HIGHSCORE

@@ -12,51 +12,56 @@ GameEngine::GameEngine()
 }
 
 
-void GameEngine::run(std::vector<std::string>* playerNamesPtr,
-    std::vector<int>* playerColorsPtr,
-    sf::RenderWindow* windowPtr)
+void GameEngine::run(std::vector<std::string> & playerNames,
+    std::vector<int> & playerColors,
+    sf::RenderWindow & window)
     {
-        while (windowPtr->isOpen())
+        bool terminated{false};
+        while (!terminated)
         {
             sf::Event event;
-            while (windowPtr->pollEvent(event))
+            while (window.pollEvent(event))
             {
+
                 if (event.type == sf::Event::Closed)
-                windowPtr->close();
+                {
+                    terminated = true;
+                    std::cout << "Stänger!";
+                }
             }
 
-            windowPtr->clear(sf::Color::White);
-            drawWindowFromMap(windowPtr);
+            window.clear(sf::Color::White);
+            drawWindowFromMap(window);
             getCommands();
             moveObjects();
             dropBombs();
             updateBombs();
 
-            drawObjects(windowPtr);
+            drawObjects(window);
 
             if (commands[9] == true)
             {
-                windowPtr->draw(player1.sprite);
+                window.draw(player1.sprite);
                 std::cout << "Numpad0 pressed!" << std::endl;
             }
 
             if(false)
             {
-                std::cout << playerColorsPtr->at(0) << playerNamesPtr->at(0);
+                std::cout << playerColors.at(0) << playerNames.at(0);
             }
 
-            //windowPtr->clear(sf::Color::Green);
-            windowPtr->display();
-            sf::sleep(sf::milliseconds(10));
+            //window.clear(sf::Color::Green);
+            window.display();
+            sf::sleep(sf::milliseconds(20));
 
         }
+        std::cout << "Slut!" << std::endl;
+        // std::cout << playerNames.at(0) << std::endl;
+        // std::cout << playerColors.at(0) << std::endl;
 
-        // std::cout << playerNamesPtr->at(0) << std::endl;
-        // std::cout << playerColorsPtr->at(0) << std::endl;
-        //return 0;
     }
 
-    void GameEngine::drawWindowFromMap(sf::RenderWindow* windowPtr)
+    void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
     {
         for (int i{0}; i < TILES_X; i++)
         {
@@ -65,7 +70,7 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
                 int A = map.getCoord(i, j);
                 if (A==1){
                     static_object.setPosition(sf::Vector2f(X_OFFSET+i*50, Y_OFFSET+j*50));
-                    windowPtr->draw(static_object);
+                    window.draw(static_object);
                 }
             }
         }
@@ -89,15 +94,15 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
     void GameEngine::moveObjects()
     {
 
-        if (commands[0]) {player1.move(sf::Vector2f(-player1.getSpeed(), 0), &map);}
-        if (commands[1]) {player1.move(sf::Vector2f(player1.getSpeed(), 0), &map);}
-        if (commands[2]) {player1.move(sf::Vector2f(0, -player1.getSpeed()), &map);}
-        if (commands[3]) {player1.move(sf::Vector2f(0, player1.getSpeed()), &map);}
+        if (commands[0]) {player1.move(sf::Vector2f(-player1.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[1]) {player1.move(sf::Vector2f(player1.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[2]) {player1.move(sf::Vector2f(0, -player1.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[3]) {player1.move(sf::Vector2f(0, player1.getSpeed()), std::make_shared<Map>(map));}
         if (commands[4]) {}
-        if (commands[5]) {player2.move(sf::Vector2f(-player2.getSpeed(), 0), &map);}
-        if (commands[6]) {player2.move(sf::Vector2f(player2.getSpeed(), 0), &map);}
-        if (commands[7]) {player2.move(sf::Vector2f(0, -player2.getSpeed()), &map);}
-        if (commands[8]) {player2.move(sf::Vector2f(0, player2.getSpeed()), &map);}
+        if (commands[5]) {player2.move(sf::Vector2f(-player2.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[6]) {player2.move(sf::Vector2f(player2.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[7]) {player2.move(sf::Vector2f(0, -player2.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[8]) {player2.move(sf::Vector2f(0, player2.getSpeed()), std::make_shared<Map>(map));}
         if (commands[9]) {}
     }
 
@@ -110,7 +115,7 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
 
         if (commands[4])
         {
-            bombs.push_back(std::make_shared<Bomb>(&player1, &map));
+            bombs.push_back(std::make_shared<Bomb>(std::make_shared<Character>(player1), std::make_shared<Map>(map)));
             std::cout << "Dropping bombs!" << std::endl;
         }
     }
@@ -123,12 +128,12 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
         }
     }
 
-    void GameEngine::drawObjects(sf::RenderWindow* windowPtr)
+    void GameEngine::drawObjects(sf::RenderWindow & window)
     {
-        windowPtr->draw(player1.sprite);
-        windowPtr->draw(player2.sprite);
+        window.draw(player1.sprite);
+        window.draw(player2.sprite);
         for (unsigned int i{0}; i < bombs.size(); ++i)
         {
-            windowPtr->draw(bombs.at(i)->sprite);
+            window.draw(bombs.at(i)->sprite);
         }
     }

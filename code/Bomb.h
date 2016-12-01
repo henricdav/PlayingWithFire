@@ -6,12 +6,13 @@ Klassen Bomb
 
 #include "Object.h"
 #include "Character.h"
+#include <memory>
 
 class Bomb : public Object
 {
 public:
     Bomb() = default;
-    Bomb(Character* player, Map* map)
+    Bomb(std::shared_ptr<Character> player,std::shared_ptr<Map> map)
         : texture{},
         bombRadius{player->getBombRadius()},
         timer{},
@@ -32,7 +33,7 @@ private:
     sf::Texture texture;
     int bombRadius;
     sf::Clock timer;
-    Map* mapPtr;
+    std::shared_ptr<Map> mapPtr;
     bool detonated;
 };
 
