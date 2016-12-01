@@ -20,6 +20,7 @@ public:
   void move(sf::Vector2f, std::shared_ptr<Map>);
   bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
   void animate_sprite(sf::Vector2f);
+  sf::Vector2f tileCoordinates(){return sf::Vector2f(xIndexMap, yIndexMap);};
   sf::Sprite sprite{};
 
 

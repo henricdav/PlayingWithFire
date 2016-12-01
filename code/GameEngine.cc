@@ -26,7 +26,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                 if (event.type == sf::Event::Closed)
                 {
                     terminated = true;
-                    std::cout << "Stänger!";
                 }
             }
 
@@ -45,19 +44,18 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                 std::cout << "Numpad0 pressed!" << std::endl;
             }
 
-            if(false)
-            {
-                std::cout << playerColors.at(0) << playerNames.at(0);
-            }
+
 
             //window.clear(sf::Color::Green);
             window.display();
             sf::sleep(sf::milliseconds(20));
 
         }
-        std::cout << "Slut!" << std::endl;
-        // std::cout << playerNames.at(0) << std::endl;
-        // std::cout << playerColors.at(0) << std::endl;
+        // To get rid of unused compiler messages.
+        if(false)
+        {
+            std::cout << playerColors.at(0) << playerNames.at(0);
+        }
 
     }
 

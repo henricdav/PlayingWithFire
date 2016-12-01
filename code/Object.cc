@@ -9,6 +9,9 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
     {
         sprite.move(-direction);
     }
+    xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
+    yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
+    std::cout << xIndexMap << " " << yIndexMap << std::endl;
     animate_sprite(direction);
 }
 
@@ -17,8 +20,8 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
 {
     if (direction.x != 0) {direction.x = direction.x/std::abs(direction.x);} //0, -1 or +1
     if (direction.y != 0) {direction.y = direction.y/std::abs(direction.y);} //0, -1 or +1
-    xIndexMap = round((sprite.getPosition().x)/50.0+direction.x);
-    yIndexMap = round((sprite.getPosition().y)/50.0+direction.y);
+    xIndexMap = round((sprite.getPosition().x)/TILE_WIDTH+direction.x);
+    yIndexMap = round((sprite.getPosition().y)/TILE_HEIGHT+direction.y);
 
     //if (map->getCoord(xIndexMap + direction.x, yIndexMap + direction.y) == 1)
     if (sprite.getGlobalBounds().intersects(map->getBoundings(xIndexMap, yIndexMap).getGlobalBounds())
