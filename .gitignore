@@ -2,3 +2,5 @@
 
 *.o
 *.game
+*.autosave
+*.DS_Store

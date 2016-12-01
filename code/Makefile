@@ -11,7 +11,7 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror -Weffc++
+CCFLAGS += -std=c++11 -Wpedantic -Wall -Wextra -Werror #-Weffc++
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
 # CPPFLAGS += -I$(CODE)

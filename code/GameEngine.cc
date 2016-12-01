@@ -29,8 +29,10 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
             drawWindowFromMap(windowPtr);
             getCommands();
             moveObjects();
-            windowPtr->draw(player1.sprite);
-            windowPtr->draw(player2.sprite);
+            dropBombs();
+            updateBombs();
+
+            drawObjects(windowPtr);
 
             if (commands[9] == true)
             {
@@ -99,6 +101,35 @@ void GameEngine::run(std::vector<std::string>* playerNamesPtr,
         if (commands[9]) {}
     }
 
+    void GameEngine::dropBombs()
+    {
+        if (!(bombs.empty()) && (*bombs.begin())->isDetonated())
+        {
+            delete *bombs.begin();
+            bombs.erase(bombs.begin());
+        }
 
+        if (commands[4])
+        {
+            bombs.push_back(new Bomb(&player1, &map));
+            std::cout << "Dropping bombs!" << std::endl;
+        }
+    }
 
-    void GameEngine::dropBombs(){}
+    void GameEngine::updateBombs()
+    {
+        for (unsigned int i{0}; i < bombs.size(); ++i)
+        {
+            bombs.at(i)->update();
+        }
+    }
+
+    void GameEngine::drawObjects(sf::RenderWindow* windowPtr)
+    {
+        windowPtr->draw(player1.sprite);
+        windowPtr->draw(player2.sprite);
+        for (unsigned int i{0}; i < bombs.size(); ++i)
+        {
+            windowPtr->draw(bombs.at(i)->sprite);
+        }
+    }
