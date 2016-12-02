@@ -7,6 +7,7 @@ Klassen Menu
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 #include "globaldefines.h"
@@ -43,7 +44,6 @@ private:
     int item_index;
     int count1 = 0;
     int count2 = 0;
-    bool game_running;
 
     GameEngine game;
 

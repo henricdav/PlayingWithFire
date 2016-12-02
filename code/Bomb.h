@@ -5,16 +5,27 @@ Klassen Bomb
 #define BOMB_H
 
 #include "Object.h"
+#include "Character.h"
+#include <vector>
+#include <memory>
 
 class Bomb : public Object
 {
 public:
-  Bomb() = default;
-  ~Bomb() = default;
+    Bomb() = default;
+    Bomb(Character & player,Map & map);
+
+    ~Bomb() = default;
+    bool isDetonated() {return detonated;};
+    void update();
 
 private:
-  int bombRadius;
-  sf::Clock timer;
+    sf::Texture texture;
+    int bombRadius;
+    sf::Clock timer;
+    Map* mapPtr;
+    bool detonated;
+    bool exploded;
 };
 
 #endif

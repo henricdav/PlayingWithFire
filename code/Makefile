@@ -6,12 +6,13 @@
 
 # SFML
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+INCLUDES = -I${SFML_ROOT}/include -L${SFML_ROOT}/lib
 
 # Diagnosmeddelanden från kompilatorn (g++) filtreras av gccfilter.
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS += -g -std=c++11 -Wpedantic -Wall -Wextra -Werror -Weffc++
+CCFLAGS += -std=c++17 -Wpedantic -Wall -Wextra -Werror #-Weffc++
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
 # CPPFLAGS += -I$(CODE)
@@ -21,7 +22,7 @@ OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o Map.
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 playingwithfire: $(OBJECTS) Makefile
-	$(CCC) $(CPPFLAGS) $(CCFLAGS) $(LDFLAGS) -o playingwithfire.game $(OBJECTS) $(LIBS)
+	$(CCC) $(INCLUDES) $(CPPFLAGS) $(CCFLAGS) $(LDFLAGS) -o playingwithfire.game $(OBJECTS) $(LIBS)
 
 # menu_test: test_main.o Expression_Tree.o $(EXPRESSION)/expression_tree-test.cc
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -g test_main.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression_tree-test.cc -o expression_tree_test
@@ -30,7 +31,7 @@ playingwithfire: $(OBJECTS) Makefile
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) test_main.o Expression.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression-test.cc -o expression_test
 #
 map_test: Map.o map_test.cc
-	$(CCC) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game
+	$(CCC) $(INCLUDES) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game $(LIBS)
 
 # Delmål (flaggan -c avbryter innan länkning, objektkodsfil erhålls)
 playingwithfire.o: playingwithfire.cc

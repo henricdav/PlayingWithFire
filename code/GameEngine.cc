@@ -6,108 +6,132 @@
 GameEngine::GameEngine()
 : commands{std::vector<bool>(10, false)}
 {
-  static_texture.loadFromFile("Texture/Ground_2.jpg");
-  static_object.setTexture(static_texture);
-  static_object.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    static_texture.loadFromFile("Texture/Ground_2.jpg");
+    static_object.setTexture(static_texture);
+    static_object.setTextureRect(sf::IntRect(0, 0, 50, 50));
 }
 
 
-void GameEngine::run(std::vector<std::string>* playerNamesPtr,
-                    std::vector<int>* playerColorsPtr,
-                    sf::RenderWindow* windowPtr)
-{
-    while (windowPtr->isOpen())
+void GameEngine::run(std::vector<std::string> & playerNames,
+    std::vector<int> & playerColors,
+    sf::RenderWindow & window)
     {
-      sf::Event event;
-      while (windowPtr->pollEvent(event))
-      {
-          if (event.type == sf::Event::Closed)
-          windowPtr->close();
-      }
+        bool terminated{false};
+        while (!terminated)
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
 
-      windowPtr->clear(sf::Color::White);
-      drawWindowFromMap(windowPtr);
-      getCommands();
-      moveObjects();
-      windowPtr->draw(player1.sprite);
-      windowPtr->draw(player2.sprite);
+                if (event.type == sf::Event::Closed)
+                {
+                    terminated = true;
+                }
+            }
 
-      if (commands[9] == true)
-      {
-        windowPtr->draw(player1.sprite);
-        std::cout << "Numpad0 pressed!" << std::endl;
-      }
+            window.clear(sf::Color::White);
+            drawWindowFromMap(window);
+            getCommands();
+            moveObjects();
+            dropBombs();
+            updateBombs();
 
-      if(false)
-      {
-        std::cout << playerColorsPtr->at(0) << playerNamesPtr->at(0);
-      }
+            drawObjects(window);
 
-      //windowPtr->clear(sf::Color::Green);
-      windowPtr->display();
-      sf::sleep(sf::milliseconds(10));
+            if (commands[9] == true)
+            {
+                window.draw(player1.sprite);
+                std::cout << "Numpad0 pressed!" << std::endl;
+            }
+
+
+
+            //window.clear(sf::Color::Green);
+            window.display();
+            sf::sleep(sf::milliseconds(20));
+
+        }
+        // To get rid of unused compiler messages.
+        if(false)
+        {
+            std::cout << playerColors.at(0) << playerNames.at(0);
+        }
 
     }
 
-    // std::cout << playerNamesPtr->at(0) << std::endl;
-    // std::cout << playerColorsPtr->at(0) << std::endl;
-    //return 0;
-}
-
-void GameEngine::drawWindowFromMap(sf::RenderWindow* windowPtr)
-{
-  for (int i{1}; i <= 13; i++)
-  {
-    for (int j = 1; j<=13; j++)
+    void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
     {
-      int A = map.getCoord(i, j);
-      if (A==1){
-        static_object.setPosition(sf::Vector2f(j*50, i*50));
-        windowPtr->draw(static_object);
-      }
+        for (int i{0}; i < TILES_X; i++)
+        {
+            for (int j{0}; j < TILES_Y; j++)
+            {
+                int A = map.getCoord(MapCoords(i,j));
+                if (A==1){
+                    static_object.setPosition(sf::Vector2f(X_OFFSET+i*50, Y_OFFSET+j*50));
+                    window.draw(static_object);
+                }
+            }
+        }
     }
-  }
-}
 
 
-void GameEngine::getCommands()
-{
-    commands[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
-    commands[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
-    commands[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
-    commands[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
-    commands[4] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::B);
-    commands[5] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
-    commands[6] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-    commands[7] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-    commands[8] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-    commands[9] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0);
-}
+    void GameEngine::getCommands()
+    {
+        commands[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A);
+        commands[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D);
+        commands[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
+        commands[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
+        commands[4] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::B);
+        commands[5] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
+        commands[6] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
+        commands[7] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
+        commands[8] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
+        commands[9] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0);
+    }
 
-void GameEngine::moveObjects()
-{
+    void GameEngine::moveObjects()
+    {
 
-  if (commands[0]){player1.sprite.move(-2, 0);
-    //if (!(objects.check_move(player1.player, map.boundings))){player1.player.move(player1.moving_speed, 0);}
-    //else if (rectSourceSprite.left == 90){
-    //  player1.counter_rendering = 0;
-    //  rectSourceSprite = sf::IntRect(0, 45, 45, 45);}
-    //else{rectSourceSprite = sf::IntRect(45*player1.counter_rendering, 45, 45, 45);
-    //  if (player1.counter_rendering <= 2){player1.counter_rendering++;}
-    //}
-  }
-  if (commands[1]){player1.sprite.move(2, 0);}
-  if (commands[2]){player1.sprite.move(0, -2);}
-  if (commands[3]){player1.sprite.move(0, 2);}
-  if (commands[4]){}
-  if (commands[5]){player2.sprite.move(-1, 0);}
-  if (commands[6]){player2.sprite.move(1, 0);}
-  if (commands[7]){player2.sprite.move(0, -1);}
-  if (commands[8]){player2.sprite.move(0, 1);}
-  if (commands[9]){}
-}
+        if (commands[0]) {player1.move(sf::Vector2f(-player1.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[1]) {player1.move(sf::Vector2f(player1.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[2]) {player1.move(sf::Vector2f(0, -player1.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[3]) {player1.move(sf::Vector2f(0, player1.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[4]) {}
+        if (commands[5]) {player2.move(sf::Vector2f(-player2.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[6]) {player2.move(sf::Vector2f(player2.getSpeed(), 0), std::make_shared<Map>(map));}
+        if (commands[7]) {player2.move(sf::Vector2f(0, -player2.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[8]) {player2.move(sf::Vector2f(0, player2.getSpeed()), std::make_shared<Map>(map));}
+        if (commands[9]) {}
+    }
 
+    void GameEngine::dropBombs()
+    {
+        if (!(bombs.empty()) && (*bombs.begin())->isDetonated())
+        {
+            bombs.erase(bombs.begin());
+        }
 
+        if (commands[4])
+        {
+            bombs.push_back(std::make_unique<Bomb>(player1, map));
+            std::cout << "Dropping bombs!" << std::endl;
+        }
+    }
 
-void GameEngine::dropBombs(){}
-bool GameEngine::checkCollisions(){return true;}
+    void GameEngine::updateBombs()
+    {
+        for (unsigned int i{0}; i < bombs.size(); ++i)
+        {
+            bombs.at(i)->update();
+        }
+    }
+
+    void GameEngine::drawObjects(sf::RenderWindow & window)
+    {
+        window.draw(player1.sprite);
+        window.draw(player2.sprite);
+        for (unsigned int i{0}; i < bombs.size(); ++i)
+        {
+            window.draw(bombs.at(i)->sprite);
+        }
+    }

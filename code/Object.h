@@ -7,20 +7,28 @@ Klassen Object
 #include <vector>
 #include <string>
 #include <iostream>
+#include <memory>
 #include <SFML/Graphics.hpp>
+#include "Map.h"
 
 class Object
 {
 public:
-  Object() = default;
-  virtual ~Object() = default;
-  void move(int Speed, std::vector<bool> direction);
-  sf::Sprite sprite{};
+    Object() = default;
+    virtual ~Object() = default;
+
+    void move(sf::Vector2f, std::shared_ptr<Map>);
+    bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
+    void animate_sprite(sf::Vector2f);
+    MapCoords tileCoordinates(){return mapCoords;};
+    sf::Sprite sprite{};
 
 
-private:
-  sf::IntRect rect{};
-  int mapCoord{};
+protected:
+    sf::IntRect rect{};
+    MapCoords mapCoords;
+    int counter_rendering{};
+    void updateMapIndex();
 };
 
 #endif

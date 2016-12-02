@@ -2,8 +2,8 @@
 
 Menu::Menu()
     :   playerNames{}, playerColors{},
-        window(sf::VideoMode(750,750), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}, game_running{}, game{}
+        window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
+        font{}, item_index{}, game{}
 {
     window.setFramerateLimit(60);
 
@@ -38,27 +38,26 @@ Menu::Menu()
     start_page_sprite[2].setTextureRect(sf::IntRect(0, 0, 534, 165));
 
     menu[0].setFont(font);
-    menu[0].setColor(sf::Color::White);
+    menu[0].setFillColor(sf::Color::White);
     menu[0].setString("Play");
     menu[0].setPosition(sf::Vector2f(width/2-35+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+50+Y_OFFSET));
 
     menu[1].setFont(font);
-    menu[1].setColor(sf::Color::White);
+    menu[1].setFillColor(sf::Color::White);
     menu[1].setString("Highscore");
     menu[1].setPosition(sf::Vector2f(width/2-75+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+100+Y_OFFSET));
 
     menu[2].setFont(font);
-    menu[2].setColor(sf::Color::White);
+    menu[2].setFillColor(sf::Color::White);
     menu[2].setString("About");
     menu[2].setPosition(sf::Vector2f(width/2-50+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+150+Y_OFFSET));
 
     menu[3].setFont(font);
-    menu[3].setColor(sf::Color::White);
+    menu[3].setFillColor(sf::Color::White);
     menu[3].setString("Exit");
     menu[3].setPosition(sf::Vector2f(width/2-35+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+200+Y_OFFSET));
 
     item_index = 0;
-    game_running = false;
 }
 
 int Menu::run()
@@ -89,19 +88,19 @@ int Menu::run()
                     switch (selectedItem())
                     {
                     case 0: // PLAY GAME
+
                         //Delete the five rows below
                         playerNames.push_back("LARS");
                         playerNames.push_back("OLOF");
                         playerColors.push_back(1);
                         playerColors.push_back(2);
-                        game_running = true;
+
 
                         // Uncomment this later
                         //configBeforeRun(event);
-                        while (game_running)
-                        {
-                            game.run(&playerNames, &playerColors, &window);
-                        }
+
+
+                        game.run(playerNames, playerColors, window);
                         break;
 
                     case 1: // OPEN HIGHSCORE
@@ -176,9 +175,9 @@ void Menu::moveUp()
 {
     if (item_index - 1 >= 0)
     {
-        menu[item_index].setColor(sf::Color::White);
+        menu[item_index].setFillColor(sf::Color::White);
         item_index--;
-        menu[item_index].setColor(sf::Color::Green);
+        menu[item_index].setFillColor(sf::Color::Green);
     }
 }
 
@@ -186,9 +185,9 @@ void Menu::moveDown()
 {
     if (item_index + 1 < NUMBER_OF_TEXT_FIELDS)
     {
-        menu[item_index].setColor(sf::Color::White);
+        menu[item_index].setFillColor(sf::Color::White);
         item_index++;
-        menu[item_index].setColor(sf::Color::Green);
+        menu[item_index].setFillColor(sf::Color::Green);
     }
 }
 
@@ -203,34 +202,35 @@ int Menu::configBeforeRun(sf::Event event)
 
     //INPUT PLAYER 1
     input_text[0].setPosition(330+X_OFFSET, 225+Y_OFFSET);
-    input_text[0].setColor(sf::Color::White);
+    input_text[0].setFillColor(sf::Color::White);
     input_text[0].setFont(font);
 
     //INPUT PLAYER 2
     input_text[1].setPosition(330+X_OFFSET, 325+Y_OFFSET);
-    input_text[1].setColor(sf::Color::White);
+    input_text[1].setFillColor(sf::Color::White);
     input_text[1].setFont(font);
 
     sf::Text config_text[4];
 
+
     config_text[0].setPosition(200+X_OFFSET, 225+Y_OFFSET);
-    config_text[0].setColor(sf::Color::White);
+    config_text[0].setFillColor(sf::Color::White);
     config_text[0].setFont(font);
     config_text[0].setString("Player 1: ");
 
     config_text[1].setPosition(200+X_OFFSET, 325+Y_OFFSET);
-    config_text[1].setColor(sf::Color::White);
+    config_text[1].setFillColor(sf::Color::White);
     config_text[1].setFont(font);
     config_text[1].setString("Player 2: ");
 
     config_text[2].setPosition(275+X_OFFSET, 50+Y_OFFSET);
-    config_text[2].setColor(sf::Color::Green);
+    config_text[2].setFillColor(sf::Color::Green);
     config_text[2].setFont(font);
     config_text[2].setString("CONFIG MENU");
     config_text[2].setStyle(sf::Text::Underlined);
 
     config_text[3].setPosition(175+X_OFFSET, 100+Y_OFFSET);
-    config_text[3].setColor(sf::Color::White);
+    config_text[3].setFillColor(sf::Color::White);
     config_text[3].setFont(font);
     config_text[3].setCharacterSize(22);
     config_text[3].setString("Enter name and press space - Esc to go back");
@@ -349,7 +349,7 @@ int Menu::configBeforeRun(sf::Event event)
     // playerColors are binded to player1 and player2 atm.
     if (playerNames.size() == NUMBER_OF_PLAYERS)
     {
-        game_running = true;
+
         playerColors.push_back(1);
         playerColors.push_back(2);
     }
