@@ -19,6 +19,10 @@ public:
     MapCoords() {};
     ~MapCoords() = default;
     MapCoords(int xcoord, int ycoord) : x{xcoord}, y{ycoord} {};
+
+    MapCoords operator+(const MapCoords & rhs) {return MapCoords(this->x+rhs.x,this->y+rhs.y);};
+    MapCoords operator*(const int & i) {return MapCoords(this->x*i,this->y*i);};
+
     int x;
     int y;
 };
@@ -28,16 +32,16 @@ class Map
 public:
   Map(); //(std::string & fileName);
   ~Map() = default;
-  void setCoord(int xCoord, int yCoord, int type);
-  int getCoord(int xCoord, int yCoord) const;
-  sf::Sprite getBoundings(int xCoord, int yCoord) const;
+  void setCoord(MapCoords, int type);
+  int getCoord(MapCoords) const;
+  sf::Sprite getBoundings(MapCoords) const;
 
   //For testing
   void print();
 
 private:
   std::vector<int> mapArray{};
-  bool validIndices(int, int) const;
+  bool validIndices(MapCoords) const;
   //sf::Sprite tempStaticSprite{};
 };
 

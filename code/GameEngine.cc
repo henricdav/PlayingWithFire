@@ -65,7 +65,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         {
             for (int j{0}; j < TILES_Y; j++)
             {
-                int A = map.getCoord(i, j);
+                int A = map.getCoord(MapCoords(i,j));
                 if (A==1){
                     static_object.setPosition(sf::Vector2f(X_OFFSET+i*50, Y_OFFSET+j*50));
                     window.draw(static_object);
