@@ -26,7 +26,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                 if (event.type == sf::Event::Closed)
                 {
                     terminated = true;
-                    std::cout << "Stänger!";
                 }
             }
 
@@ -45,19 +44,18 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                 std::cout << "Numpad0 pressed!" << std::endl;
             }
 
-            if(false)
-            {
-                std::cout << playerColors.at(0) << playerNames.at(0);
-            }
+
 
             //window.clear(sf::Color::Green);
             window.display();
             sf::sleep(sf::milliseconds(20));
 
         }
-        std::cout << "Slut!" << std::endl;
-        // std::cout << playerNames.at(0) << std::endl;
-        // std::cout << playerColors.at(0) << std::endl;
+        // To get rid of unused compiler messages.
+        if(false)
+        {
+            std::cout << playerColors.at(0) << playerNames.at(0);
+        }
 
     }
 
@@ -67,7 +65,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         {
             for (int j{0}; j < TILES_Y; j++)
             {
-                int A = map.getCoord(i, j);
+                int A = map.getCoord(MapCoords(i,j));
                 if (A==1){
                     static_object.setPosition(sf::Vector2f(X_OFFSET+i*50, Y_OFFSET+j*50));
                     window.draw(static_object);
@@ -115,7 +113,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
 
         if (commands[4])
         {
-            bombs.push_back(std::make_shared<Bomb>(std::make_shared<Character>(player1), std::make_shared<Map>(map)));
+            bombs.push_back(std::make_unique<Bomb>(player1, map));
             std::cout << "Dropping bombs!" << std::endl;
         }
     }

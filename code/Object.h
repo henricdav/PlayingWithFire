@@ -14,20 +14,21 @@ Klassen Object
 class Object
 {
 public:
-  Object() = default;
-  virtual ~Object() = default;
+    Object() = default;
+    virtual ~Object() = default;
 
-  void move(sf::Vector2f, std::shared_ptr<Map>);
-  bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
-  void animate_sprite(sf::Vector2f);
-  sf::Sprite sprite{};
+    void move(sf::Vector2f, std::shared_ptr<Map>);
+    bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
+    void animate_sprite(sf::Vector2f);
+    MapCoords tileCoordinates(){return mapCoords;};
+    sf::Sprite sprite{};
 
 
-private:
-  sf::IntRect rect{};
-  int xIndexMap{};
-  int yIndexMap{};
-  int counter_rendering{};
+protected:
+    sf::IntRect rect{};
+    MapCoords mapCoords;
+    int counter_rendering{};
+    void updateMapIndex();
 };
 
 #endif

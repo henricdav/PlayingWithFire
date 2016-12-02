@@ -5,6 +5,7 @@ Huvudprogram för lek inte med elden II, återkomsten
 */
 #include "Menu.h"
 #include <iostream>
+#include <exception>
 
 int main()
 {
@@ -13,9 +14,9 @@ int main()
     {
         menu.run();
     }
-    catch (...)
+    catch (std::exception& e)
     {
-        std::cout << "Ett okänt fel har inträffat.\n";
+        std::cout << "Ett okänt fel har inträffat: " << e.what() << std::endl;
     }
 
     return 0;

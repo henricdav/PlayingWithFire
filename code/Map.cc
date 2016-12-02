@@ -15,32 +15,32 @@ Map::Map()
     mapFile.close();
 }
 
-void Map::setCoord(int xCoord, int yCoord, int type)
+void Map::setCoord(MapCoords coords, int type)
 {
-    if (!validIndices(xCoord, yCoord))
+    if (!validIndices(coords))
         throw std::out_of_range("Tried to set index out of range in Map::setCoord");
 
-    mapArray.at((yCoord)*TILES_X + xCoord) = type;
+    mapArray.at((coords.y)*TILES_X + coords.x) = type;
 }
 
-int Map::getCoord(int xCoord, int yCoord) const
+int Map::getCoord(MapCoords coords) const
 {
-    if (!validIndices(xCoord, yCoord))
+    if (!validIndices(coords))
         throw std::out_of_range("Tried to set index out of range in Map::getCoord");
 
-    return mapArray.at((yCoord)*TILES_X + xCoord);
+    return mapArray.at((coords.y)*TILES_X + coords.x);
 }
 
-sf::Sprite Map::getBoundings(int xCoord, int yCoord) const
+sf::Sprite Map::getBoundings(MapCoords coords) const
 {
-    if (!validIndices(xCoord, yCoord))
+    if (!validIndices(coords))
         throw std::out_of_range("Tried to set index out of range in Map::getBoundings");
 
     sf::Sprite tempStaticSprite;
     tempStaticSprite.setTextureRect(sf::IntRect(0, 0, TILE_WIDTH, TILE_HEIGHT));
-    if (getCoord(xCoord, yCoord) == 1)
+    if (getCoord(coords) == 1)
     {
-        tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + (xCoord)*TILE_WIDTH, Y_OFFSET + (yCoord)*TILE_HEIGHT));
+        tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + coords.x*TILE_WIDTH, Y_OFFSET + (coords.y)*TILE_HEIGHT));
     }
     else {tempStaticSprite.setPosition(sf::Vector2f(0, 0));}
 
@@ -49,9 +49,9 @@ sf::Sprite Map::getBoundings(int xCoord, int yCoord) const
     //return sf::IntRect(X_OFFSET + (xCoord - 1)*TILE_WIDTH, Y_OFFSET + (yCoord - 1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 }
 
-bool Map::validIndices(int xCoord, int yCoord) const
+bool Map::validIndices(MapCoords coords) const
 {
-    return (xCoord <= TILES_X || yCoord <= TILES_Y || xCoord >= 0 || yCoord >= 0);
+    return (coords.x <= TILES_X || coords.y <= TILES_Y || coords.x >= 0 || coords.y >= 0);
 }
 
 // Only for testing
