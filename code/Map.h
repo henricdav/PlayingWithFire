@@ -13,6 +13,16 @@
 
 enum tile{empty = 0, wall = 1, emptybox, shoebox};
 
+class MapCoords
+{
+public:
+    MapCoords() {};
+    ~MapCoords() = default;
+    MapCoords(int xcoord, int ycoord) : x{xcoord}, y{ycoord} {};
+    int x;
+    int y;
+};
+
 class Map
 {
 public:

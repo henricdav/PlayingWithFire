@@ -9,9 +9,8 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
     {
         sprite.move(-direction);
     }
-    xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
-    yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
-    std::cout << xIndexMap << " " << yIndexMap << std::endl;
+    updateMapIndex();
+    //std::cout << xIndexMap << " " << yIndexMap << std::endl;
     animate_sprite(direction);
 }
 
@@ -24,7 +23,7 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
     yIndexMap = round((sprite.getPosition().y)/TILE_HEIGHT+direction.y);
 
     //if (map->getCoord(xIndexMap + direction.x, yIndexMap + direction.y) == 1)
-    if (sprite.getGlobalBounds().intersects(map->getBoundings(xIndexMap, yIndexMap).getGlobalBounds())
+    if (sprite.getGlobalBounds().intersects(map->getBoundings(xIndexMap,yIndexMap).getGlobalBounds())
         || sprite.getGlobalBounds().intersects(map->getBoundings(xIndexMap+direction.y, yIndexMap+direction.x).getGlobalBounds())
         || sprite.getGlobalBounds().intersects(map->getBoundings(xIndexMap-direction.y, yIndexMap-direction.x).getGlobalBounds()))
     {
@@ -50,4 +49,10 @@ void Object::animate_sprite(sf::Vector2f direction)
     else {rect = sf::IntRect(0, 0, 50, 50);}
 
      sprite.setTextureRect(rect);
+}
+
+void Object::updateMapIndex()
+{
+    xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
+    yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
 }

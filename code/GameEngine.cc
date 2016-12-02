@@ -113,7 +113,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
 
         if (commands[4])
         {
-            bombs.push_back(std::make_shared<Bomb>(std::make_shared<Character>(player1), std::make_shared<Map>(map)));
+            bombs.push_back(std::make_unique<Bomb>(player1, map));
             std::cout << "Dropping bombs!" << std::endl;
         }
     }

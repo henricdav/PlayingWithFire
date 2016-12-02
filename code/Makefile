@@ -31,7 +31,7 @@ playingwithfire: $(OBJECTS) Makefile
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) test_main.o Expression.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression-test.cc -o expression_test
 #
 map_test: Map.o map_test.cc
-	$(CCC) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game
+	$(CCC) $(INCLUDES) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game $(LIBS)
 
 # Delmål (flaggan -c avbryter innan länkning, objektkodsfil erhålls)
 playingwithfire.o: playingwithfire.cc
