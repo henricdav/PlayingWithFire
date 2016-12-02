@@ -38,16 +38,17 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
 
 void Object::animate_sprite(sf::Vector2f direction)
 {
-    if (direction.x != 0) {direction.x = direction.x/std::abs(direction.x);} //0, -1 or +1
-    if (direction.y != 0) {direction.y = direction.y/std::abs(direction.y);} //0, -1 or +1
-    if (rect.left == 350){
-         counter_rendering = 0;
-         if (direction.x != 0){rect = sf::IntRect(0, 0, direction.x*50, 50);}
-         else {rect = sf::IntRect(0, 0, 50, 50);}
-    }
-    else if (direction.x !=0){rect = sf::IntRect(50*counter_rendering, 0, direction.x*50, 50);
-        if (counter_rendering <= 6){counter_rendering++;}}
+    if (rect.left == 350){counter_rendering = 0;} //sprite size width = 400
+    if (direction.x < 0){rect = sf::IntRect(50*counter_rendering, 50, 50, 50);}
+    else if (direction.x > 0){rect = sf::IntRect(50*counter_rendering ,100, 50, 50);}
+    else if (direction.y < 0){rect = sf::IntRect(counter_rendering*50, 150, 50, 50);}
+    else if (direction.y > 0){rect = sf::IntRect(counter_rendering*50, 0, 50, 50);}
     else {rect = sf::IntRect(0, 0, 50, 50);}
+    counter_rendering++;
+
+    //else if (direction.x !=0){rect = sf::IntRect(50*counter_rendering, 50, direction.x*50, 50);
+    //if (counter_rendering <= 6){counter_rendering++;}
+    //else {rect = sf::IntRect(0, 0, 50, 50);}
 
      sprite.setTextureRect(rect);
 }
