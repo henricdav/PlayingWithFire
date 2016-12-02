@@ -2,7 +2,7 @@
 
 Menu::Menu()
     :   playerNames{}, playerColors{},
-        window(sf::VideoMode(750,750), "Lek inte med elden II - Aterkomsten"),
+        window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
         font{}, item_index{}, game_running{}, game{}
 {
     window.setFramerateLimit(60);

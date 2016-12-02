@@ -11,7 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "globaldefines.h"
 
-enum tile{empty = 0, wall = 1, emptybox, shoebox};
+enum tile{empty = 0, wall = 1, flames, emptybox, shoebox};
 
 class MapCoords
 {

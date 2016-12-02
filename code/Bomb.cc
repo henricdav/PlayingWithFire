@@ -28,37 +28,14 @@ void Bomb::update()
 
         for (int i{1}; i <= bombRadius; ++i)
         {
-            if (!(mapPtr->getCoord(mapCoords + directions[0]*i) == wall) && validDirections.at(0))
+            for (int j{0}; j <= 3; ++j)
+            if (!(mapPtr->getCoord(mapCoords + directions[j]*i) == wall) && validDirections.at(0))
             {
-                mapPtr->setCoord(mapCoords + directions[0]*i,wall);
+                mapPtr->setCoord(mapCoords + directions[j]*i, wall);
             }
             else
             {
-                validDirections.at(0) = false;
-            }
-            if (!(mapPtr->getCoord(mapCoords + directions[1]*i) == wall) && validDirections.at(1))
-            {
-                mapPtr->setCoord(mapCoords + directions[1]*i,wall);
-            }
-            else
-            {
-                validDirections.at(1) = false;
-            }
-            if (!(mapPtr->getCoord(mapCoords + directions[2]*i) == wall) && validDirections.at(2))
-            {
-                mapPtr->setCoord(mapCoords + directions[2]*i,wall);
-            }
-            else
-            {
-                validDirections.at(2) = false;
-            }
-            if (!(mapPtr->getCoord(mapCoords + directions[3]*i) == wall) && validDirections.at(3))
-            {
-                mapPtr->setCoord(mapCoords + directions[3]*i,wall);
-            }
-            else
-            {
-                validDirections.at(3) = false;
+                validDirections.at(j) = false;
             }
         }
         exploded = true;
