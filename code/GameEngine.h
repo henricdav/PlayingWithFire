@@ -13,14 +13,17 @@
 #include "Map.h"
 #include "globaldefines.h"
 
-
-//enum validCommands {A = 0, D, W, S, B, Left, Right, Up, Down, Numpad0};
+/*
+Defined in MAP_H:
+enum tile{empty = 0, wall = 1, flames, emptybox, shoebox};
+*/
 
 class GameEngine
 {
 public:
     GameEngine();
     ~GameEngine() = default;
+    void initTextures();
     void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
@@ -42,8 +45,8 @@ private:
     const std::string Fil = "level_template.map";
     Map map{};//(std::string Fil);
 
-    sf::Sprite static_object{};
-    sf::Texture static_texture{};
+    std::vector<sf::Sprite> static_objects{};
+    std::vector<sf::Texture> static_textures{};
 };
 
 #endif

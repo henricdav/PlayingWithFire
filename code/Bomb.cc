@@ -31,7 +31,7 @@ void Bomb::update()
 
             for (int j{0}; j <= 3; ++j)
             {
-                if (validDirections[j] && !(mapPtr->getCoord(mapCoords + directions[j]*i) == wall))
+                if (validDirections[j] && !(mapPtr->getCoord(mapCoords + directions[j]*i) == flames))
                 {
                     mapPtr->setCoord(mapCoords + directions[j]*i, wall);
                 }
