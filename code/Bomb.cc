@@ -6,7 +6,10 @@ bombRadius{player.getBombRadius()},
 timer{},
 mapPtr{&map},
 detonated{false},
-exploded{false}
+exploded{false},
+explodeRange{bombRadius,bombRadius,bombRadius,bombRadius},
+directions{{0,-1},{0,1},{-1,0},{1,0}},
+boxContents{0,0,0,0}
 {
     sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
     texture.loadFromFile("Texture/bomb-small.png");
@@ -21,36 +24,49 @@ exploded{false}
 void Bomb::update()
 {
     int elapsedTime{timer.getElapsedTime().asMilliseconds()};
-    std::vector<MapCoords> directions{{0,-1},{0,1},{-1,0},{1,0}};
+
     if (elapsedTime > 1000 && !exploded) // Begin explosion
     {
-        std::vector<bool> validDirections{true,true,true,true};
+
 
         for (int i{1}; i <= bombRadius; ++i)
         {
 
             for (int j{0}; j <= 3; ++j)
             {
-                if (validDirections[j] && !(mapPtr->getCoord(mapCoords + directions[j]*i) == flames))
+                if (explodeRange[j] == bombRadius)
                 {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, wall);
+                if (mapPtr->getCoord(mapCoords + directions[j]*i) == wall)
+                {
+                    explodeRange[j] = i - 1;
                 }
-                else
+                else if (mapPtr->getCoord(mapCoords + directions[j]*i) > wall)
                 {
-                    validDirections[j] = false;
+                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
                 }
             }
-
+            }
         }
+        texture.loadFromFile("Texture/explosion.png");
+        sprite.setTexture(texture);
+
+        std::cout << explodeRange[0] << explodeRange[1] << explodeRange[2] << explodeRange[3] << std::endl;
         exploded = true;
     }
 
     if (elapsedTime > 2000) // End explosion
     {
-        mapPtr->setCoord(mapCoords + directions[0],empty);
-        mapPtr->setCoord(mapCoords + directions[1],empty);
-        mapPtr->setCoord(mapCoords + directions[2],empty);
-        mapPtr->setCoord(mapCoords + directions[3],empty);
+
+        for (int j{0}; j <= 3; ++j)
+        {
+            for (int i{0}; i <= explodeRange[j]; ++i)
+            {
+                if (i == explodeRange)
+                    mapPtr->setCoord(mapCoords + directions[j]*i, contents[j]);
+                else
+                    mapPtr->setCoord(mapCoords + directions[j]*i, empty);
+            }
+        }
         detonated = true;
     }
 }

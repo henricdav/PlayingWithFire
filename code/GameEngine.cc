@@ -12,9 +12,8 @@ GameEngine::GameEngine()
 
 void GameEngine::initTextures()
 {
-    static_textures.reserve(TILE_TYPES);
-    static_objects.reserve(TILE_TYPES);
-
+    static_textures.resize(TILE_TYPES);
+    static_objects.resize(TILE_TYPES);
     std::vector<std::string> filenames{"Texture/Ground_2.jpg","Texture/explosion.png","Texture/RTS_Crate.png"};
 
     for (int i = 0; i < TILE_TYPES; ++i) {
@@ -82,9 +81,8 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                 int curr{map.getCoord(MapCoords(i, j))};
                 if (curr != 0) // No texture for emptßy tiles.
                 {
-                    std::cout << curr << std::endl;
-                    static_objects[1].setPosition(sf::Vector2f(X_OFFSET + i * 50, Y_OFFSET + j * 50));
-                    window.draw(static_objects[1]);
+                    static_objects[curr - 1].setPosition(sf::Vector2f(X_OFFSET + i * 50, Y_OFFSET + j * 50));
+                    window.draw(static_objects[curr - 1]);
                 }
             }
         }
@@ -137,7 +135,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     {
         for (unsigned int i{0}; i < bombs.size(); ++i)
         {
-            bombs.at(i)->update();
+            bombs[i]->update();
         }
     }
 
@@ -147,6 +145,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         window.draw(player2.sprite);
         for (unsigned int i{0}; i < bombs.size(); ++i)
         {
-            window.draw(bombs.at(i)->sprite);
+            window.draw(bombs[i]->sprite);
         }
     }

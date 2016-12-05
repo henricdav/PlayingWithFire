@@ -26,6 +26,9 @@ private:
     Map* mapPtr;
     bool detonated;
     bool exploded;
+    std::vector<int> explodeRange;
+    std::vector<MapCoords> directions;
+    std::vector<int> boxContents;
 };
 
 #endif

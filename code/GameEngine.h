@@ -45,8 +45,8 @@ private:
     const std::string Fil = "level_template.map";
     Map map{};//(std::string Fil);
     sf::Sprite static_object{};
-    std::vector<sf::Sprite> static_objects{};
-    std::vector<sf::Texture> static_textures{};
+    std::vector<sf::Sprite> static_objects;
+    std::vector<sf::Texture> static_textures;
 };
 
 #endif
