@@ -14,7 +14,20 @@ void GameEngine::initTextures()
 {
     static_textures.resize(TILE_TYPES);
     static_objects.resize(TILE_TYPES);
-    std::vector<std::string> filenames{"Texture/Ground_2.jpg","Texture/explosion.png","Texture/RTS_Crate.png"};
+    std::vector<std::string> filenames{
+        "Texture/Ground_2.jpg",
+        "Texture/explosion.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/boots2_jackboots.png",
+        "Texture/boots2_jackboots.png",
+        "Texture/boots2_jackboots.png",
+        "Texture/boots2_jackboots.png",
+        "Texture/boots2_jackboots.png"};
 
     for (int i = 0; i < TILE_TYPES; ++i) {
         static_textures[i].loadFromFile(filenames[i]);
@@ -79,7 +92,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             for (int j{0}; j < TILES_Y; j++)
             {
                 int curr{map.getCoord(MapCoords(i, j))};
-                if (curr != 0) // No texture for emptßy tiles.
+                if (curr != 0) // No texture for empty tiles.
                 {
                     static_objects[curr - 1].setPosition(sf::Vector2f(X_OFFSET + i * 50, Y_OFFSET + j * 50));
                     window.draw(static_objects[curr - 1]);

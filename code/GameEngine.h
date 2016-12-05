@@ -42,7 +42,6 @@ private:
     Character player1{};
     Character player2{};
 
-    const std::string Fil = "level_template.map";
     Map map{};//(std::string Fil);
     sf::Sprite static_object{};
     std::vector<sf::Sprite> static_objects;

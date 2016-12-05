@@ -4,7 +4,7 @@
 Map::Map()
     : mapArray{}
 {
-    std::string fileName = "level_template.map";
+    std::string fileName = "level1.map";
     std::ifstream mapFile;
     mapFile.open(fileName);
     int tile;
