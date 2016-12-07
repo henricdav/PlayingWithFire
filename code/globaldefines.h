@@ -10,7 +10,7 @@
 #define X_OFFSET 0
 #define Y_OFFSET 0
 
-#define TILE_TYPES 19
+#define TILE_TYPES 13
 
 
 
