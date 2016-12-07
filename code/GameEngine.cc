@@ -63,14 +63,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
 
             drawObjects(window);
 
-            if (commands[9] == true)
-            {
-                window.draw(player1.sprite);
-                std::cout << "Numpad0 pressed!" << std::endl;
-            }
-
-
-
             //window.clear(sf::Color::Green);
             window.display();
             sf::sleep(sf::milliseconds(20));
@@ -112,7 +104,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         commands[6] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
         commands[7] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
         commands[8] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-        commands[9] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0);
+        commands[9] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P);
     }
 
     void GameEngine::moveObjects()
@@ -141,6 +133,11 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         {
             player1.resetBombTimer();
             bombs.push_back(std::make_unique<Bomb>(player1, map));
+        }
+        if (commands[9] && player2.dropBomb())
+        {
+            player2.resetBombTimer();
+            bombs.push_back(std::make_unique<Bomb>(player2, map));
         }
     }
 
