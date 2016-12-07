@@ -65,6 +65,9 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             dropBombs();
             updateBombs();
 
+            //std::cerr << map.getCoord(player1.mapCoords);
+            updateCharacters();
+
             drawObjects(window);
 
             //window.clear(sf::Color::Green);
@@ -160,5 +163,55 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         for (unsigned int i{0}; i < bombs.size(); ++i)
         {
             window.draw(bombs[i]->sprite);
+        }
+    }
+
+    void GameEngine::updateCharacters()
+    {
+        switch (map.getCoord(player1.tileCoordinates()))
+        {
+            case shoes:
+                player1.setSpeed();
+                map.setCoord(player1.tileCoordinates(), empty);
+                break;
+            case extrabomb:
+                player1.setBombTime();
+                map.setCoord(player1.tileCoordinates(), empty);
+                break;
+            case bombradius:
+                player1.setBombRadius();
+                map.setCoord(player1.tileCoordinates(), empty);
+                break;
+            case life:
+                player1.setLife();
+                map.setCoord(player1.tileCoordinates(), empty);
+                break;
+            case bombmover:
+                player1.setBombMover();
+                map.setCoord(player1.tileCoordinates(), empty);
+                break;
+        }
+        switch (map.getCoord(player2.tileCoordinates()))
+        {
+            case shoes:
+                player2.setSpeed();
+                map.setCoord(player2.tileCoordinates(), empty);
+                break;
+            case extrabomb:
+                player2.setBombTime();
+                map.setCoord(player2.tileCoordinates(), empty);
+                break;
+            case bombradius:
+                player2.setBombRadius();
+                map.setCoord(player2.tileCoordinates(), empty);
+                break;
+            case life:
+                player2.setLife();
+                map.setCoord(player2.tileCoordinates(), empty);
+                break;
+            case bombmover:
+                player2.setBombMover();
+                map.setCoord(player2.tileCoordinates(), empty);
+                break;
         }
     }
