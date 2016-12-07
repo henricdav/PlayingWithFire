@@ -12,25 +12,29 @@ Klassen Character
 class Character : public Object
 {
 public:
-    Character(); //{sprite.setPosition(sf::Vector2f(50, 50));};
+    Character();
     ~Character() = default;
-    void initCharacter(std::string, int);
-    std::string getName(){return name;};
-    void eraseLife(){if(lives >= 1){lives = lives -1;}};
-    bool dropBomb();
-    int getSpeed(){return speed;};
-    int getBombRadius() {return bombRadius;};
     void resetBombTimer();
+    void initCharacter(std::string, int);
+    bool dropBomb();
+    std::string getName() const;
+    int getSpeed() const;
+    int getBombRadius() const;
+    void eraseLife();
+    void setLife();
+    void setSpeed();
+    void setBombRadius();
+    void setBombTime();
 
 private:
     sf::Texture player_texture{};
     std::string name{};
-    int bombRadius{3};
+    int bombRadius{};
     bool bombMover{};
     int speed{};
     int lives{};
     int color{};
-    int bombTime{3000};
+    int bombTime{};
     sf::Clock respawnTimer{};
     sf::Clock timeToNextBomb{};
 };

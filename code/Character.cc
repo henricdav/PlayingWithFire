@@ -3,7 +3,10 @@
 
 Character::Character()
 {
-    speed = 2;
+    speed = 4;
+    bombRadius = 1;
+    lives = 3;
+    bombTime = 3000;
 }
 
 void Character::resetBombTimer()
@@ -32,10 +35,7 @@ void Character::initCharacter(std::string name, int attribute)
     updateMapIndex();
 
     name = name;
-    std::cerr << name << std::endl;
-
 }
-
 
 bool Character::dropBomb()
 {
@@ -49,4 +49,47 @@ bool Character::dropBomb()
     {
         return false;
     }
+}
+
+std::string Character::getName() const
+{
+    return name;
+}
+
+int Character::getSpeed() const
+{
+    return speed;
+}
+
+int Character::getBombRadius() const
+{
+    return bombRadius;
+}
+
+void Character::eraseLife()
+{
+    if (lives >= 1)
+    {
+        lives -= 1;
+    }
+}
+
+void Character::setLife()
+{
+    lives += 1;
+}
+
+void Character::setSpeed()
+{
+    speed += 1;
+}
+
+void Character::setBombRadius()
+{
+    bombRadius += 1;
+}
+
+void Character::setBombTime()
+{
+    bombTime /= 2;
 }

@@ -38,7 +38,7 @@ void Bomb::update()
                     explodeRange[j] = i - 1;
                     validDirection = false;
                 }
-                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox)
+                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox && mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
                 {
                     boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 5;
                     validDirection = false;
