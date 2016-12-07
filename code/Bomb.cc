@@ -38,16 +38,27 @@ void Bomb::update()
                     explodeRange[j] = i - 1;
                     validDirection = false;
                 }
-                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox)
+                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) == blownemptybox)
                 {
-                    boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 5;
+                    explodeRange[j] = i;
                     validDirection = false;
-                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                }
+                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > blownemptybox && mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
+                {
+                    boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 6;
+                    explodeRange[j] = i;
+                    validDirection = false;
+                }
+                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox && mapPtr->getCoord(mapCoords + directions[j]*i) < blownemptybox)
+                {
+                    boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 6;
+                    validDirection = false;
+                    mapPtr->setCoord(mapCoords + directions[j]*i, boxContents[j]);
                     explodeRange[j] = i;
                 }
                 else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) == emptybox)
                 {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                    mapPtr->setCoord(mapCoords + directions[j]*i, blownemptybox);
                     explodeRange[j] = i;
                     validDirection = false;
                 }
