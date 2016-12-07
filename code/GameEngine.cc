@@ -7,7 +7,6 @@ GameEngine::GameEngine()
 : commands{std::vector<bool>(10, false)}
 {
     initTextures();
-
 }
 
 void GameEngine::initTextures()
@@ -138,8 +137,9 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             bombs.erase(bombs.begin());
         }
 
-        if (commands[4])
+        if (commands[4] && player1.dropBomb())
         {
+            player1.resetBombTimer();
             bombs.push_back(std::make_unique<Bomb>(player1, map));
         }
     }
