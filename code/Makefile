@@ -55,7 +55,6 @@ Bomb.o: Bomb.h Bomb.cc
 Map.o: Map.h Map.cc
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Map.cc
 
-
 # Expression.o: $(EXPRESSION)/Expression.h $(EXPRESSION)/Expression.cc
 # 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(EXPRESSION)/Expression.cc
 #

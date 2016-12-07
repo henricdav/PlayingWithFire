@@ -20,15 +20,15 @@ public:
     void update();
 
 private:
-    sf::Texture texture;
-    int bombRadius;
-    sf::Clock timer;
-    Map* mapPtr;
-    bool detonated;
-    bool exploded;
-    std::vector<int> explodeRange;
-    std::vector<MapCoords> directions;
-    std::vector<int> boxContents;
+    sf::Texture texture{};
+    int bombRadius{};
+    sf::Clock timer{};
+    Map* mapPtr{};
+    bool detonated{};
+    bool exploded{};
+    std::vector<int> explodeRange{};
+    std::vector<MapCoords> directions{};
+    std::vector<int> boxContents{};
 };
 
 #endif

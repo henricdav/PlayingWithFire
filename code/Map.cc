@@ -31,7 +31,7 @@ int Map::getCoord(MapCoords coords) const
     return mapArray.at((coords.y)*TILES_X + coords.x);
 }
 
-sf::Sprite Map::getBoundings(MapCoords coords) const
+sf::Sprite Map::getBoundings(MapCoords coords)
 {
     if (!validIndices(coords))
         throw std::out_of_range("Tried to set index out of range in Map::getBoundings");
@@ -45,7 +45,15 @@ sf::Sprite Map::getBoundings(MapCoords coords) const
     {
         tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + coords.x*TILE_WIDTH, Y_OFFSET + (coords.y)*TILE_HEIGHT));
     }
-    else {
+    else if (tempCoord == shoes || tempCoord == extrabomb || tempCoord == bombradius ||
+        tempCoord == life || tempCoord == bombmover)
+    {
+        tempStaticSprite.setPosition(sf::Vector2f(0, 0));
+        updateAttrubute(coords);
+        setCoord(coords, empty);
+    }
+    else
+    {
         tempStaticSprite.setPosition(sf::Vector2f(0, 0));
     }
 

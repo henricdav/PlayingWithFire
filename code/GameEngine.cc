@@ -162,3 +162,25 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             window.draw(bombs[i]->sprite);
         }
     }
+
+    void GameEngine::updateAttrubute(int attribute)
+    {
+        switch (attribute)
+        {
+        case shoes:
+            setSpeed();
+            break;
+        case extrabomb:
+            setBombTime();
+            break;
+        case bombradius:
+            setBombRadius();
+            break;
+        case life:
+            setLife();
+            break;
+        case bombmover:
+            //setBombmover();
+            break;
+        }
+    }
