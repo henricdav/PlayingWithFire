@@ -25,7 +25,7 @@ void Bomb::update()
 {
     int elapsedTime{timer.getElapsedTime().asMilliseconds()};
 
-    if (!exploded && elapsedTime > 1000) // Begin explosion
+    if (!exploded && elapsedTime > 3000) // Begin explosion
     {
         bool validDirection{};
         for (int j{0}; j <= 3; ++j)
@@ -62,7 +62,7 @@ void Bomb::update()
         exploded = true;
     }
 
-    if (elapsedTime > 2000) // End explosion
+    if (elapsedTime > 4000) // End explosion
     {
 
         for (int j{0}; j <= 3; ++j)

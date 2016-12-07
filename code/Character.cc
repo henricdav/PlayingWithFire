@@ -6,7 +6,10 @@ Character::Character()
     speed = 2;
 }
 
-
+void Character::resetBombTimer()
+{
+    timeToNextBomb.restart();
+}
 
 void Character::initCharacter(std::string name, int attribute)
 {
@@ -31,4 +34,19 @@ void Character::initCharacter(std::string name, int attribute)
     name = name;
     std::cerr << name << std::endl;
 
+}
+
+
+bool Character::dropBomb()
+{
+    int timeElapsed{timeToNextBomb.getElapsedTime().asMilliseconds()};
+
+    if (timeElapsed > bombTime)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
