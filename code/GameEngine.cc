@@ -162,7 +162,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             window.draw(bombs[i]->sprite);
         }
     }
-
+    /*
     void GameEngine::updateAttribute(int attribute)
     {
         switch(attribute)
@@ -184,3 +184,4 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             break;
         }
     }
+    */

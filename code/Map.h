@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <SFML/Graphics.hpp>
 #include "globaldefines.h"
-#include "GameEngine.h"
+//#include "GameEngine.h"
 
 enum tile{empty = 0, wall = 1, flames = 2, emptybox = 3, shoebox = 4, extrabombbox = 5, bombradiusbox, lifebox, bombmoverbox, shoes, extrabomb, bombradius, life, bombmover};
 

@@ -48,9 +48,9 @@ sf::Sprite Map::getBoundings(MapCoords coords)
     else if (tempCoord == shoes || tempCoord == extrabomb || tempCoord == bombradius ||
         tempCoord == life || tempCoord == bombmover)
     {
-        tempStaticSprite.setPosition(sf::Vector2f(0, 0));
+        /*tempStaticSprite.setPosition(sf::Vector2f(0, 0));
         updateAttribute(tempCoord);
-        setCoord(coords, empty);
+        setCoord(coords, empty);*/
     }
     else
     {
