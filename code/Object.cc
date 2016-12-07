@@ -62,9 +62,9 @@ void Object::animate_sprite(sf::Vector2f direction)
         rect = sf::IntRect(0, 0, 50, 50);
     }
     if (counter_rendering == 3) //Reset counter_rendering
+    {
         counter_rendering = 0;
     }
-
 
     sprite.setTextureRect(rect);
 }
