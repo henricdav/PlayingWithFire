@@ -9,9 +9,11 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
     {
         sprite.move(-direction);
     }
+    else
+    {
+        animate_sprite(direction);
+    }
     updateMapIndex();
-    //std::cout << xIndexMap << " " << yIndexMap << std::endl;
-    animate_sprite(direction);
 }
 
 
@@ -38,6 +40,7 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
 
 void Object::animate_sprite(sf::Vector2f direction)
 {
+    counter_rendering++;
     if (direction.x < 0)
     {
         rect = sf::IntRect(50, 50*counter_rendering, 50, 50);
@@ -58,15 +61,12 @@ void Object::animate_sprite(sf::Vector2f direction)
     {
         rect = sf::IntRect(0, 0, 50, 50);
     }
-
-    counter_rendering++;
-    if (counter_rendering == 3)
-    {   //sprite size width = 400
+    if (counter_rendering == 3) //Reset counter_rendering
         counter_rendering = 0;
     }
 
 
-     sprite.setTextureRect(rect);
+    sprite.setTextureRect(rect);
 }
 
 void Object::updateMapIndex()
