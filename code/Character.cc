@@ -81,7 +81,7 @@ void Character::setLife()
 
 void Character::setSpeed()
 {
-    speed += 1;
+    speed += 2;
 }
 
 void Character::setBombRadius()
@@ -92,4 +92,9 @@ void Character::setBombRadius()
 void Character::setBombTime()
 {
     bombTime /= 2;
+}
+
+void Character::setBombMover()
+{
+    bombMover = true;
 }

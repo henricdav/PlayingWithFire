@@ -25,6 +25,7 @@ public:
     void setSpeed();
     void setBombRadius();
     void setBombTime();
+    void setBombMover();
 
 private:
     sf::Texture player_texture{};
