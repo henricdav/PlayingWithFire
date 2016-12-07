@@ -38,11 +38,16 @@ sf::Sprite Map::getBoundings(MapCoords coords) const
 
     sf::Sprite tempStaticSprite;
     tempStaticSprite.setTextureRect(sf::IntRect(0, 0, TILE_WIDTH, TILE_HEIGHT));
-    if (getCoord(coords) == 1)
+    int tempCoord = getCoord(coords);
+    if (tempCoord == wall || tempCoord == emptybox || tempCoord == shoebox ||
+        tempCoord == extrabombbox || tempCoord == bombradiusbox ||
+        tempCoord == lifebox || tempCoord == bombmoverbox)
     {
         tempStaticSprite.setPosition(sf::Vector2f(X_OFFSET + coords.x*TILE_WIDTH, Y_OFFSET + (coords.y)*TILE_HEIGHT));
     }
-    else {tempStaticSprite.setPosition(sf::Vector2f(0, 0));}
+    else {
+        tempStaticSprite.setPosition(sf::Vector2f(0, 0));
+    }
 
     return tempStaticSprite;
 
