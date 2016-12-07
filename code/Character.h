@@ -14,7 +14,7 @@ class Character : public Object
 public:
     Character(); //{sprite.setPosition(sf::Vector2f(50, 50));};
     ~Character() = default;
-    void setAttribute(int attribute);
+    void initCharacter(std::string, int);
     std::string getName(){return name;};
     void eraseLife(){if(lives >= 1){lives = lives -1;}};
     void dropBomb();

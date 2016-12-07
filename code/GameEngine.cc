@@ -41,7 +41,11 @@ void GameEngine::initTextures()
 void GameEngine::run(std::vector<std::string> & playerNames,
     std::vector<int> & playerColors,
     sf::RenderWindow & window)
+
     {
+        player1.initCharacter(playerNames.at(0), playerColors.at(0));
+        player2.initCharacter(playerNames.at(1), playerColors.at(1));
+
         bool terminated{false};
         while (!terminated)
         {
