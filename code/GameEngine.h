@@ -33,7 +33,7 @@ public:
     void drawObjects(sf::RenderWindow &);
     void updateBombs();
 
-    void updateAttrubute(int);
+    void updateAttribute(int);
 
 private:
     std::vector<bool> commands{};

@@ -13,7 +13,7 @@ class Bomb : public Object
 {
 public:
     Bomb() = default;
-    Bomb(Character & player,Map & map);
+    Bomb(Character & player, Map & map);
 
     ~Bomb() = default;
     bool isDetonated() {return detonated;};

@@ -49,7 +49,7 @@ sf::Sprite Map::getBoundings(MapCoords coords)
         tempCoord == life || tempCoord == bombmover)
     {
         tempStaticSprite.setPosition(sf::Vector2f(0, 0));
-        updateAttrubute(coords);
+        updateAttribute(tempCoord);
         setCoord(coords, empty);
     }
     else

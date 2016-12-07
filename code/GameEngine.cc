@@ -163,21 +163,21 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         }
     }
 
-    void GameEngine::updateAttrubute(int attribute)
+    void GameEngine::updateAttribute(int attribute)
     {
-        switch (attribute)
+        switch(attribute)
         {
         case shoes:
-            setSpeed();
+            player1.setSpeed();
             break;
         case extrabomb:
-            setBombTime();
+            player1.setBombTime();
             break;
         case bombradius:
-            setBombRadius();
+            player1.setBombRadius();
             break;
         case life:
-            setLife();
+            player1.setLife();
             break;
         case bombmover:
             //setBombmover();
