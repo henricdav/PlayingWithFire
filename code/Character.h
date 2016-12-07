@@ -17,9 +17,10 @@ public:
     void setAttribute(int attribute);
     std::string getName(){return name;};
     void eraseLife(){if(lives >= 1){lives = lives -1;}};
-    void dropBomb();
+    bool dropBomb();
     int getSpeed(){return speed;};
     int getBombRadius() {return bombRadius;};
+    void resetBombTimer();
 
 private:
     sf::Texture player_texture{};
@@ -29,6 +30,7 @@ private:
     int speed{};
     int lives{};
     int color{};
+    int bombTime{3000};
     sf::Clock respawnTimer{};
     sf::Clock timeToNextBomb{};
 };

@@ -11,11 +11,29 @@ Character::Character()
     updateMapIndex();
 }
 
-
+void Character::resetBombTimer()
+{
+    timeToNextBomb.restart();
+}
 
 void Character::setAttribute(int attribute)
 {
     color = attribute;
 
     sprite.setColor(sf::Color::Black);
+}
+
+
+bool Character::dropBomb()
+{
+    int timeElapsed{timeToNextBomb.getElapsedTime().asMilliseconds()};
+
+    if (timeElapsed > bombTime)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
