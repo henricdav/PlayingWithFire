@@ -25,6 +25,7 @@ public:
     ~GameEngine() = default;
     void initTextures();
     void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
+    void showTimer(sf::RenderWindow &);
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
@@ -46,6 +47,9 @@ private:
     sf::Sprite static_object{};
     std::vector<sf::Sprite> static_objects;
     std::vector<sf::Texture> static_textures;
+    sf::Clock gameTimer{};
+    sf::Font font;
+    sf::Text text;
 };
 
 #endif

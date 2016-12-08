@@ -20,6 +20,7 @@ public:
     std::string getName() const;
     int getSpeed() const;
     int getBombRadius() const;
+    int getLife() const;
     void eraseLife();
     void setLife();
     void setSpeed();
