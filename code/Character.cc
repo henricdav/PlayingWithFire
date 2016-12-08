@@ -3,7 +3,7 @@
 
 Character::Character()
 {
-    speed = 4;
+    speed = 2;
     bombRadius = 1;
     lives = 3;
     bombTime = 3000;
