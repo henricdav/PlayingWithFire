@@ -1,5 +1,6 @@
 #include "Object.h"
 
+sf::Vector2f sign(sf::Vector2f); // Declaration
 
 void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
 {
@@ -153,4 +154,10 @@ void Object::updateMapIndex()
     mapCoords = MapCoords(static_cast<int>(round(sprite.getPosition().x/TILE_WIDTH)), static_cast<int>(round(sprite.getPosition().y/TILE_HEIGHT)));
     //xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
     //yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
+}
+
+sf::Vector2f sign(sf::Vector2f vec)
+{
+    return sf::Vector2f(((vec.x > 0) ? 1 : ((vec.x < 0) ? -1 : 0)),
+                        ((vec.y > 0) ? 1 : ((vec.y < 0) ? -1 : 0)))
 }
