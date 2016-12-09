@@ -38,10 +38,10 @@ public:
 private:
     std::vector<bool> commands{};
     std::vector<int> scores{};
-    std::vector<Character> characters{};
     std::vector<std::shared_ptr<Bomb>> bombs{};
     Character player1{};
     Character player2{};
+    std::vector<Character> characters{};
 
     Map map{};//(std::string Fil);
     sf::Sprite static_object{};

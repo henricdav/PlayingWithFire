@@ -14,7 +14,7 @@ void Character::resetBombTimer()
     timeToNextBomb.restart();
 }
 
-void Character::initCharacter(std::string name, int attribute)
+void Character::initCharacter(std::string new_name, int attribute)
 {
     if (attribute == 1)
     {
@@ -33,7 +33,7 @@ void Character::initCharacter(std::string name, int attribute)
     sprite.setTexture(player_texture);
     updateMapIndex();
 
-    name = name;
+    name = new_name;
 }
 
 bool Character::dropBomb()
