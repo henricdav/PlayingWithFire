@@ -213,42 +213,19 @@ void GameEngine::updateCharacters()
                 {
                 characters[it].eraseLife();
                 characters[it].setRespawnTimer();
+                switch (it)
+                {
+                    case 0:
+                        characters[1].setPoints(500);
+                    case 1:
+                        characters[0].setPoints(500);
+                }
                 std::cerr << characters[it].getLife() << std::endl;
                 }
 
                 break;
             }
     }
-    /*
-    }
-    switch (map.getCoord(player2.tileCoordinates()))
-    {
-        case shoes:
-            player2.setSpeed();
-            map.setCoord(player2.tileCoordinates(), empty);
-            break;
-        case extrabomb:
-            player2.setBombTime();
-            map.setCoord(player2.tileCoordinates(), empty);
-            break;
-        case bombradius:
-            player2.setBombRadius();
-            map.setCoord(player2.tileCoordinates(), empty);
-            break;
-        case life:
-            player2.setLife();
-            map.setCoord(player2.tileCoordinates(), empty);
-            break;
-        case bombmover:
-            player2.setBombMover();
-            map.setCoord(player2.tileCoordinates(), empty);
-            break;
-        case flames:
-            player2.eraseLife();
-            // GÖR NÅGOT MER HÄR
-            break;
-    }
-    */
 }
 
 void GameEngine::showTimer(sf::RenderWindow & window)

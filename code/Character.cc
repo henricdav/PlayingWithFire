@@ -103,6 +103,12 @@ void Character::setBombMover()
     bombMover = true;
 }
 
+void Character::setPoints(int value)
+{
+    points += value;
+    std::cerr << points << std::endl;
+}
+
 void Character::setRespawnTimer()
 {
     respawnTimer.restart();
