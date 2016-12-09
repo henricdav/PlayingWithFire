@@ -16,14 +16,13 @@ void Character::resetBombTimer()
 
 void Character::initCharacter(std::string name, int attribute)
 {
-    color = attribute;
-    if (color == 1)
+    if (attribute == 1)
     {
         player_texture.loadFromFile("Figures/adaRed.png");
         sprite.setPosition(sf::Vector2f(TILE_SIZE+X_OFFSET, TILE_SIZE+Y_OFFSET));
         sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     }
-    if (color == 2)
+    if (attribute == 2)
     {
         player_texture.loadFromFile("Figures/danteBlue.png");
         sprite.setPosition(sf::Vector2f((TILES_X*TILE_SIZE-2*TILE_SIZE)+X_OFFSET,
@@ -66,6 +65,11 @@ int Character::getBombRadius() const
     return bombRadius;
 }
 
+int Character::getLife() const
+{
+    return lives;
+}
+
 void Character::eraseLife()
 {
     if (lives >= 1)
@@ -97,4 +101,14 @@ void Character::setBombTime()
 void Character::setBombMover()
 {
     bombMover = true;
+}
+
+void Character::setRespawnTimer()
+{
+    respawnTimer.restart();
+}
+
+sf::Clock Character::getRespawnTimer()
+{
+    return respawnTimer;
 }

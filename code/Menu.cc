@@ -89,7 +89,7 @@ int Menu::run()
                     {
                     case 0: // PLAY GAME
 
-                        //Delete the five rows below
+                        //Delete the four rows below
                         playerNames.push_back("LARS");
                         playerNames.push_back("OLOF");
                         playerColors.push_back(1);
@@ -99,7 +99,7 @@ int Menu::run()
                         // Uncomment this later
                         //configBeforeRun(event);
 
-
+                        //game.restartGameTimer();
                         game.run(playerNames, playerColors, window);
                         break;
 

@@ -29,10 +29,11 @@ public:
     void getCommands();
     void moveObjects();
     void dropBombs();
-
     void drawObjects(sf::RenderWindow &);
     void updateBombs();
     void updateCharacters();
+    void showTimer(sf::RenderWindow &);
+    void restartGameTimer();
 
 private:
     std::vector<bool> commands{};
@@ -46,6 +47,9 @@ private:
     sf::Sprite static_object{};
     std::vector<sf::Sprite> static_objects;
     std::vector<sf::Texture> static_textures;
+    sf::Clock gameTimer{};
+    sf::Font font;
+    sf::Text text;
 };
 
 #endif
