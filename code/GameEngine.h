@@ -18,7 +18,7 @@ Defined in MAP_H:
 enum tile{empty = 0, wall = 1, flames, emptybox, shoebox};
 */
 
-#define TEXT_FIELDS 5
+#define TEXT_FIELDS 7
 
 
 class GameEngine

@@ -61,11 +61,20 @@ void GameEngine::setUpText()
             text[i].setCharacterSize(150);
         }
     }
+
     text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
-    text[1].setPosition(sf::Vector2f(TILE_SIZE/2, TILE_SIZE/3));
-    text[2].setPosition(sf::Vector2f(600, 700));
-    text[3].setPosition(sf::Vector2f(100+TILE_SIZE/2, TILE_SIZE/3));
-    text[4].setPosition(sf::Vector2f(700, 700));
+
+    text[1].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE/4));
+
+    text[2].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
+
+    text[3].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE/4));
+
+    text[4].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
+
+    text[5].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE/4));
+
+    text[6].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
 }
 
 
@@ -73,8 +82,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                      std::vector<int> & playerColors,
                      sf::RenderWindow & window)
 {
-
-    //player1.initCharacter("goren", playerColors.at(0));
     player1.initCharacter(playerNames.at(0), playerColors.at(0));
     player2.initCharacter(playerNames.at(1), playerColors.at(1));
 
@@ -127,6 +134,8 @@ void GameEngine::drawText(sf::RenderWindow & window)
     text[2].setString(characters[1].getName());
     text[3].setString(std::to_string(characters[0].getLife()));
     text[4].setString(std::to_string(characters[1].getLife()));
+    text[5].setString("| HEALTH");
+    text[6].setString("| HEALTH");
     for (int i{1}; i < TEXT_FIELDS; ++i)
     {
         window.draw(text[i]);
