@@ -12,10 +12,19 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
             if (!checkCollisions(sf::Vector2f(direction.x, 0), map))
             {
                 int dy = 50*round(sprite.getPosition().y/50.0)-sprite.getPosition().y;
-                if (abs(dy) <= 15 && dy != 0 && checkCollisions(sf::Vector2f(0, dy), map))
+                if (abs(dy) <= 15 && dy != 0)
                 {
-                    sprite.move(0, dy/abs(dy));
+                    sprite.move(0, dy);
+                    if (checkCollisions(sf::Vector2f(direction.x, 0), map))
+                    {
+                        sprite.move(0, -dy + dy/abs(dy));
+                    }
+                    else
+                    {
+                        sprite.move(0, -dy);
+                    }
                     animate_sprite(sf::Vector2f(0, dy));
+
                 }
                 if (!checkCollisions(sf::Vector2f(direction.x, 0), map))
                 {
@@ -26,7 +35,6 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
             else
             {
                 animate_sprite(direction);
-
             }
             updateMapIndex();
         }
@@ -55,10 +63,8 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
             else
             {
                 animate_sprite(direction);
-
             }
             updateMapIndex();
-
         }
     }
 
