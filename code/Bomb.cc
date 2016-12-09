@@ -1,6 +1,6 @@
 #include "Bomb.h"
 
-Bomb::Bomb(Character & player,Map & map)
+Bomb::Bomb(Character & player, Map & map)
 : texture{},
 bombRadius{player.getBombRadius()},
 timer{},
@@ -9,7 +9,9 @@ detonated{false},
 exploded{false},
 explodeRange{bombRadius,bombRadius,bombRadius,bombRadius},
 directions{{0,-1},{0,1},{-1,0},{1,0}},
-boxContents{0,0,0,0}
+boxContents{0,0,0,0},
+playerPtr{&player}
+
 {
     sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
     texture.loadFromFile("Texture/bomb-small.png");
@@ -33,23 +35,29 @@ void Bomb::update()
             validDirection = true;
             for (int i{1}; i <= bombRadius; ++i)
             {
-                if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) == wall)
+                if (validDirection == true &&
+                    mapPtr->getCoord(mapCoords + directions[j]*i) == wall)
                 {
                     explodeRange[j] = i - 1;
                     validDirection = false;
                 }
-                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox && mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
+                else if (validDirection == true &&
+                    mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox &&
+                    mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
                 {
                     boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 5;
                     validDirection = false;
                     mapPtr->setCoord(mapCoords + directions[j]*i, flames);
                     explodeRange[j] = i;
+                    playerPtr->setPoints(100);
                 }
-                else if (validDirection == true && mapPtr->getCoord(mapCoords + directions[j]*i) == emptybox)
+                else if (validDirection == true &&
+                    mapPtr->getCoord(mapCoords + directions[j]*i) == emptybox)
                 {
                     mapPtr->setCoord(mapCoords + directions[j]*i, flames);
                     explodeRange[j] = i;
                     validDirection = false;
+                    playerPtr->setPoints(100);
                 }
                 else if (validDirection == true)
                 {

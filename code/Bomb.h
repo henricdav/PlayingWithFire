@@ -29,6 +29,7 @@ private:
     std::vector<int> explodeRange;
     std::vector<MapCoords> directions;
     std::vector<int> boxContents;
+    Character* playerPtr{};
 };
 
 #endif

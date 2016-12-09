@@ -27,6 +27,7 @@ public:
     void setBombRadius();
     void setBombTime();
     void setBombMover();
+    void setPoints(int);
     void setRespawnTimer();
     sf::Clock getRespawnTimer();
 
@@ -39,6 +40,7 @@ private:
     int lives{};
     int color{};
     int bombTime{};
+    int points{};
     sf::Clock respawnTimer{};
     sf::Clock timeToNextBomb{};
 };

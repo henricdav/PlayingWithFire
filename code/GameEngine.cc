@@ -47,11 +47,6 @@ void GameEngine::setUpText()
         std::cerr << "Couldn't load font" << std:: endl;
     }
 
-    //text[0].setFont(font);
-    //text[0].setFillColor(sf::Color::Black);
-    //text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
-    //text[0].setCharacterSize(150);
-
     for (int i = 0; i < TEXT_FIELDS; i++)
     {
         text[i].setFont(font);
@@ -63,17 +58,11 @@ void GameEngine::setUpText()
     }
 
     text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
-
     text[1].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE/4));
-
     text[2].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
-
     text[3].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE/4));
-
     text[4].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
-
     text[5].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE/4));
-
     text[6].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
 }
 
@@ -256,6 +245,15 @@ void GameEngine::updateCharacters()
             {
             characters[it].eraseLife();
             characters[it].setRespawnTimer();
+            switch (it)
+            {
+                case 0:
+                    characters[1].setPoints(500);
+                    break;
+                case 1:
+                    characters[0].setPoints(500);
+                    break;
+            }
             std::cerr << characters[it].getLife() << std::endl;
             }
             break;
@@ -270,6 +268,7 @@ void GameEngine::checkGameOver(bool & terminated)
         if (characters[it].getLife() == 0 && !terminated)
         {
             std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
+            std::cerr << ""
             terminated = true;
         }
     }
