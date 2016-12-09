@@ -11,25 +11,24 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
 
             if (!checkCollisions(sf::Vector2f(direction.x, 0), map))
             {
-                int dy = 50*round(sprite.getPosition().y/50.0)-sprite.getPosition().y;
-                if (abs(dy) <= 15 && dy != 0)
+                int dy = TILE_SIZE*round(sprite.getPosition().y/TILE_SIZE)-sprite.getPosition().y;
+                if (abs(dy) <= moveThreshold && dy != 0)
                 {
                     sprite.move(0, dy);
                     if (checkCollisions(sf::Vector2f(direction.x, 0), map))
                     {
                         sprite.move(0, -dy + dy/abs(dy));
+                        animate_sprite(sf::Vector2f(0, dy));
                     }
                     else
                     {
                         sprite.move(0, -dy);
                     }
-                    animate_sprite(sf::Vector2f(0, dy));
-
                 }
                 if (!checkCollisions(sf::Vector2f(direction.x, 0), map))
                 {
                     sprite.move(-direction.x/abs(direction.x), 0);
-                    i = 100;
+                    break;
                 }
             }
             else
@@ -48,16 +47,24 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
 
             if (!checkCollisions(sf::Vector2f(0, direction.y), map))
             {
-                int dx = 50*round(sprite.getPosition().x/50.0)-sprite.getPosition().x;
-                if (abs(dx) <= 15 && dx != 0 && checkCollisions(sf::Vector2f(dx, 0), map))
+                int dx = TILE_SIZE*round(sprite.getPosition().x/TILE_SIZE)-sprite.getPosition().x;
+                if (abs(dx) <= moveThreshold && dx != 0)
                 {
-                   sprite.move(dx/abs(dx), 0);
-                   animate_sprite(sf::Vector2f(dx, 0));
+                    sprite.move(dx, 0);
+                    if (checkCollisions(sf::Vector2f(0, direction.y), map))
+                    {
+                        sprite.move(-dx + dx/abs(dx), 0);
+                        animate_sprite(sf::Vector2f(dx, 0));
+                    }
+                    else
+                    {
+                        sprite.move(-dx, 0);
+                    }
                 }
                 if (!checkCollisions(sf::Vector2f(0, direction.y), map))
                 {
                     sprite.move(0, -direction.y/abs(direction.y));
-                    j = 100;
+                    break;
                 }
             }
             else
@@ -94,11 +101,10 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
     {
         direction.y = direction.y/abs(direction.y); //0, -1 or +1
     }
-    //xIndexMap = round((sprite.getPosition().x)/TILE_WIDTH+direction.x);
-    //yIndexMap = round((sprite.getPosition().y)/TILE_HEIGHT+direction.y);
+
     MapCoords mapIndex{static_cast<int>(round((sprite.getPosition().x)/TILE_WIDTH+direction.x)),
                        static_cast<int>(round((sprite.getPosition().y)/TILE_HEIGHT+direction.y))};
-    //if (map->getCoord(xIndexMap + direction.x, yIndexMap + direction.y) == 1)
+
     if (sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex).getGlobalBounds())
         || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(direction.y,direction.x)).getGlobalBounds())
         || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(-direction.y,-direction.x)).getGlobalBounds()))
