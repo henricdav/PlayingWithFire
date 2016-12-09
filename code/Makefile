@@ -12,7 +12,7 @@ INCLUDES = -I${SFML_ROOT}/include -L${SFML_ROOT}/lib
 CCC = g++
 
 # Kompilatorflaggor, lägg till '-g' om kompilering för avlusning ska göras.
-CCFLAGS += -std=c++17 -Wpedantic -Wall -Wextra -Werror #-Weffc++
+CCFLAGS += -std=c++14 -Wpedantic -Wall -Wextra -Werror #-Weffc++
 
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
 # CPPFLAGS += -I$(CODE)

@@ -8,6 +8,7 @@ Klassen Object
 #include <string>
 #include <iostream>
 #include <memory>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include "Map.h"
 
