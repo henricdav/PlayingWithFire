@@ -50,9 +50,7 @@ void GameEngine::initTextures()
 void GameEngine::run(std::vector<std::string> & playerNames,
                      std::vector<int> & playerColors,
                      sf::RenderWindow & window)
-
 {
-
 
     player1.initCharacter(playerNames.at(0), playerColors.at(0));
     player2.initCharacter(playerNames.at(1), playerColors.at(1));
@@ -75,7 +73,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         drawWindowFromMap(window);
         drawObjects(window);
 
-        if (gameTimer.getElapsedTime().asSeconds() > 4)
+        if (gameTimer.getElapsedTime().asSeconds() > 3)
         {
             getCommands();
             moveObjects();
@@ -89,37 +87,11 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         }
 
         window.display();
+
         sf::sleep(sf::milliseconds(20));
 
     }
-    // To get rid of unused compiler messages.
-    if(false)
-    {
-        std::cout << playerColors.at(0) << playerNames.at(0);
-    }
-
 }
-
-void GameEngine::showTimer(sf::RenderWindow & window)
-{
-    if (gameTimer.getElapsedTime().asSeconds() >= 0 && gameTimer.getElapsedTime().asSeconds() < 2)
-    {
-        text.setString("3");
-        window.draw(text);
-    }
-    else if (gameTimer.getElapsedTime().asSeconds() >= 2 && gameTimer.getElapsedTime().asSeconds() < 3)
-    {
-        text.setString("2");
-        window.draw(text);
-    }
-    else if (gameTimer.getElapsedTime().asSeconds() >= 3 && gameTimer.getElapsedTime().asSeconds() < 4)
-    {
-        text.setString("1");
-        window.draw(text);
-    }
-}
-
-
 
 void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
 {
@@ -229,8 +201,13 @@ void GameEngine::updateCharacters()
             map.setCoord(player1.tileCoordinates(), empty);
             break;
         case flames:
+            if (player1.getRespawnTimer().getElapsedTime().asSeconds() > 3)
+            {
             player1.eraseLife();
-            // GÖR NÅGOT MER HÄR
+            player1.setRespawnTimer();
+            std::cerr << player1.getLife() << std::endl;
+            }
+
             break;
     }
     switch (map.getCoord(player2.tileCoordinates()))
@@ -260,4 +237,28 @@ void GameEngine::updateCharacters()
             // GÖR NÅGOT MER HÄR
             break;
     }
+}
+
+void GameEngine::showTimer(sf::RenderWindow & window)
+{
+    if (gameTimer.getElapsedTime().asSeconds() >= 0 && gameTimer.getElapsedTime().asSeconds() < 1)
+    {
+        text.setString("3");
+        window.draw(text);
+    }
+    else if (gameTimer.getElapsedTime().asSeconds() >= 1 && gameTimer.getElapsedTime().asSeconds() < 2)
+    {
+        text.setString("2");
+        window.draw(text);
+    }
+    else if (gameTimer.getElapsedTime().asSeconds() >= 2 && gameTimer.getElapsedTime().asSeconds() < 3)
+    {
+        text.setString("1");
+        window.draw(text);
+    }
+}
+
+void GameEngine::restartGameTimer()
+{
+    gameTimer.restart();
 }

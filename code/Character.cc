@@ -102,3 +102,13 @@ void Character::setBombMover()
 {
     bombMover = true;
 }
+
+void Character::setRespawnTimer()
+{
+    respawnTimer.restart();
+}
+
+sf::Clock Character::getRespawnTimer()
+{
+    return respawnTimer;
+}

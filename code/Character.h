@@ -27,6 +27,8 @@ public:
     void setBombRadius();
     void setBombTime();
     void setBombMover();
+    void setRespawnTimer();
+    sf::Clock getRespawnTimer();
 
 private:
     sf::Texture player_texture{};

@@ -25,15 +25,15 @@ public:
     ~GameEngine() = default;
     void initTextures();
     void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
-    void showTimer(sf::RenderWindow &);
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
     void dropBombs();
-
     void drawObjects(sf::RenderWindow &);
     void updateBombs();
     void updateCharacters();
+    void showTimer(sf::RenderWindow &);
+    void restartGameTimer();
 
 private:
     std::vector<bool> commands{};
