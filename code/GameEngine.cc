@@ -52,8 +52,12 @@ void GameEngine::run(std::vector<std::string> & playerNames,
                      sf::RenderWindow & window)
 {
 
+    //player1.initCharacter("goren", playerColors.at(0));
     player1.initCharacter(playerNames.at(0), playerColors.at(0));
     player2.initCharacter(playerNames.at(1), playerColors.at(1));
+
+    characters.push_back(player1);
+    characters.push_back(player2);
 
     bool terminated{false};
     while (!terminated)
@@ -126,16 +130,15 @@ void GameEngine::getCommands()
 
 void GameEngine::moveObjects()
 {
-
-    if (commands[0]) {player1.move(sf::Vector2f(-player1.getSpeed(), 0), std::make_shared<Map>(map));}
-    if (commands[1]) {player1.move(sf::Vector2f(player1.getSpeed(), 0), std::make_shared<Map>(map));}
-    if (commands[2]) {player1.move(sf::Vector2f(0, -player1.getSpeed()), std::make_shared<Map>(map));}
-    if (commands[3]) {player1.move(sf::Vector2f(0, player1.getSpeed()), std::make_shared<Map>(map));}
+    if (commands[0]) {characters[0].move(sf::Vector2f(-characters[0].getSpeed(), 0), std::make_shared<Map>(map));}
+    if (commands[1]) {characters[0].move(sf::Vector2f(characters[0].getSpeed(), 0), std::make_shared<Map>(map));}
+    if (commands[2]) {characters[0].move(sf::Vector2f(0, -characters[0].getSpeed()), std::make_shared<Map>(map));}
+    if (commands[3]) {characters[0].move(sf::Vector2f(0, characters[0].getSpeed()), std::make_shared<Map>(map));}
     if (commands[4]) {}
-    if (commands[5]) {player2.move(sf::Vector2f(-player2.getSpeed(), 0), std::make_shared<Map>(map));}
-    if (commands[6]) {player2.move(sf::Vector2f(player2.getSpeed(), 0), std::make_shared<Map>(map));}
-    if (commands[7]) {player2.move(sf::Vector2f(0, -player2.getSpeed()), std::make_shared<Map>(map));}
-    if (commands[8]) {player2.move(sf::Vector2f(0, player2.getSpeed()), std::make_shared<Map>(map));}
+    if (commands[5]) {characters[1].move(sf::Vector2f(-characters[1].getSpeed(), 0), std::make_shared<Map>(map));}
+    if (commands[6]) {characters[1].move(sf::Vector2f(characters[1].getSpeed(), 0), std::make_shared<Map>(map));}
+    if (commands[7]) {characters[1].move(sf::Vector2f(0, -characters[1].getSpeed()), std::make_shared<Map>(map));}
+    if (commands[8]) {characters[1].move(sf::Vector2f(0, characters[1].getSpeed()), std::make_shared<Map>(map));}
     if (commands[9]) {}
 }
 
@@ -146,15 +149,15 @@ void GameEngine::dropBombs()
         bombs.erase(bombs.begin());
     }
 
-    if (commands[4] && player1.dropBomb())
+    if (commands[4] && characters[0].dropBomb())
     {
-        player1.resetBombTimer();
-        bombs.push_back(std::make_unique<Bomb>(player1, map));
+        characters[0].resetBombTimer();
+        bombs.push_back(std::make_unique<Bomb>(characters[0], map));
     }
-    if (commands[9] && player2.dropBomb())
+    if (commands[9] && characters[1].dropBomb())
     {
-        player2.resetBombTimer();
-        bombs.push_back(std::make_unique<Bomb>(player2, map));
+        characters[1].resetBombTimer();
+        bombs.push_back(std::make_unique<Bomb>(characters[1], map));
     }
 }
 
@@ -172,43 +175,51 @@ void GameEngine::drawObjects(sf::RenderWindow & window)
     {
         window.draw(bombs[i]->sprite);
     }
-    window.draw(player1.sprite);
-    window.draw(player2.sprite);
+    window.draw(characters[0].sprite);
+    window.draw(characters[1].sprite);
 }
 
 void GameEngine::updateCharacters()
 {
-    switch (map.getCoord(player1.tileCoordinates()))
+    for (unsigned int it{0}; it < characters.size(); it++)
     {
-        case shoes:
-            player1.setSpeed();
-            map.setCoord(player1.tileCoordinates(), empty);
-            break;
-        case extrabomb:
-            player1.setBombTime();
-            map.setCoord(player1.tileCoordinates(), empty);
-            break;
-        case bombradius:
-            player1.setBombRadius();
-            map.setCoord(player1.tileCoordinates(), empty);
-            break;
-        case life:
-            player1.setLife();
-            map.setCoord(player1.tileCoordinates(), empty);
-            break;
-        case bombmover:
-            player1.setBombMover();
-            map.setCoord(player1.tileCoordinates(), empty);
-            break;
-        case flames:
-            if (player1.getRespawnTimer().getElapsedTime().asSeconds() > 3)
-            {
-            player1.eraseLife();
-            player1.setRespawnTimer();
-            std::cerr << player1.getLife() << std::endl;
-            }
+        //std::cerr << it << std::endl;
+        //std::cerr << map.getCoord(player1.tileCoordinates()) << std::endl;
+        //std::cerr << map.getCoord(characters[it].tileCoordinates());
+        switch (map.getCoord(characters[it].tileCoordinates()))
+        {
+            case shoes:
+                characters[it].setSpeed();
+                map.setCoord(characters[it].tileCoordinates(), empty);
+                break;
+            case extrabomb:
+                characters[it].setBombTime();
+                map.setCoord(characters[it].tileCoordinates(), empty);
+                break;
+            case bombradius:
+                characters[it].setBombRadius();
+                map.setCoord(characters[it].tileCoordinates(), empty);
+                break;
+            case life:
+                characters[it].setLife();
+                map.setCoord(characters[it].tileCoordinates(), empty);
+                break;
+            case bombmover:
+                characters[it].setBombMover();
+                map.setCoord(characters[it].tileCoordinates(), empty);
+                break;
+            case flames:
+                if (characters[it].getRespawnTimer().getElapsedTime().asSeconds() > 3)
+                {
+                characters[it].eraseLife();
+                characters[it].setRespawnTimer();
+                std::cerr << characters[it].getLife() << std::endl;
+                }
 
-            break;
+                break;
+            }
+    }
+    /*
     }
     switch (map.getCoord(player2.tileCoordinates()))
     {
@@ -237,6 +248,7 @@ void GameEngine::updateCharacters()
             // GÖR NÅGOT MER HÄR
             break;
     }
+    */
 }
 
 void GameEngine::showTimer(sf::RenderWindow & window)
