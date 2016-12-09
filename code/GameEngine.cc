@@ -217,11 +217,9 @@ void GameEngine::updateCharacters()
                 {
                     case 0:
                         characters[1].setPoints(500);
-                        std::cerr << "player2 get 500" << std::endl;
                         break;
                     case 1:
                         characters[0].setPoints(500);
-                        std::cerr << "player1 get 500" << std::endl;
                         break;
                 }
                 std::cerr <<characters[it].getLife() << std::endl;
