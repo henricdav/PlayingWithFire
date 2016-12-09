@@ -42,7 +42,7 @@ void GameEngine::initTextures()
 
 void GameEngine::setUpText()
 {
-    if (!font.loadFromFile("Figures/arial.ttf"))
+    if (!font.loadFromFile("Figures/punkboyFont.ttf"))
     {
         std::cerr << "Couldn't load font" << std:: endl;
     }
@@ -64,6 +64,9 @@ void GameEngine::setUpText()
     text[4].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
     text[5].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE/4));
     text[6].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
+    text[7].setPosition(sf::Vector2f(TILE_SIZE*11, TILE_SIZE/4));
+    text[8].setPosition(sf::Vector2f(TILE_SIZE*11, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
+
 }
 
 
@@ -123,8 +126,10 @@ void GameEngine::drawText(sf::RenderWindow & window)
     text[2].setString(characters[1].getName());
     text[3].setString(std::to_string(characters[0].getLife()));
     text[4].setString(std::to_string(characters[1].getLife()));
-    text[5].setString("| HEALTH");
-    text[6].setString("| HEALTH");
+    text[5].setString("HEALTH:");
+    text[6].setString("HEALTH:");
+    text[7].setString(std::to_string(characters[0].getPoints()) + " p");
+    text[8].setString(std::to_string(characters[1].getPoints()) + " p");
     for (int i{1}; i < TEXT_FIELDS; ++i)
     {
         window.draw(text[i]);
@@ -254,7 +259,6 @@ void GameEngine::updateCharacters()
                     characters[0].setPoints(500);
                     break;
             }
-            std::cerr << characters[it].getLife() << std::endl;
             }
             break;
         }
@@ -268,7 +272,7 @@ void GameEngine::checkGameOver(bool & terminated)
         if (characters[it].getLife() == 0 && !terminated)
         {
             std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
-            std::cerr << ""
+            characters[it].setPoints(-1000);
             terminated = true;
         }
     }

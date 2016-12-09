@@ -70,6 +70,11 @@ int Character::getLife() const
     return lives;
 }
 
+int Character::getPoints() const
+{
+    return points;
+}
+
 void Character::eraseLife()
 {
     if (lives >= 1)

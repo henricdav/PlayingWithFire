@@ -243,14 +243,14 @@ int Menu::configBeforeRun(sf::Event event)
     line.setPosition(25+X_OFFSET, 150+Y_OFFSET);
 
     sf::Texture tex[NUMBER_OF_PLAYERS];
-    tex[0].loadFromFile("Figures/capguy_sprite.png");
-    tex[1].loadFromFile("Figures/minecraft_sprite.png");
+    tex[0].loadFromFile("Figures/adaRed.png");
+    tex[1].loadFromFile("Figures/danteBlue.png");
 
     sf::Sprite show_character[NUMBER_OF_PLAYERS];
     show_character[0].setTexture(tex[0]);
-    show_character[0].setPosition(50+X_OFFSET, 180+Y_OFFSET);
+    show_character[0].setPosition(50+X_OFFSET, 200+Y_OFFSET);
     show_character[1].setTexture(tex[1]);
-    show_character[1].setPosition(50+X_OFFSET, 280+Y_OFFSET);
+    show_character[1].setPosition(50+X_OFFSET, 300+Y_OFFSET);
 
     std::string tmp_name;
     int count = 0;
@@ -321,11 +321,11 @@ int Menu::configBeforeRun(sf::Event event)
             }
         }
 
-        show_character[0].setTextureRect(sf::IntRect(394/8*count, 0, 394/8, 87));
-        show_character[1].setTextureRect(sf::IntRect(394/8*count, 0, 394/8, 87));
+        show_character[0].setTextureRect(sf::IntRect(150, 50*count, 50, 50));
+        show_character[1].setTextureRect(sf::IntRect(150, 50*count, 50, 50));
         sf::sleep(sf::milliseconds(50));
         count++;
-        if (count == 7)
+        if (count == 3)
         {
             count = 0;
         }
