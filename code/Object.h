@@ -29,6 +29,8 @@ protected:
     MapCoords mapCoords;
     int counter_rendering{};
     void updateMapIndex();
+private:
+    const int moveThreshold{15};
 };
 
 #endif
