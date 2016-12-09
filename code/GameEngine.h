@@ -18,12 +18,16 @@ Defined in MAP_H:
 enum tile{empty = 0, wall = 1, flames, emptybox, shoebox};
 */
 
+#define TEXT_FIELDS 5
+
+
 class GameEngine
 {
 public:
     GameEngine();
     ~GameEngine() = default;
     void initTextures();
+    void setUpText();
     void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
@@ -32,8 +36,10 @@ public:
     void drawObjects(sf::RenderWindow &);
     void updateBombs();
     void updateCharacters();
+    void checkGameOver(bool &);
     void showTimer(sf::RenderWindow &);
     void restartGameTimer();
+    void drawText(sf::RenderWindow &);
 
 private:
     std::vector<bool> commands{};
@@ -49,7 +55,7 @@ private:
     std::vector<sf::Texture> static_textures;
     sf::Clock gameTimer{};
     sf::Font font;
-    sf::Text text;
+    sf::Text text[TEXT_FIELDS];
 };
 
 #endif

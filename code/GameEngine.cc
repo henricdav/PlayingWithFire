@@ -28,7 +28,8 @@ void GameEngine::initTextures()
         "Texture/health-powerup.png",
         "Texture/bombmover-powerup.jpg"};
 
-    for (int i = 0; i < TILE_TYPES; ++i) {
+    for (int i = 0; i < TILE_TYPES; ++i)
+    {
         static_textures[i].loadFromFile(filenames[i]);
         static_objects[i].setTexture(static_textures[i]);
         static_objects[i].setTextureRect(sf::IntRect(0, 0, 50, 50));
@@ -36,16 +37,37 @@ void GameEngine::initTextures()
         static_object.setTextureRect(sf::IntRect(0, 0, 50, 50));
     }
 
+    setUpText();
+}
+
+void GameEngine::setUpText()
+{
     if (!font.loadFromFile("Figures/arial.ttf"))
     {
         std::cerr << "Couldn't load font" << std:: endl;
     }
-    text.setFont(font);
-    text.setFillColor(sf::Color::Black);
-    text.setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
-    text.setCharacterSize(150);
 
+    //text[0].setFont(font);
+    //text[0].setFillColor(sf::Color::Black);
+    //text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
+    //text[0].setCharacterSize(150);
+
+    for (int i = 0; i < TEXT_FIELDS; i++)
+    {
+        text[i].setFont(font);
+        text[i].setFillColor(sf::Color::Black);
+        if (i == 0)
+        {
+            text[i].setCharacterSize(150);
+        }
+    }
+    text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
+    text[1].setPosition(sf::Vector2f(TILE_SIZE/2, TILE_SIZE/3));
+    text[2].setPosition(sf::Vector2f(600, 700));
+    text[3].setPosition(sf::Vector2f(100+TILE_SIZE/2, TILE_SIZE/3));
+    text[4].setPosition(sf::Vector2f(700, 700));
 }
+
 
 void GameEngine::run(std::vector<std::string> & playerNames,
                      std::vector<int> & playerColors,
@@ -76,6 +98,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
 
         drawWindowFromMap(window);
         drawObjects(window);
+        drawText(window);
 
         if (gameTimer.getElapsedTime().asSeconds() > 3)
         {
@@ -84,6 +107,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             dropBombs();
             updateBombs();
             updateCharacters();
+            checkGameOver(terminated);
         }
         else
         {
@@ -95,6 +119,19 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         sf::sleep(sf::milliseconds(20));
 
     }
+}
+
+void GameEngine::drawText(sf::RenderWindow & window)
+{
+    text[1].setString(characters[0].getName());
+    text[2].setString(characters[1].getName());
+    text[3].setString(std::to_string(characters[0].getLife()));
+    text[4].setString(std::to_string(characters[1].getLife()));
+    for (int i{1}; i < TEXT_FIELDS; ++i)
+    {
+        window.draw(text[i]);
+    }
+
 }
 
 void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
@@ -183,90 +220,68 @@ void GameEngine::updateCharacters()
 {
     for (unsigned int it{0}; it < characters.size(); it++)
     {
-        //std::cerr << it << std::endl;
-        //std::cerr << map.getCoord(player1.tileCoordinates()) << std::endl;
-        //std::cerr << map.getCoord(characters[it].tileCoordinates());
         switch (map.getCoord(characters[it].tileCoordinates()))
         {
-            case shoes:
-                characters[it].setSpeed();
-                map.setCoord(characters[it].tileCoordinates(), empty);
-                break;
-            case extrabomb:
-                characters[it].setBombTime();
-                map.setCoord(characters[it].tileCoordinates(), empty);
-                break;
-            case bombradius:
-                characters[it].setBombRadius();
-                map.setCoord(characters[it].tileCoordinates(), empty);
-                break;
-            case life:
-                characters[it].setLife();
-                map.setCoord(characters[it].tileCoordinates(), empty);
-                break;
-            case bombmover:
-                characters[it].setBombMover();
-                map.setCoord(characters[it].tileCoordinates(), empty);
-                break;
-            case flames:
-                if (characters[it].getRespawnTimer().getElapsedTime().asSeconds() > 3)
-                {
-                characters[it].eraseLife();
-                characters[it].setRespawnTimer();
-                std::cerr << characters[it].getLife() << std::endl;
-                }
-
-                break;
-            }
-    }
-    /*
-    }
-    switch (map.getCoord(player2.tileCoordinates()))
-    {
         case shoes:
-            player2.setSpeed();
-            map.setCoord(player2.tileCoordinates(), empty);
+            characters[it].setSpeed();
+            map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case extrabomb:
-            player2.setBombTime();
-            map.setCoord(player2.tileCoordinates(), empty);
+            characters[it].setBombTime();
+            map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case bombradius:
-            player2.setBombRadius();
-            map.setCoord(player2.tileCoordinates(), empty);
+            characters[it].setBombRadius();
+            map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case life:
-            player2.setLife();
-            map.setCoord(player2.tileCoordinates(), empty);
+            characters[it].setLife();
+            map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case bombmover:
-            player2.setBombMover();
-            map.setCoord(player2.tileCoordinates(), empty);
+            characters[it].setBombMover();
+            map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case flames:
-            player2.eraseLife();
-            // GÖR NÅGOT MER HÄR
+            if (characters[it].getRespawnTimer().getElapsedTime().asSeconds() > 3)
+            {
+            characters[it].eraseLife();
+            characters[it].setRespawnTimer();
+            std::cerr << characters[it].getLife() << std::endl;
+            }
             break;
+        }
     }
-    */
+}
+
+void GameEngine::checkGameOver(bool & terminated)
+{
+    for (unsigned int it{0}; it < characters.size(); it++)
+    {
+        if (characters[it].getLife() == 0 && !terminated)
+        {
+            std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
+            terminated = true;
+        }
+    }
 }
 
 void GameEngine::showTimer(sf::RenderWindow & window)
 {
     if (gameTimer.getElapsedTime().asSeconds() >= 0 && gameTimer.getElapsedTime().asSeconds() < 1)
     {
-        text.setString("3");
-        window.draw(text);
+        text[0].setString("3");
+        window.draw(text[0]);
     }
     else if (gameTimer.getElapsedTime().asSeconds() >= 1 && gameTimer.getElapsedTime().asSeconds() < 2)
     {
-        text.setString("2");
-        window.draw(text);
+        text[0].setString("2");
+        window.draw(text[0]);
     }
     else if (gameTimer.getElapsedTime().asSeconds() >= 2 && gameTimer.getElapsedTime().asSeconds() < 3)
     {
-        text.setString("1");
-        window.draw(text);
+        text[0].setString("1");
+        window.draw(text[0]);
     }
 }
 
