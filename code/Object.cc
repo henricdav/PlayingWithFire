@@ -58,14 +58,7 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
 
 bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
 {
-    if (direction.x != 0)
-    {
-        direction.x = direction.x/abs(direction.x);  //0, -1 or +1
-    }
-    if (direction.y != 0)
-    {
-        direction.y = direction.y/abs(direction.y); //0, -1 or +1
-    }
+    direction = sign(direction);
 
     MapCoords mapIndex{static_cast<int>(round((sprite.getPosition().x)/TILE_WIDTH+direction.x)),
         static_cast<int>(round((sprite.getPosition().y)/TILE_HEIGHT+direction.y))};
