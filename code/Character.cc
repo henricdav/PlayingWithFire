@@ -16,10 +16,10 @@ void Character::resetBombTimer()
     timeToNextBomb.restart();
 }
 
-void Character::initCharacter(std::string new_name, int attribute)
+void Character::initCharacter(std::string menu_name, int attribute)
 {
     color = attribute;
-    name = new_name;
+    name = menu_name;
 
     if (color == 1)
     {
