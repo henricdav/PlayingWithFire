@@ -225,6 +225,7 @@ void GameEngine::updateCharacters()
 {
     for (unsigned int it{0}; it < characters.size(); it++)
     {
+        characters[it].setSprite();
         switch (map.getCoord(characters[it].tileCoordinates()))
         {
         case shoes:
@@ -258,6 +259,7 @@ void GameEngine::updateCharacters()
             music.deathSound();
             characters[it].eraseLife();
             characters[it].setRespawnTimer();
+            //characters[it].setSprite();
             switch (it)
             {
                 case 0:

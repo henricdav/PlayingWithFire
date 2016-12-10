@@ -31,6 +31,7 @@ public:
     void setPoints(int);
     void setRespawnTimer();
     sf::Clock getRespawnTimer();
+    void setSprite();
 
 private:
     sf::Texture player_texture{};

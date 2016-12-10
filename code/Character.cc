@@ -32,8 +32,38 @@ void Character::initCharacter(std::string new_name, int attribute)
     }
     sprite.setTexture(player_texture);
     updateMapIndex();
-
+    color = attribute;
     name = new_name;
+}
+
+void Character::setSprite()
+{
+    if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
+    {
+        if (color == 1)
+        {
+            player_texture.loadFromFile("Figures/adaRedRespawn.png");
+            sprite.setTexture(player_texture);
+        }
+        else if (color == 2)
+        {
+            player_texture.loadFromFile("Figures/danteBlueRespawn.png");
+            sprite.setTexture(player_texture);
+        }
+    }
+    else
+    {
+        if (color == 1)
+        {
+            player_texture.loadFromFile("Figures/adaRed.png");
+            sprite.setTexture(player_texture);
+        }
+        else if (color == 2)
+        {
+            player_texture.loadFromFile("Figures/danteBlue.png");
+            sprite.setTexture(player_texture);
+        }
+    }
 }
 
 bool Character::dropBomb()
