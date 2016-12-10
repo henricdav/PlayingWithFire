@@ -7,6 +7,8 @@ Character::Character()
     bombRadius = 1;
     lives = 3;
     bombTime = 3000;
+    textures = {"Figures/adaRed.png", "Figures/danteBlue.png",
+                "Figures/adaRedRespawn.png", "Figures/danteBlueRespawn.png"};
 }
 
 void Character::resetBombTimer()
@@ -36,28 +38,13 @@ void Character::initCharacter(std::string new_name, int attribute)
 
 void Character::setSprite()
 {
-    switch(color)
+    if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
     {
-    case 1:
-        if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
-        {
-            player_texture.loadFromFile("Figures/adaRedRespawn.png");
-        }
-        else
-        {
-            player_texture.loadFromFile("Figures/adaRed.png");
-        }
-        break;
-    case 2:
-        if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
-        {
-            player_texture.loadFromFile("Figures/danteBlueRespawn.png");
-        }
-        else
-        {
-            player_texture.loadFromFile("Figures/danteBlue.png");
-        }
-        break;
+        player_texture.loadFromFile(textures[color-1+2]);
+    }
+    else
+    {
+        player_texture.loadFromFile(textures[color-1]);
     }
     sprite.setTexture(player_texture);
 }
