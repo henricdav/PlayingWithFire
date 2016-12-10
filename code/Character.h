@@ -16,6 +16,7 @@ public:
     ~Character() = default;
     void resetBombTimer();
     void initCharacter(std::string, int);
+    void setSprite();
     bool dropBomb();
     std::string getName() const;
     int getSpeed() const;
@@ -31,7 +32,6 @@ public:
     void setPoints(int);
     void setRespawnTimer();
     sf::Clock getRespawnTimer();
-    void setSprite();
 
 private:
     sf::Texture player_texture{};

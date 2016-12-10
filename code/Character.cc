@@ -16,54 +16,50 @@ void Character::resetBombTimer()
 
 void Character::initCharacter(std::string new_name, int attribute)
 {
-    if (attribute == 1)
-    {
-        player_texture.loadFromFile("Figures/adaRed.png");
-        sprite.setPosition(sf::Vector2f(TILE_SIZE+X_OFFSET, TILE_SIZE+Y_OFFSET));
-        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    }
-    if (attribute == 2)
-    {
-        player_texture.loadFromFile("Figures/danteBlue.png");
-        sprite.setPosition(sf::Vector2f((TILES_X*TILE_SIZE-2*TILE_SIZE)+X_OFFSET,
-                                        (TILES_Y*TILE_SIZE-2*TILE_SIZE)+Y_OFFSET));
-        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-
-    }
-    sprite.setTexture(player_texture);
-    updateMapIndex();
     color = attribute;
     name = new_name;
+
+    if (color == 1)
+    {
+        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
+        sprite.setPosition(sf::Vector2f(TILE_SIZE+X_OFFSET, TILE_SIZE+Y_OFFSET));
+    }
+    if (color == 2)
+    {
+        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
+        sprite.setPosition(sf::Vector2f((TILES_X*TILE_SIZE-2*TILE_SIZE)+X_OFFSET,
+                                        (TILES_Y*TILE_SIZE-2*TILE_SIZE)+Y_OFFSET));
+    }
+    setSprite();
+    updateMapIndex();
 }
 
 void Character::setSprite()
 {
-    if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
+    switch(color)
     {
-        if (color == 1)
+    case 1:
+        if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
         {
             player_texture.loadFromFile("Figures/adaRedRespawn.png");
-            sprite.setTexture(player_texture);
         }
-        else if (color == 2)
-        {
-            player_texture.loadFromFile("Figures/danteBlueRespawn.png");
-            sprite.setTexture(player_texture);
-        }
-    }
-    else
-    {
-        if (color == 1)
+        else
         {
             player_texture.loadFromFile("Figures/adaRed.png");
-            sprite.setTexture(player_texture);
         }
-        else if (color == 2)
+        break;
+    case 2:
+        if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
+        {
+            player_texture.loadFromFile("Figures/danteBlueRespawn.png");
+        }
+        else
         {
             player_texture.loadFromFile("Figures/danteBlue.png");
-            sprite.setTexture(player_texture);
         }
+        break;
     }
+    sprite.setTexture(player_texture);
 }
 
 bool Character::dropBomb()
