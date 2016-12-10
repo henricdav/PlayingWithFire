@@ -12,6 +12,8 @@
 #include "Character.h"
 #include "Map.h"
 #include "globaldefines.h"
+#include <SFML/Audio.hpp>
+#include "GameMusic.h"
 
 /*
 Defined in MAP_H:
@@ -56,6 +58,7 @@ private:
     sf::Clock gameTimer{};
     sf::Font font;
     sf::Text text[TEXT_FIELDS];
+    GameMusic music{};
 };
 
 #endif

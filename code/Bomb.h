@@ -8,6 +8,7 @@ Klassen Bomb
 #include "Character.h"
 #include <vector>
 #include <memory>
+#include "GameMusic.h"
 
 class Bomb : public Object
 {
@@ -30,6 +31,7 @@ private:
     std::vector<MapCoords> directions;
     std::vector<int> boxContents;
     Character* playerPtr{};
+    GameMusic music{};
 };
 
 #endif

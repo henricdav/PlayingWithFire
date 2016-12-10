@@ -80,6 +80,8 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     characters.push_back(player1);
     characters.push_back(player2);
 
+    music.playGameMusic();
+
     bool terminated{false};
     while (!terminated)
     {
@@ -226,28 +228,34 @@ void GameEngine::updateCharacters()
         switch (map.getCoord(characters[it].tileCoordinates()))
         {
         case shoes:
+            music.pickUpSound();
             characters[it].setSpeed();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case extrabomb:
+            music.pickUpSound();
             characters[it].setBombTime();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case bombradius:
+            music.pickUpSound();
             characters[it].setBombRadius();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case life:
+            music.pickUpSound();
             characters[it].setLife();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case bombmover:
+            music.pickUpSound();
             characters[it].setBombMover();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
         case flames:
             if (characters[it].getRespawnTimer().getElapsedTime().asSeconds() > 3)
             {
+            music.deathSound();
             characters[it].eraseLife();
             characters[it].setRespawnTimer();
             switch (it)

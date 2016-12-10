@@ -5,7 +5,7 @@
 # CODE = code
 
 # SFML
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 INCLUDES = -I${SFML_ROOT}/include -L${SFML_ROOT}/lib
 
 # Diagnosmeddelanden från kompilatorn (g++) filtreras av gccfilter.
@@ -18,7 +18,7 @@ CCFLAGS += -std=c++14 -Wpedantic -Wall -Wextra -Werror #-Weffc++
 # CPPFLAGS += -I$(CODE)
 
 # Objektkodsmoduler som ingår i den kompletta kalkylatorn.
-OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o Map.o
+OBJECTS = playingwithfire.o Menu.o GameEngine.o Object.o Character.o Bomb.o Map.o GameMusic.o
 
 # Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
 playingwithfire: $(OBJECTS) Makefile
@@ -54,6 +54,10 @@ Bomb.o: Bomb.h Bomb.cc
 
 Map.o: Map.h Map.cc
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Map.cc
+
+GameMusic.o: GameMusic.h GameMusic.cc
+	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c GameMusic.cc
+
 
 
 # Expression.o: $(EXPRESSION)/Expression.h $(EXPRESSION)/Expression.cc

@@ -29,6 +29,7 @@ void Bomb::update()
 
     if (!exploded && elapsedTime > 3000) // Begin explosion
     {
+        music.explosionSound();
         bool validDirection{};
         for (int j{0}; j <= 3; ++j)
         {
