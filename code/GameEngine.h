@@ -15,6 +15,8 @@
 #include <SFML/Audio.hpp>
 #include "GameMusic.h"
 #include "Highscore.h"
+#include <algorithm>
+
 
 /*
 Defined in MAP_H:
@@ -29,9 +31,11 @@ class GameEngine
 public:
     GameEngine();
     ~GameEngine() = default;
+    void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
+
+private:
     void initTextures();
     void setUpText();
-    void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
@@ -41,10 +45,10 @@ public:
     void updateCharacters();
     void checkGameOver(bool &);
     void showTimer(sf::RenderWindow &);
-    void restartGameTimer();
     void drawText(sf::RenderWindow &);
+    sf::Text showGameOver();
 
-private:
+    bool gameOver;
     std::vector<bool> commands{};
     std::vector<int> scores{};
     std::vector<std::shared_ptr<Bomb>> bombs{};

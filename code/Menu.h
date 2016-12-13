@@ -46,8 +46,6 @@ private:
     int count1 = 0;
     int count2 = 0;
 
-    GameEngine game;
-
     Highscore highscore{};
 
 };

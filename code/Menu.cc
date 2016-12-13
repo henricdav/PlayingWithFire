@@ -3,7 +3,8 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}, game{}//, highscore{}
+        font{}, item_index{}//, highscore{}
+
 {
     window.setFramerateLimit(60);
 
@@ -88,26 +89,22 @@ int Menu::run()
                     switch (selectedItem())
                     {
                     case 0: // PLAY GAME
+                    {
+                        configBeforeRun(event);
 
-                        //Delete the four rows below
-                        playerNames.push_back("LARS");
-                        playerNames.push_back("OLOF");
-                        playerColors.push_back(1);
-                        playerColors.push_back(2);
-
-
-                        // Uncomment this later
-                        //configBeforeRun(event);
-
-                        //game.restartGameTimer();
+                        GameEngine game{};
                         game.run(playerNames, playerColors, window);
+
+                        for (unsigned int i{0}; i <= playerNames.size();  ++i)
+                        {
+                            playerNames.erase(playerNames.begin());
+                            playerColors.erase(playerColors.begin());
+                        }
                         break;
+                    }
 
                     case 1: // OPEN HIGHSCORE
-                        //while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-                        //{
-                        //    std::cout << "OPEN HIGHSCORE" << std::endl;
-                        //}
+
                         highscore.getHighscore();
                         //highscore.showHighscore();
                         break;
@@ -214,7 +211,6 @@ int Menu::configBeforeRun(sf::Event event)
 
     sf::Text config_text[4];
 
-
     config_text[0].setPosition(200+X_OFFSET, 225+Y_OFFSET);
     config_text[0].setFillColor(sf::Color::White);
     config_text[0].setFont(font);
@@ -300,6 +296,7 @@ int Menu::configBeforeRun(sf::Event event)
                 case sf::Keyboard::Space:
                     if (!tmp_name.empty() && tmp_name != " ")
                     {
+                        tmp_name.pop_back();
                         playerNames.push_back(tmp_name);
                         tmp_name = "";
                     }
