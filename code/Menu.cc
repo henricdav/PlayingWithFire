@@ -3,7 +3,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}, game{}
+        font{}, item_index{}
 {
     window.setFramerateLimit(60);
 
@@ -88,20 +88,25 @@ int Menu::run()
                     switch (selectedItem())
                     {
                     case 0: // PLAY GAME
+                    {
 
-                        //Delete the four rows below
-                        playerNames.push_back("LARS");
-                        playerNames.push_back("OLOF");
-                        playerColors.push_back(1);
-                        playerColors.push_back(2);
-
-
-                        // Uncomment this later
-                        //configBeforeRun(event);
-
-                        //game.restartGameTimer();
+                        configBeforeRun(event);
+                        std::cerr << "Size of playernames (before): " << playerNames.size() << std::endl;
+                        std::cerr << "Size of playercolors (before): " << playerColors.size() << std::endl;
+                        GameEngine game{};
+                        game.restartGameTimer();
                         game.run(playerNames, playerColors, window);
+
+                        for (unsigned int i{0}; i <= playerNames.size();  ++i)
+                        {
+                            playerNames.erase(playerNames.begin());
+                            playerColors.erase(playerColors.begin());
+                        }
+                        std::cerr << "Size of playernames: " << playerNames.size() << std::endl;
+                        std::cerr << "Size of playercolors: " << playerColors.size() << std::endl;
+
                         break;
+                    }
 
                     case 1: // OPEN HIGHSCORE
                         while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
