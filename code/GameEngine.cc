@@ -4,7 +4,7 @@
 
 
 GameEngine::GameEngine()
-: commands{std::vector<bool>(10, false)}
+: gameOver{false}, commands{std::vector<bool>(10, false)}
 {
     initTextures();
 }
@@ -56,16 +56,17 @@ void GameEngine::setUpText()
             text[i].setCharacterSize(150);
         }
     }
-
-    text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X_OFFSET, TILE_SIZE*TILES_Y/2-150+Y_OFFSET));
-    text[1].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE/4));
-    text[2].setPosition(sf::Vector2f(TILE_SIZE, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
-    text[3].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE/4));
-    text[4].setPosition(sf::Vector2f(TILE_SIZE*7, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
-    text[5].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE/4));
-    text[6].setPosition(sf::Vector2f(TILE_SIZE*4, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
-    text[7].setPosition(sf::Vector2f(TILE_SIZE*11, TILE_SIZE/4));
-    text[8].setPosition(sf::Vector2f(TILE_SIZE*11, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)));
+    int X = X_OFFSET;
+    int Y=Y_OFFSET;
+    text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X, TILE_SIZE*TILES_Y/2-150+Y));
+    text[1].setPosition(sf::Vector2f(TILE_SIZE+X, TILE_SIZE/4+Y));
+    text[2].setPosition(sf::Vector2f(TILE_SIZE+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
+    text[3].setPosition(sf::Vector2f(TILE_SIZE*7+X, TILE_SIZE/4+Y));
+    text[4].setPosition(sf::Vector2f(TILE_SIZE*7+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
+    text[5].setPosition(sf::Vector2f(TILE_SIZE*4+X, TILE_SIZE/4+Y));
+    text[6].setPosition(sf::Vector2f(TILE_SIZE*4+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
+    text[7].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE/4+Y));
+    text[8].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
 
 }
 
@@ -119,6 +120,13 @@ void GameEngine::run(std::vector<std::string> & playerNames,
 
         sf::sleep(sf::milliseconds(20));
 
+    }
+
+    while (gameOver && gameTimer.getElapsedTime().asSeconds() < 5)
+    {
+        window.clear(sf::Color::White);
+        window.draw(showGameOver());
+        window.display();
     }
 }
 
@@ -282,6 +290,8 @@ void GameEngine::checkGameOver(bool & terminated)
         {
             std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
             characters[it].setPoints(-1000);
+            gameTimer.restart();
+            gameOver = true;
             terminated = true;
         }
     }
@@ -304,4 +314,15 @@ void GameEngine::showTimer(sf::RenderWindow & window)
         text[0].setString("1");
         window.draw(text[0]);
     }
+}
+
+sf::Text GameEngine::showGameOver()
+{
+    sf::Text gameOverText;
+    gameOverText.setFont(font);
+    gameOverText.setCharacterSize(70);
+    gameOverText.setPosition(sf::Vector2f(TILE_SIZE*TILES_X/4+X_OFFSET, TILE_SIZE*TILES_Y/3+Y_OFFSET));
+    gameOverText.setString("Game over!");
+    gameOverText.setFillColor(sf::Color::Black);
+    return gameOverText;
 }
