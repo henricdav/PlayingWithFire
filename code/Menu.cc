@@ -89,12 +89,9 @@ int Menu::run()
                     {
                     case 0: // PLAY GAME
                     {
-
                         configBeforeRun(event);
-                        std::cerr << "Size of playernames (before): " << playerNames.size() << std::endl;
-                        std::cerr << "Size of playercolors (before): " << playerColors.size() << std::endl;
+
                         GameEngine game{};
-                        game.restartGameTimer();
                         game.run(playerNames, playerColors, window);
 
                         for (unsigned int i{0}; i <= playerNames.size();  ++i)
@@ -102,9 +99,6 @@ int Menu::run()
                             playerNames.erase(playerNames.begin());
                             playerColors.erase(playerColors.begin());
                         }
-                        std::cerr << "Size of playernames: " << playerNames.size() << std::endl;
-                        std::cerr << "Size of playercolors: " << playerColors.size() << std::endl;
-
                         break;
                     }
 
@@ -217,7 +211,6 @@ int Menu::configBeforeRun(sf::Event event)
 
     sf::Text config_text[4];
 
-
     config_text[0].setPosition(200+X_OFFSET, 225+Y_OFFSET);
     config_text[0].setFillColor(sf::Color::White);
     config_text[0].setFont(font);
@@ -303,6 +296,7 @@ int Menu::configBeforeRun(sf::Event event)
                 case sf::Keyboard::Space:
                     if (!tmp_name.empty() && tmp_name != " ")
                     {
+                        tmp_name.pop_back();
                         playerNames.push_back(tmp_name);
                         tmp_name = "";
                     }

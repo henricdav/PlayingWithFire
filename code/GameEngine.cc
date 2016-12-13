@@ -259,7 +259,6 @@ void GameEngine::updateCharacters()
             music.deathSound();
             characters[it].eraseLife();
             characters[it].setRespawnTimer();
-            //characters[it].setSprite();
             switch (it)
             {
                 case 0:
@@ -305,9 +304,4 @@ void GameEngine::showTimer(sf::RenderWindow & window)
         text[0].setString("1");
         window.draw(text[0]);
     }
-}
-
-void GameEngine::restartGameTimer()
-{
-    gameTimer.restart();
 }

@@ -40,7 +40,6 @@ public:
     void updateCharacters();
     void checkGameOver(bool &);
     void showTimer(sf::RenderWindow &);
-    void restartGameTimer();
     void drawText(sf::RenderWindow &);
 
 private:
