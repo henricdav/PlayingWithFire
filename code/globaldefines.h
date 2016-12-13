@@ -12,6 +12,8 @@
 
 #define TILE_TYPES 13
 
+#define NR_OF_HIGHSCORES 10
+
 
 
 #endif

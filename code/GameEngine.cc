@@ -118,8 +118,8 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         window.display();
 
         sf::sleep(sf::milliseconds(20));
-
     }
+
 }
 
 void GameEngine::drawText(sf::RenderWindow & window)
@@ -282,8 +282,16 @@ void GameEngine::checkGameOver(bool & terminated)
         if (characters[it].getLife() == 0 && !terminated)
         {
             std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
-            characters[it].setPoints(-1000);
-            terminated = true;
+            switch (it)
+            {
+                case 0:
+                    characters[1].setPoints(1000);
+                    break;
+                case 1:
+                    characters[0].setPoints(1000);
+                    break;
+            }
+            terminated = true;    
         }
     }
 }

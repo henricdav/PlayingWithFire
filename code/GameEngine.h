@@ -14,6 +14,7 @@
 #include "globaldefines.h"
 #include <SFML/Audio.hpp>
 #include "GameMusic.h"
+#include "Highscore.h"
 
 /*
 Defined in MAP_H:
@@ -59,6 +60,7 @@ private:
     sf::Font font;
     sf::Text text[TEXT_FIELDS];
     GameMusic music{};
+    Highscore highscore{};
 };
 
 #endif

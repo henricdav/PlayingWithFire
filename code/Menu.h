@@ -11,6 +11,7 @@ Klassen Menu
 #include <SFML/Graphics.hpp>
 #include "GameEngine.h"
 #include "globaldefines.h"
+#include "Highscore.h"
 
 #define NUMBER_OF_TEXT_FIELDS 4
 #define NUMBER_OF_SPRITES 3
@@ -47,6 +48,7 @@ private:
 
     GameEngine game;
 
+    Highscore highscore{};
 
 };
 

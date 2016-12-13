@@ -3,7 +3,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}, game{}
+        font{}, item_index{}, game{}//, highscore{}
 {
     window.setFramerateLimit(60);
 
@@ -104,10 +104,12 @@ int Menu::run()
                         break;
 
                     case 1: // OPEN HIGHSCORE
-                        while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-                        {
-                            std::cout << "OPEN HIGHSCORE" << std::endl;
-                        }
+                        //while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+                        //{
+                        //    std::cout << "OPEN HIGHSCORE" << std::endl;
+                        //}
+                        highscore.getHighscore();
+                        //highscore.showHighscore();
                         break;
 
                     case 2: // ABOUT
