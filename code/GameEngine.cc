@@ -67,9 +67,7 @@ void GameEngine::setUpText()
     text[6].setPosition(sf::Vector2f(TILE_SIZE*4+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
     text[7].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE/4+Y));
     text[8].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
-
 }
-
 
 void GameEngine::run(std::vector<std::string> & playerNames,
                      std::vector<int> & playerColors,
@@ -127,6 +125,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         window.draw(showGameOver());
         window.display();
     }
+
     if (gameOver)
     {
         for (unsigned int i{0}; i < characters.size(); i++)
@@ -134,8 +133,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
             highscore.setHighscore(characters[i].getName(), characters[i].getPoints());
         }
     }
-
-
 }
 
 void GameEngine::drawText(sf::RenderWindow & window)
