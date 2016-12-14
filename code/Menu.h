@@ -13,7 +13,7 @@ Klassen Menu
 #include "globaldefines.h"
 #include "Highscore.h"
 
-#define NUMBER_OF_TEXT_FIELDS 4
+#define NUMBER_OF_TEXT_FIELDS 3
 #define NUMBER_OF_SPRITES 3
 #define NUMBER_OF_PLAYERS 2
 
