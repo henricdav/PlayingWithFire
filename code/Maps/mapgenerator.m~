@@ -1,0 +1,14 @@
+Map = dlmread('level_template.map');
+for k=1:10
+    for i=1:15
+        for j=1:15
+            if Map(i,j) == 3
+                Map(i,j) = randi([0 10],1,1);
+            end
+            if Map(i,j) < 0
+                Map(i,j) = randi([4,9],1,1); 
+            end
+        end
+    end
+dlmwrite(strcat('level', num2str(k), '.map'), Map, ' ');
+end

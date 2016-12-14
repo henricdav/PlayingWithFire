@@ -103,7 +103,7 @@ void Character::setLife()
 
 void Character::setSpeed()
 {
-    speed += 2;
+    speed += 1;
 }
 
 void Character::setBombRadius()
