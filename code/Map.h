@@ -11,7 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "globaldefines.h"
 
-enum tile{empty = 0, wall = 1, flames =2, emptybox = 3, shoebox = 4, extrabombbox = 5, bombradiusbox, lifebox, bombmoverbox, shoes, extrabomb, bombradius, life, bombmover};
+enum tile{empty = 0, wall = 1, bomb, flames, emptybox, shoebox, extrabombbox, bombradiusbox, lifebox, bombmoverbox, shoes, extrabomb, bombradius, life, bombmover};
 
 class MapCoords
 {
@@ -42,7 +42,6 @@ public:
 private:
   std::vector<int> mapArray{};
   bool validIndices(MapCoords) const;
-  //sf::Sprite tempStaticSprite{};
 };
 
 

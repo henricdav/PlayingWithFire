@@ -39,7 +39,7 @@ sf::Sprite Map::getBoundings(MapCoords coords) const
     sf::Sprite tempStaticSprite;
     tempStaticSprite.setTextureRect(sf::IntRect(0, 0, TILE_WIDTH, TILE_HEIGHT));
     int tempCoord = getCoord(coords);
-    if (tempCoord == wall || tempCoord == emptybox || tempCoord == shoebox ||
+    if (tempCoord == bomb || tempCoord == wall || tempCoord == emptybox || tempCoord == shoebox ||
         tempCoord == extrabombbox || tempCoord == bombradiusbox ||
         tempCoord == lifebox || tempCoord == bombmoverbox)
     {

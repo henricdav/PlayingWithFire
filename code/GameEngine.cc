@@ -15,6 +15,7 @@ void GameEngine::initTextures()
     static_objects.resize(TILE_TYPES);
     std::vector<std::string> filenames{
         "Texture/Ground_2.jpg",
+        "Texture/bomb-small.png",
         "Texture/explosion.png",
         "Texture/RTS_Crate.png",
         "Texture/RTS_Crate.png",
