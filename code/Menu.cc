@@ -104,10 +104,14 @@ int Menu::run()
                     }
 
                     case 1: // OPEN HIGHSCORE
-
+                    {
+                        Highscore highscore{};
                         highscore.getHighscore();
-                        //highscore.showHighscore();
+
+                        highscore.showHighscore(window);
+
                         break;
+                    }
 
                     case 2: // ABOUT
                         std::cout << "ABOUT PAGE" << std::endl;

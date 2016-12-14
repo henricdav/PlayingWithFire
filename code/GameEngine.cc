@@ -127,6 +127,15 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         window.draw(showGameOver());
         window.display();
     }
+    if (gameOver)
+    {
+        for (unsigned int i{0}; i < characters.size(); i++)
+        {
+            highscore.setHighscore(characters[i].getName(), characters[i].getPoints());
+        }
+    }
+
+
 }
 
 void GameEngine::drawText(sf::RenderWindow & window)
@@ -298,7 +307,6 @@ void GameEngine::checkGameOver(bool & terminated)
                     characters[0].setPoints(1000);
                     break;
             }
-
             gameTimer.restart();
             gameOver = true;
             terminated = true;

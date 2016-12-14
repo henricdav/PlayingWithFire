@@ -8,6 +8,10 @@ Klassen Highscore
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <functional>
+#include <algorithm>
+#include <SFML/Graphics.hpp>
 #include "globaldefines.h"
 
 class Highscore
@@ -17,11 +21,25 @@ public:
     ~Highscore() = default;
 
     void getHighscore();
-    void setHighscore(int &);
-    unsigned int getSize();
-    //void showHighscore();
+    void setHighscore(std::string, int);
+    void showHighscore(sf::RenderWindow &);
+
 private:
-    std::vector<std::string> highscore{};
+    void splitVectorIntoPair();
+    void sortHighscore();
+    void drawHighscore(sf::RenderWindow &);
+    void prepareEverythingToDraw();
+
+    std::vector<std::string> stringFromFileVector{};
+    std::vector<std::pair<int, std::string>> highscore{};
+
+
+    sf::Font font{};
+    sf::Text text[3];
+    sf::Text highscoreNames[NR_OF_HIGHSCORES];
+    sf::Text highscorePoints[NR_OF_HIGHSCORES];
+
+
 };
 
 bool operator>(std::string const & input, Highscore & list);
