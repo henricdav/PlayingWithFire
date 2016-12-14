@@ -14,10 +14,12 @@ playerPtr{&player}
 
 {
     sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
-    texture.loadFromFile("Texture/bomb-small.png");
+    texture.loadFromFile("Figures/bomb.png");
+    sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     sprite.setTexture(texture);
     timer.restart();
     mapCoords = player.tileCoordinates();
+    oldMapCoords = mapCoords;
     mapPtr->setCoord(mapCoords, bomb);
 }
 
@@ -25,6 +27,16 @@ void Bomb::update()
 {
     int elapsedTime{timer.getElapsedTime().asMilliseconds()};
 
+    if (!(oldMapCoords == mapCoords))
+    {
+        mapPtr->setCoord(oldMapCoords, empty);
+        mapPtr->setCoord(mapCoords, bomb);
+    }
+    oldMapCoords = mapCoords;
+    if (exploded)
+    {
+        moveDirection = MapCoords(0,0);
+    }
     if (!exploded && elapsedTime > 3000) // Begin explosion
     {
         mapPtr->setCoord(mapCoords, flames);
@@ -68,6 +80,7 @@ void Bomb::update()
         texture.loadFromFile("Texture/explosion.png");
         sprite.setTexture(texture);
         exploded = true;
+        moveDirection = MapCoords(0,0);
     }
 
     if (elapsedTime > 4000) // End explosion

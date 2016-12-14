@@ -32,6 +32,7 @@ private:
     std::vector<int> boxContents;
     Character* playerPtr{};
     GameMusic music{};
+    MapCoords oldMapCoords{};
 
 };
 

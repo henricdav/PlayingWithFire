@@ -23,13 +23,13 @@ public:
     void animate_sprite(sf::Vector2f);
     MapCoords tileCoordinates(){return mapCoords;};
     sf::Sprite sprite{};
-
+    void updateMapIndex();
 
 protected:
     sf::IntRect rect{};
     MapCoords mapCoords;
     int counter_rendering{};
-    void updateMapIndex();
+
     bool bombMover{};
 private:
     const int moveThreshold{15};

@@ -21,6 +21,7 @@ public:
     std::string getName() const;
     int getSpeed() const;
     int getBombRadius() const;
+    bool isBombMover() {return bombMover;};
     int getLife() const;
     int getPoints() const;
     void eraseLife();
@@ -38,7 +39,7 @@ private:
     sf::Texture player_texture{};
     std::string name{};
     int bombRadius{};
-    
+
     int speed{};
     int lives{};
     int color{};

@@ -21,15 +21,13 @@ void Character::initCharacter(std::string menu_name, int attribute)
 {
     color = attribute;
     name = menu_name;
-
+    sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     if (color == 1)
     {
-        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
         sprite.setPosition(sf::Vector2f(TILE_SIZE+X_OFFSET, TILE_SIZE+Y_OFFSET));
     }
     if (color == 2)
     {
-        sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
         sprite.setPosition(sf::Vector2f((TILES_X*TILE_SIZE-2*TILE_SIZE)+X_OFFSET,
                                         (TILES_Y*TILE_SIZE-2*TILE_SIZE)+Y_OFFSET));
     }
