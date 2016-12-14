@@ -1,10 +1,11 @@
 
 #include "Map.h"
-
 Map::Map()
     : mapArray{}
 {
-    std::string fileName = "level1.map";
+    int randIndex = rand() % 10; //Generates random number between 0..9
+    std::string fileName = randomMap[randIndex];
+    fileName = "./Maps/" + fileName;
     std::ifstream mapFile;
     mapFile.open(fileName);
     int tile;

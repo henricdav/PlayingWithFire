@@ -11,7 +11,8 @@
 #include <SFML/Graphics.hpp>
 #include "globaldefines.h"
 
-enum tile{empty = 0, wall = 1, bomb, flames, emptybox, shoebox, extrabombbox, bombradiusbox, lifebox, bombmoverbox, shoes, extrabomb, bombradius, life, bombmover};
+enum tile{empty = 0, wall = 1, bomb, flames, emptybox = 4, shoebox, extrabombbox, bombradiusbox, lifebox, bombmoverbox, shoes, extrabomb, bombradius, life, bombmover};
+const std::vector<std::string> randomMap{"level1.map", "level2.map", "level3.map", "level4.map", "level5.map", "level6.map", "level7.map", "level8.map", "level9.map", "level10.map"};
 
 class MapCoords
 {

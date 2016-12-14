@@ -34,14 +34,13 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
                 break;
             }
         }
-        else
+        else if (abs(direction.x) == i || abs(direction.y) == i)
         {
             animate_sprite(direction);
         }
         updateMapIndex();
     }
 }
-
 
 bool Object::collision(sf::Vector2f direction, std::shared_ptr<Map> map)
 {
@@ -64,32 +63,11 @@ bool Object::collision(sf::Vector2f direction, std::shared_ptr<Map> map)
 
 void Object::animate_sprite(sf::Vector2f direction)
 {
+    int direction_x = ((direction.x!=0) ? (direction.x/abs(direction.x)) : -1);
+    int direction_y = ((direction.y!=0) ? (direction.y/abs(direction.y)) : 0);
+    rect = sf::IntRect(50 + (1 + direction_x)*50 - direction_y*50, 50*counter_rendering, 50, 50);
     counter_rendering++;
-    if (direction.x < 0)
-    {
-        rect = sf::IntRect(50, 50*counter_rendering, 50, 50);
-    }
-    else if (direction.x > 0)
-    {
-        rect = sf::IntRect(150, 50*counter_rendering, 50, 50);
-    }
-    else if (direction.y < 0)
-    {
-        rect = sf::IntRect(100, 50*counter_rendering, 50, 50);
-    }
-    else if (direction.y > 0)
-    {
-        rect = sf::IntRect(0, 50*counter_rendering, 50, 50);
-    }
-    else
-    {
-        rect = sf::IntRect(0, 0, 50, 50);
-    }
-    if (counter_rendering == 3) //Reset counter_rendering
-    {
-        counter_rendering = 0;
-    }
-
+    counter_rendering = ((counter_rendering >= 3) ? 0 : counter_rendering);
     sprite.setTextureRect(rect);
 }
 
