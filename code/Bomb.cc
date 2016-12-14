@@ -18,9 +18,7 @@ playerPtr{&player}
     sprite.setTexture(texture);
     timer.restart();
     mapCoords = player.tileCoordinates();
-
-    //xIndexMap = player.tileCoordinates().x;
-    //yIndexMap = player.tileCoordinates().y;
+    mapPtr->setCoord(mapCoords, bomb);
 }
 
 void Bomb::update()
@@ -29,6 +27,7 @@ void Bomb::update()
 
     if (!exploded && elapsedTime > 3000) // Begin explosion
     {
+        mapPtr->setCoord(mapCoords, flames);
         music.explosionSound();
         bool validDirection{};
         for (int j{0}; j <= 3; ++j)
@@ -88,6 +87,7 @@ void Bomb::update()
                 }
             }
         }
+        mapPtr->setCoord(mapCoords, empty);
         detonated = true;
     }
 }

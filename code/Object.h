@@ -19,7 +19,7 @@ public:
     virtual ~Object() = default;
 
     void move(sf::Vector2f, std::shared_ptr<Map>);
-    bool checkCollisions(sf::Vector2f, std::shared_ptr<Map>);
+    bool collision(sf::Vector2f, std::shared_ptr<Map>);
     void animate_sprite(sf::Vector2f);
     MapCoords tileCoordinates(){return mapCoords;};
     sf::Sprite sprite{};
