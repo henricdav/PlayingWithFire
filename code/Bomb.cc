@@ -13,7 +13,8 @@ boxContents{0,0,0,0},
 playerPtr{&player}
 
 {
-    sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
+    sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,
+                       TILE_HEIGHT*player.tileCoordinates().y);
     texture.loadFromFile("Texture/bomb-small.png");
     sprite.setTexture(texture);
     timer.restart();
@@ -37,57 +38,57 @@ void Bomb::update()
             {
                 if (validDirection == true &&
                     mapPtr->getCoord(mapCoords + directions[j]*i) == wall)
-                {
-                    explodeRange[j] = i - 1;
-                    validDirection = false;
+                    {
+                        explodeRange[j] = i - 1;
+                        validDirection = false;
+                    }
+                    else if (validDirection == true &&
+                        mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox &&
+                        mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
+                        {
+                            boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 5;
+                            validDirection = false;
+                            mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                            explodeRange[j] = i;
+                            playerPtr->setPoints(100);
+                        }
+                        else if (validDirection == true &&
+                            mapPtr->getCoord(mapCoords + directions[j]*i) == emptybox)
+                            {
+                                mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                                explodeRange[j] = i;
+                                validDirection = false;
+                                playerPtr->setPoints(100);
+                            }
+                            else if (validDirection == true)
+                            {
+                                mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                            }
+                        }
+                    }
+                    texture.loadFromFile("Texture/explosion.png");
+                    sprite.setTexture(texture);
+                    exploded = true;
                 }
-                else if (validDirection == true &&
-                    mapPtr->getCoord(mapCoords + directions[j]*i) > emptybox &&
-                    mapPtr->getCoord(mapCoords + directions[j]*i) < shoes)
+
+                if (elapsedTime > 4000) // End explosion
                 {
-                    boxContents[j] = mapPtr->getCoord(mapCoords + directions[j]*i) + 5;
-                    validDirection = false;
-                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
-                    explodeRange[j] = i;
-                    playerPtr->setPoints(100);
-                }
-                else if (validDirection == true &&
-                    mapPtr->getCoord(mapCoords + directions[j]*i) == emptybox)
-                {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
-                    explodeRange[j] = i;
-                    validDirection = false;
-                    playerPtr->setPoints(100);
-                }
-                else if (validDirection == true)
-                {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, flames);
+                    for (int j{0}; j <= 3; ++j)
+                    {
+                        for (int i{0}; i <= explodeRange[j]; ++i)
+                        {
+                            if (i == explodeRange[j])
+                            {
+                                mapPtr->setCoord(mapCoords + directions[j]*i,
+                                                 boxContents[j]);
+                            }
+                            else
+                            {
+                                mapPtr->setCoord(mapCoords + directions[j]*i, empty);
+                            }
+                        }
+                    }
+                    mapPtr->setCoord(mapCoords, empty);
+                    detonated = true;
                 }
             }
-        }
-        texture.loadFromFile("Texture/explosion.png");
-        sprite.setTexture(texture);
-        exploded = true;
-    }
-
-    if (elapsedTime > 4000) // End explosion
-    {
-
-        for (int j{0}; j <= 3; ++j)
-        {
-            for (int i{0}; i <= explodeRange[j]; ++i)
-            {
-                if (i == explodeRange[j])
-                {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, boxContents[j]);
-                }
-                else
-                {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, empty);
-                }
-            }
-        }
-        mapPtr->setCoord(mapCoords, empty);
-        detonated = true;
-    }
-}

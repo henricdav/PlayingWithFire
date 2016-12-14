@@ -1,6 +1,5 @@
 #include "Character.h"
 
-
 Character::Character()
 {
     speed = 2;
@@ -8,7 +7,7 @@ Character::Character()
     lives = 3;
     bombTime = 3000;
     textures = {"Figures/adaRed.png", "Figures/danteBlue.png",
-                "Figures/adaRedRespawn.png", "Figures/danteBlueRespawn.png"};
+    "Figures/adaRedRespawn.png", "Figures/danteBlueRespawn.png"};
 }
 
 void Character::resetBombTimer()
