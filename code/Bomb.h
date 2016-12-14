@@ -19,6 +19,8 @@ public:
     ~Bomb() = default;
     bool isDetonated() {return detonated;};
     void update();
+    void unsetPlayerInTile() {playerInTile = false;};
+    bool getPlayerInTile() {return playerInTile;};
     MapCoords moveDirection{0,0};
 private:
     sf::Texture texture;
@@ -33,6 +35,7 @@ private:
     Character* playerPtr{};
     GameMusic music{};
     MapCoords oldMapCoords{};
+    bool playerInTile{};
 
 };
 

@@ -172,9 +172,16 @@ void GameEngine::moveObjects()
 
     for (unsigned int i{0}; i < bombs.size(); ++i)
     {
+        if (!(characters[0].tileCoordinates() == bombs[i]->tileCoordinates()) &&
+            !(characters[1].tileCoordinates() == bombs[i]->tileCoordinates()))
+        {
+            bombs[i]->unsetPlayerInTile();
+        }
         for (unsigned int j{0}; j < 2; ++j)
         {
-            if (characters[j].isBombMover() && characters[j].tileCoordinates() == bombs[i]->tileCoordinates())
+            if (characters[j].isBombMover() &&
+                !bombs[i]->getPlayerInTile() &&
+                characters[j].tileCoordinates() == bombs[i]->tileCoordinates())
             {
                 if (commands[5*j]) {bombs[i]->moveDirection = MapCoords(-1,0);}
                 if (commands[5*j+1]) {bombs[i]->moveDirection = MapCoords(1,0);}

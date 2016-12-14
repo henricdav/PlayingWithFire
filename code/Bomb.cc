@@ -10,7 +10,8 @@ exploded{false},
 explodeRange{bombRadius,bombRadius,bombRadius,bombRadius},
 directions{{0,-1},{0,1},{-1,0},{1,0}},
 boxContents{0,0,0,0},
-playerPtr{&player}
+playerPtr{&player},
+playerInTile{true}
 
 {
     sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
