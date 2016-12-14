@@ -14,17 +14,20 @@ Klassen Highscore
 #include <SFML/Graphics.hpp>
 #include "globaldefines.h"
 
+#define NUMBER_OF_TEXTFIELDS 3
+
+
 class Highscore
 {
 public:
     Highscore();
     ~Highscore() = default;
 
-    void getHighscore();
     void setHighscore(std::string, int);
     void showHighscore(sf::RenderWindow &);
 
 private:
+    void getHighscore();
     void splitVectorIntoPair();
     void sortHighscore();
     void drawHighscore(sf::RenderWindow &);
@@ -33,15 +36,12 @@ private:
     std::vector<std::string> stringFromFileVector{};
     std::vector<std::pair<int, std::string>> highscore{};
 
-
-    sf::Font font{};
-    sf::Text text[3];
+    sf::Font font;
+    sf::Text text[NUMBER_OF_TEXTFIELDS];
     sf::Text highscoreNames[NR_OF_HIGHSCORES];
     sf::Text highscorePoints[NR_OF_HIGHSCORES];
-
-
 };
 
-bool operator>(std::string const & input, Highscore & list);
+//bool operator>(std::string const & input, Highscore & list);
 
 #endif

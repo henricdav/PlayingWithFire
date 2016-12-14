@@ -1,7 +1,7 @@
 #include "Highscore.h"
 
 Highscore::Highscore()
-    : highscore{}
+    : stringFromFileVector{}, highscore{}
 {}
 
 void Highscore::getHighscore()
@@ -51,6 +51,7 @@ void Highscore::setHighscore(std::string name, int value)
 
 void Highscore::showHighscore(sf::RenderWindow & window)
 {
+    getHighscore();
     prepareEverythingToDraw();
 
     bool terminated{false};
@@ -78,9 +79,11 @@ void Highscore::showHighscore(sf::RenderWindow & window)
 
 void Highscore::drawHighscore(sf::RenderWindow & window)
 {
-    window.draw(text[0]);
-    window.draw(text[1]);
-    window.draw(text[2]);
+    for (int i{0}; i < NUMBER_OF_TEXTFIELDS; i++)
+    {
+        window.draw(text[i]);
+    }
+
     for (int i{0}; i < NR_OF_HIGHSCORES; i++)
     {
         window.draw(highscoreNames[i]);
@@ -126,7 +129,7 @@ void Highscore::prepareEverythingToDraw()
         highscorePoints[i].setPosition(TILE_SIZE*TILES_X/1.5, 2*TILES_Y*i+TILE_SIZE*TILES_Y/4);
 
         unsigned int h = highscore.size();
-        // Check if there are fewer highscore entries than specifid
+        // Check if there are fewer highscore entries than specified
         if (i >= h)
         {
             highscoreNames[i].setString(" ");
@@ -137,6 +140,5 @@ void Highscore::prepareEverythingToDraw()
             highscoreNames[i].setString(std::to_string(i+1) + ".  " + highscore[i].second);
             highscorePoints[i].setString(std::to_string(highscore[i].first));
         }
-
     }
 }

@@ -3,7 +3,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}//, highscore{}
+        font{}, item_index{}
 
 {
     window.setFramerateLimit(60);
@@ -106,10 +106,7 @@ int Menu::run()
                     case 1: // OPEN HIGHSCORE
                     {
                         Highscore highscore{};
-                        highscore.getHighscore();
-
                         highscore.showHighscore(window);
-
                         break;
                     }
 
