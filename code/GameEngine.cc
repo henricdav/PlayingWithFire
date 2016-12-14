@@ -94,7 +94,9 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     while (gameOver && gameTimer.getElapsedTime().asSeconds() < 5)
     {
         window.clear(sf::Color::White);
+        drawWindowFromMap(window);
         window.draw(gameOverText);
+        drawText(window);
         window.display();
     }
 
