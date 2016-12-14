@@ -40,11 +40,11 @@ void Character::setSprite()
 {
     if (getRespawnTimer().getElapsedTime().asSeconds() < 3)
     {
-        player_texture.loadFromFile(textures[color-1+2]);
+        player_texture.loadFromFile(textures[color - 1 + 2]);
     }
     else
     {
-        player_texture.loadFromFile(textures[color-1]);
+        player_texture.loadFromFile(textures[color - 1]);
     }
     sprite.setTexture(player_texture);
 }

@@ -15,6 +15,7 @@ void GameEngine::initTextures()
     static_objects.resize(TILE_TYPES);
     std::vector<std::string> filenames{
         "Texture/Ground_2.jpg",
+        "Texture/bomb-small.png",
         "Texture/explosion.png",
         "Texture/RTS_Crate.png",
         "Texture/RTS_Crate.png",
@@ -38,35 +39,6 @@ void GameEngine::initTextures()
     }
 
     setUpText();
-}
-
-void GameEngine::setUpText()
-{
-    if (!font.loadFromFile("Figures/punkboyFont.ttf"))
-    {
-        std::cerr << "Couldn't load font" << std:: endl;
-    }
-
-    for (int i = 0; i < TEXT_FIELDS; i++)
-    {
-        text[i].setFont(font);
-        text[i].setFillColor(sf::Color::Black);
-        if (i == 0)
-        {
-            text[i].setCharacterSize(150);
-        }
-    }
-    int X = X_OFFSET;
-    int Y=Y_OFFSET;
-    text[0].setPosition(sf::Vector2f(TILE_SIZE*TILES_X/2-75+X, TILE_SIZE*TILES_Y/2-150+Y));
-    text[1].setPosition(sf::Vector2f(TILE_SIZE+X, TILE_SIZE/4+Y));
-    text[2].setPosition(sf::Vector2f(TILE_SIZE+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
-    text[3].setPosition(sf::Vector2f(TILE_SIZE*7+X, TILE_SIZE/4+Y));
-    text[4].setPosition(sf::Vector2f(TILE_SIZE*7+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
-    text[5].setPosition(sf::Vector2f(TILE_SIZE*4+X, TILE_SIZE/4+Y));
-    text[6].setPosition(sf::Vector2f(TILE_SIZE*4+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
-    text[7].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE/4+Y));
-    text[8].setPosition(sf::Vector2f(TILE_SIZE*11+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y));
 }
 
 void GameEngine::run(std::vector<std::string> & playerNames,
@@ -122,7 +94,7 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     while (gameOver && gameTimer.getElapsedTime().asSeconds() < 5)
     {
         window.clear(sf::Color::White);
-        window.draw(showGameOver());
+        window.draw(gameOverText);
         window.display();
     }
 
@@ -293,15 +265,15 @@ void GameEngine::checkGameOver(bool & terminated)
     {
         if (characters[it].getLife() == 0 && !terminated)
         {
-            std::cerr << "GAME OVER " << characters[it].getName() << std::endl;
-
             switch (it)
             {
                 case 0:
                     characters[1].setPoints(1000);
+                    gameOverText.setString("Game over! \n" + characters[1].getName() + " won!");
                     break;
                 case 1:
                     characters[0].setPoints(1000);
+                    gameOverText.setString("Game over! \n" + characters[0].getName() + " won!");
                     break;
             }
             gameTimer.restart();
@@ -330,13 +302,36 @@ void GameEngine::showTimer(sf::RenderWindow & window)
     }
 }
 
-sf::Text GameEngine::showGameOver()
+void GameEngine::setUpText()
 {
-    sf::Text gameOverText;
+    if (!font.loadFromFile("Figures/punkboyFont.ttf"))
+    {
+        std::cerr << "Couldn't load font" << std:: endl;
+    }
+
+    for (int i = 0; i < TEXT_FIELDS; i++)
+    {
+        text[i].setFont(font);
+        text[i].setFillColor(sf::Color::Black);
+        if (i == 0)
+        {
+            text[i].setCharacterSize(150);
+        }
+    }
+    int X = X_OFFSET;
+    int Y = Y_OFFSET;
+    text[0].setPosition(TILE_SIZE*TILES_X/2-75+X, TILE_SIZE*TILES_Y/2-150+Y);
+    text[1].setPosition(TILE_SIZE+X, TILE_SIZE/4+Y);
+    text[2].setPosition(TILE_SIZE+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y);
+    text[3].setPosition(TILE_SIZE*9+X, TILE_SIZE/4+Y);
+    text[4].setPosition(TILE_SIZE*9+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y);
+    text[5].setPosition(TILE_SIZE*6+X, TILE_SIZE/4+Y);
+    text[6].setPosition(TILE_SIZE*6+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y);
+    text[7].setPosition(TILE_SIZE*11+X, TILE_SIZE/4+Y);
+    text[8].setPosition(TILE_SIZE*11+X, TILE_SIZE*TILES_Y-TILE_SIZE*(1-1/4)+Y);
+
     gameOverText.setFont(font);
     gameOverText.setCharacterSize(70);
-    gameOverText.setPosition(sf::Vector2f(TILE_SIZE*TILES_X/4+X_OFFSET, TILE_SIZE*TILES_Y/3+Y_OFFSET));
-    gameOverText.setString("Game over!");
+    gameOverText.setPosition(TILE_SIZE*TILES_X/4+X_OFFSET, TILE_SIZE*TILES_Y/3+Y_OFFSET);
     gameOverText.setFillColor(sf::Color::Black);
-    return gameOverText;
 }

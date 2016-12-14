@@ -10,7 +10,7 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
     {
         sprite.move(sign(direction));
 
-        if (!checkCollisions(direction, map))
+        if (collision(direction, map))
         {
             float dx{static_cast<float>(direction.x != 0 ? 0 : TILE_SIZE*round(sprite.getPosition().x/TILE_SIZE)-sprite.getPosition().x)};
             float dy{static_cast<float>(direction.y != 0 ? 0 : TILE_SIZE*round(sprite.getPosition().y/TILE_SIZE)-sprite.getPosition().y)};
@@ -18,7 +18,7 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
             if (absInt(dVec) <= moveThreshold && absInt(dVec) != 0)
             {
                 sprite.move(dVec);
-                if (checkCollisions(direction, map))
+                if (!collision(direction, map))
                 {
                     sprite.move(sign(dVec) - dVec);
                     animate_sprite(dVec);
@@ -28,7 +28,7 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
                     sprite.move(-dVec);
                 }
             }
-            if (!checkCollisions(direction, map))
+            if (collision(direction, map))
             {
                 sprite.move(-sign(direction));
                 break;
@@ -42,7 +42,7 @@ void Object::move(sf::Vector2f direction, std::shared_ptr<Map> map)
     }
 }
 
-bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
+bool Object::collision(sf::Vector2f direction, std::shared_ptr<Map> map)
 {
     direction = sign(direction);
 
@@ -53,11 +53,11 @@ bool Object::checkCollisions(sf::Vector2f direction, std::shared_ptr<Map> map)
         || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(direction.y,direction.x)).getGlobalBounds())
         || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(-direction.y,-direction.x)).getGlobalBounds()))
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
 

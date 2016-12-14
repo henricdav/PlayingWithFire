@@ -35,7 +35,6 @@ public:
 
 private:
     void initTextures();
-    void setUpText();
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
@@ -46,7 +45,7 @@ private:
     void checkGameOver(bool &);
     void showTimer(sf::RenderWindow &);
     void drawText(sf::RenderWindow &);
-    sf::Text showGameOver();
+    void setUpText();
 
     bool gameOver;
     std::vector<bool> commands{};
@@ -65,6 +64,7 @@ private:
     sf::Text text[TEXT_FIELDS];
     GameMusic music{};
     Highscore highscore{};
+    sf::Text gameOverText{};
 };
 
 #endif

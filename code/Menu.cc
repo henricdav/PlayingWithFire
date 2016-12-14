@@ -50,13 +50,8 @@ Menu::Menu()
 
     menu[2].setFont(font);
     menu[2].setFillColor(sf::Color::White);
-    menu[2].setString("About");
-    menu[2].setPosition(sf::Vector2f(width/2-50+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+150+Y_OFFSET));
-
-    menu[3].setFont(font);
-    menu[3].setFillColor(sf::Color::White);
-    menu[3].setString("Exit");
-    menu[3].setPosition(sf::Vector2f(width/2-35+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+200+Y_OFFSET));
+    menu[2].setString("Exit");
+    menu[2].setPosition(sf::Vector2f(width/2-35+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+150+Y_OFFSET));
 
     item_index = 0;
 }
@@ -91,6 +86,10 @@ int Menu::run()
                     case 0: // PLAY GAME
                     {
                         configBeforeRun(event);
+                        if (playerNames.size() != NUMBER_OF_PLAYERS)
+                        {
+                            break;
+                        }
 
                         GameEngine game{};
                         game.run(playerNames, playerColors, window);
@@ -110,11 +109,7 @@ int Menu::run()
                         break;
                     }
 
-                    case 2: // ABOUT
-                        std::cout << "ABOUT PAGE" << std::endl;
-                        break;
-
-                    case 3: // EXIT GAME
+                    case 2: // EXIT GAME
                         window.close();
                         break;
                     }
@@ -311,6 +306,7 @@ int Menu::configBeforeRun(sf::Event event)
                     if (playerNames.size() == NUMBER_OF_PLAYERS - 1)
                     {
                         playerNames.pop_back();
+                        tmp_name = "";
                     }
                     config_menu_running = false;
                     break;
@@ -349,7 +345,6 @@ int Menu::configBeforeRun(sf::Event event)
     // playerColors are binded to player1 and player2 atm.
     if (playerNames.size() == NUMBER_OF_PLAYERS)
     {
-
         playerColors.push_back(1);
         playerColors.push_back(2);
     }
