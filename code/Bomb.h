@@ -19,7 +19,7 @@ public:
     ~Bomb() = default;
     bool isDetonated() {return detonated;};
     void update();
-
+    MapCoords moveDirection{0,0};
 private:
     sf::Texture texture;
     int bombRadius;
@@ -32,6 +32,7 @@ private:
     std::vector<int> boxContents;
     Character* playerPtr{};
     GameMusic music{};
+
 };
 
 #endif

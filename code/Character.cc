@@ -9,6 +9,7 @@ Character::Character()
     bombTime = 3000;
     textures = {"Figures/adaRed.png", "Figures/danteBlue.png",
                 "Figures/adaRedRespawn.png", "Figures/danteBlueRespawn.png"};
+    bombMover = false;
 }
 
 void Character::resetBombTimer()

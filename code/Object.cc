@@ -50,63 +50,63 @@ bool Object::collision(sf::Vector2f direction, std::shared_ptr<Map> map)
     MapCoords mapIndex{static_cast<int>(round((sprite.getPosition().x)/TILE_WIDTH+direction.x)),
         static_cast<int>(round((sprite.getPosition().y)/TILE_HEIGHT+direction.y))};
 
-        if (sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex).getGlobalBounds())
-        || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(direction.y,direction.x)).getGlobalBounds())
-        || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(-direction.y,-direction.x)).getGlobalBounds()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    void Object::animate_sprite(sf::Vector2f direction)
+    if (sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex, bombMover).getGlobalBounds())
+        || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(direction.y,direction.x), bombMover).getGlobalBounds())
+        || sprite.getGlobalBounds().intersects(map->getBoundings(mapIndex + MapCoords(-direction.y,-direction.x), bombMover).getGlobalBounds()))
     {
-        counter_rendering++;
-        if (direction.x < 0)
-        {
-            rect = sf::IntRect(50, 50*counter_rendering, 50, 50);
-        }
-        else if (direction.x > 0)
-        {
-            rect = sf::IntRect(150, 50*counter_rendering, 50, 50);
-        }
-        else if (direction.y < 0)
-        {
-            rect = sf::IntRect(100, 50*counter_rendering, 50, 50);
-        }
-        else if (direction.y > 0)
-        {
-            rect = sf::IntRect(0, 50*counter_rendering, 50, 50);
-        }
-        else
-        {
-            rect = sf::IntRect(0, 0, 50, 50);
-        }
-        if (counter_rendering == 3) //Reset counter_rendering
-        {
-            counter_rendering = 0;
-        }
-
-        sprite.setTextureRect(rect);
+        return true;
     }
-
-    void Object::updateMapIndex()
+    else
     {
-        mapCoords = MapCoords(static_cast<int>(round(sprite.getPosition().x/TILE_WIDTH)), static_cast<int>(round(sprite.getPosition().y/TILE_HEIGHT)));
-        //xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
-        //yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
+        return false;
+    }
+}
+
+void Object::animate_sprite(sf::Vector2f direction)
+{
+    counter_rendering++;
+    if (direction.x < 0)
+    {
+        rect = sf::IntRect(50, 50*counter_rendering, 50, 50);
+    }
+    else if (direction.x > 0)
+    {
+        rect = sf::IntRect(150, 50*counter_rendering, 50, 50);
+    }
+    else if (direction.y < 0)
+    {
+        rect = sf::IntRect(100, 50*counter_rendering, 50, 50);
+    }
+    else if (direction.y > 0)
+    {
+        rect = sf::IntRect(0, 50*counter_rendering, 50, 50);
+    }
+    else
+    {
+        rect = sf::IntRect(0, 0, 50, 50);
+    }
+    if (counter_rendering == 3) //Reset counter_rendering
+    {
+        counter_rendering = 0;
     }
 
-    sf::Vector2f sign(sf::Vector2f vec)
-    {
-        return sf::Vector2f(((vec.x > 0) ? 1 : ((vec.x < 0) ? -1 : 0)),
-        ((vec.y > 0) ? 1 : ((vec.y < 0) ? -1 : 0)));
-    }
+    sprite.setTextureRect(rect);
+}
 
-    int absInt(sf::Vector2f vec)
-    {
-        return sqrt(vec.x*vec.x + vec.y*vec.y);
-    }
+void Object::updateMapIndex()
+{
+    mapCoords = MapCoords(static_cast<int>(round(sprite.getPosition().x/TILE_WIDTH)), static_cast<int>(round(sprite.getPosition().y/TILE_HEIGHT)));
+    //xIndexMap = round(sprite.getPosition().x/TILE_WIDTH);
+    //yIndexMap = round(sprite.getPosition().y/TILE_HEIGHT);
+}
+
+sf::Vector2f sign(sf::Vector2f vec)
+{
+    return sf::Vector2f(((vec.x > 0) ? 1 : ((vec.x < 0) ? -1 : 0)),
+    ((vec.y > 0) ? 1 : ((vec.y < 0) ? -1 : 0)));
+}
+
+int absInt(sf::Vector2f vec)
+{
+    return sqrt(vec.x*vec.x + vec.y*vec.y);
+}

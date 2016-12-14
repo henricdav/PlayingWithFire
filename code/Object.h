@@ -30,6 +30,7 @@ protected:
     MapCoords mapCoords;
     int counter_rendering{};
     void updateMapIndex();
+    bool bombMover{};
 private:
     const int moveThreshold{15};
 };

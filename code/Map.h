@@ -22,6 +22,7 @@ public:
 
     MapCoords operator+(const MapCoords & rhs) {return MapCoords(this->x+rhs.x,this->y+rhs.y);};
     MapCoords operator*(const int & i) {return MapCoords(this->x*i,this->y*i);};
+    bool operator==(const MapCoords & rhs) {return this->x == rhs.x && this->y == rhs.y;};
 
     int x;
     int y;
@@ -34,7 +35,7 @@ public:
   ~Map() = default;
   void setCoord(MapCoords, int type);
   int getCoord(MapCoords) const;
-  sf::Sprite getBoundings(MapCoords) const;
+  sf::Sprite getBoundings(MapCoords, bool bombMover) const;
 
   //For testing
   void print();

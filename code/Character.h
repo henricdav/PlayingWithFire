@@ -38,7 +38,7 @@ private:
     sf::Texture player_texture{};
     std::string name{};
     int bombRadius{};
-    bool bombMover{};
+    
     int speed{};
     int lives{};
     int color{};

@@ -167,6 +167,15 @@ void GameEngine::moveObjects()
     if (commands[7]) {characters[1].move(sf::Vector2f(0, -characters[1].getSpeed()), std::make_shared<Map>(map));}
     if (commands[8]) {characters[1].move(sf::Vector2f(0, characters[1].getSpeed()), std::make_shared<Map>(map));}
     if (commands[9]) {}
+
+    for (unsigned int i{0}; i < bombs.size(); ++i)
+    {
+        if (characters[0].tileCoordinates() == bombs[i]->tileCoordinates())
+        {
+            bombs[i]->moveDirection = MapCoords(1,0);
+        }
+    }
+
 }
 
 void GameEngine::dropBombs()
@@ -193,6 +202,7 @@ void GameEngine::updateBombs()
     for (unsigned int i{0}; i < bombs.size(); ++i)
     {
         bombs[i]->update();
+        bombs[i]->move(sf::Vector2f(bombs[i]->moveDirection.x, bombs[i]->moveDirection.y), std::make_shared<Map>(map));
     }
 }
 

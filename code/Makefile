@@ -1,8 +1,6 @@
 #
-# Makefile för kalkylatorn, nivå G, GNU GCC (g++)
+# Makefile
 #
-# Filkataloger där andra delar av programet finns.
-# CODE = code
 
 # SFML
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
@@ -17,19 +15,13 @@ CCFLAGS += -std=c++14 -Wpedantic -Wall -Wextra -Werror #-Weffc++
 # Preprocessorflaggor, -I lägger till en filkatalog i inkluderingssökvägen.
 # CPPFLAGS += -I$(CODE)
 
-# Objektkodsmoduler som ingår i den kompletta kalkylatorn.
+# Objektkodsmoduler som ingår i det kompletta spelet
 OBJECTS = playingwithfire.o Highscore.o  Menu.o GameEngine.o Object.o Character.o Bomb.o Map.o GameMusic.o
 
-# Huvudmål - skapas med kommandot 'make' eller 'make kalkylator'.
+# Huvudmål - skapas med kommandot 'make' eller 'make playingwithfire'.
 playingwithfire: $(OBJECTS) Makefile
 	$(CCC) $(INCLUDES) $(CPPFLAGS) $(CCFLAGS) $(LDFLAGS) -o playingwithfire.game $(OBJECTS) $(LIBS)
 
-# menu_test: test_main.o Expression_Tree.o $(EXPRESSION)/expression_tree-test.cc
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -g test_main.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression_tree-test.cc -o expression_tree_test
-#
-# expression_test: test_main.o Expression.o $(EXPRESSION)/expression-test.cc Expression_Tree.o
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) test_main.o Expression.o Expression_Tree.o Variable_Table.o $(EXPRESSION)/expression-test.cc -o expression_test
-#
 map_test: Map.o map_test.cc
 	$(CCC) $(INCLUDES) $(CPPFLAGS) $(CCFLAGS) Map.o map_test.cc -o map_test.game $(LIBS)
 
@@ -61,19 +53,6 @@ Map.o: Map.h Map.cc
 GameMusic.o: GameMusic.h GameMusic.cc
 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c GameMusic.cc
 
-
-
-# Expression.o: $(EXPRESSION)/Expression.h $(EXPRESSION)/Expression.cc
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(EXPRESSION)/Expression.cc
-#
-# Expression_Tree.o: $(EXPRESSION)/Expression_Tree.h $(EXPRESSION)/Expression_Tree.cc
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(EXPRESSION)/Expression_Tree.cc
-#
-# Variable_Table.o: Variable_Table.h Variable_Table.cc
-# 		$(CCC) $(CPPFLAGS) $(CCFLAGS) -c Variable_Table.cc
-#
-# test_main.o: $(EXPRESSION)/test_main.cc
-# 	$(CCC) $(CPPFLAGS) $(CCFLAGS) -c $(EXPRESSION)/test_main.cc
 
 # 'make clean' tar bort objektkodsfiler och 'core' (minnesdump).
 clean:
