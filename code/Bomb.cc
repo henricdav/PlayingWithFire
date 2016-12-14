@@ -14,7 +14,8 @@ playerPtr{&player},
 playerInTile{true}
 
 {
-    sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,TILE_HEIGHT*player.tileCoordinates().y);
+    sprite.setPosition(TILE_WIDTH*player.tileCoordinates().x,
+                       TILE_HEIGHT*player.tileCoordinates().y);
     texture.loadFromFile("Figures/bomb.png");
     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     sprite.setTexture(texture);
@@ -86,14 +87,14 @@ void Bomb::update()
 
     if (elapsedTime > 4000) // End explosion
     {
-
         for (int j{0}; j <= 3; ++j)
         {
             for (int i{0}; i <= explodeRange[j]; ++i)
             {
                 if (i == explodeRange[j])
                 {
-                    mapPtr->setCoord(mapCoords + directions[j]*i, boxContents[j]);
+                    mapPtr->setCoord(mapCoords + directions[j]*i,
+                        boxContents[j]);
                 }
                 else
                 {

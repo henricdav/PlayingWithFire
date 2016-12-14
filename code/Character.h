@@ -35,7 +35,7 @@ public:
     sf::Clock getRespawnTimer();
 
 private:
-    std::vector<std::string> textures;
+    std::vector<std::string> textures{};
     sf::Texture player_texture{};
     std::string name{};
     int bombRadius{};

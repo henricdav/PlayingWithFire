@@ -42,8 +42,8 @@ void GameEngine::initTextures()
 }
 
 void GameEngine::run(std::vector<std::string> & playerNames,
-                     std::vector<int> & playerColors,
-                     sf::RenderWindow & window)
+    std::vector<int> & playerColors,
+    sf::RenderWindow & window)
 {
     player1.initCharacter(playerNames.at(0), playerColors.at(0));
     player2.initCharacter(playerNames.at(1), playerColors.at(1));
@@ -59,7 +59,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         sf::Event event;
         while (window.pollEvent(event))
         {
-
             if (event.type == sf::Event::Closed)
             {
                 terminated = true;
@@ -67,7 +66,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
         }
 
         window.clear(sf::Color::White);
-
         drawWindowFromMap(window);
         drawObjects(window);
         drawText(window);
@@ -157,6 +155,7 @@ void GameEngine::getCommands()
     commands[9] = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P);
 }
 
+
 void GameEngine::moveObjects()
 {
     if (commands[0]) {characters[0].move(sf::Vector2f(-characters[0].getSpeed(), 0), std::make_shared<Map>(map));}
@@ -190,7 +189,6 @@ void GameEngine::moveObjects()
             }
         }
     }
-
 }
 
 void GameEngine::dropBombs()
@@ -239,46 +237,46 @@ void GameEngine::updateCharacters()
         characters[it].setSprite();
         switch (map.getCoord(characters[it].tileCoordinates()))
         {
-        case shoes:
+            case shoes:
             music.pickUpSound();
             characters[it].setSpeed();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
-        case extrabomb:
+            case extrabomb:
             music.pickUpSound();
             characters[it].setBombTime();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
-        case bombradius:
+            case bombradius:
             music.pickUpSound();
             characters[it].setBombRadius();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
-        case life:
+            case life:
             music.pickUpSound();
             characters[it].setLife();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
-        case bombmover:
+            case bombmover:
             music.pickUpSound();
             characters[it].setBombMover();
             map.setCoord(characters[it].tileCoordinates(), empty);
             break;
-        case flames:
+            case flames:
             if (characters[it].getRespawnTimer().getElapsedTime().asSeconds() > 3)
             {
-            music.deathSound();
-            characters[it].eraseLife();
-            characters[it].setRespawnTimer();
-            switch (it)
-            {
-                case 0:
+                music.deathSound();
+                characters[it].eraseLife();
+                characters[it].setRespawnTimer();
+                switch (it)
+                {
+                    case 0:
                     characters[1].setPoints(500);
                     break;
-                case 1:
+                    case 1:
                     characters[0].setPoints(500);
                     break;
-            }
+                }
             }
             break;
         }
@@ -294,13 +292,13 @@ void GameEngine::checkGameOver(bool & terminated)
             switch (it)
             {
                 case 0:
-                    characters[1].setPoints(1000);
-                    gameOverText.setString("Game over! \n" + characters[1].getName() + " won!");
-                    break;
+                characters[1].setPoints(1000);
+                gameOverText.setString("Game over! \n" + characters[1].getName() + " won!");
+                break;
                 case 1:
-                    characters[0].setPoints(1000);
-                    gameOverText.setString("Game over! \n" + characters[0].getName() + " won!");
-                    break;
+                characters[0].setPoints(1000);
+                gameOverText.setString("Game over! \n" + characters[0].getName() + " won!");
+                break;
             }
             gameTimer.restart();
             gameOver = true;

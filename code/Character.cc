@@ -1,6 +1,5 @@
 #include "Character.h"
 
-
 Character::Character()
 {
     speed = 2;
