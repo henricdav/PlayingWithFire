@@ -57,7 +57,7 @@ private:
     Character player2{};
     std::vector<Character> characters{};
 
-    Map map{};//(std::string Fil);
+    Map map{};
     sf::Sprite static_object{};
     std::vector<sf::Sprite> static_objects;
     std::vector<sf::Texture> static_textures;
