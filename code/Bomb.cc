@@ -1,3 +1,16 @@
+/*
+ * FILNAMN:       Bomb.cc
+ * Projekt:       TDDC76-Projekt
+ * PROGRAMMERARE: Johan Almgren, johal 611
+ *                Fredrik Björklund, frebj191
+ *                Henric Davidsson, henda274'
+ *                Nils Larsén, nilla000
+ *
+ * DATUM:         2016-12-15
+ *
+ * BESKRIVNING:   Implementeringsfil som håller koll på bomber
+ */
+
 #include "Bomb.h"
 
 Bomb::Bomb(Character & player, Map & map)
@@ -5,8 +18,8 @@ Bomb::Bomb(Character & player, Map & map)
 bombRadius{player.getBombRadius()},
 timer{},
 mapPtr{&map},
-detonated{false},
-exploded{false},
+burnedOut{false},
+exploding{false},
 explodeRange{bombRadius,bombRadius,bombRadius,bombRadius},
 directions{{0,-1},{0,1},{-1,0},{1,0}},
 boxContents{0,0,0,0},
@@ -35,11 +48,11 @@ void Bomb::update()
         mapPtr->setCoord(mapCoords, bomb);
     }
     oldMapCoords = mapCoords;
-    if (exploded)
+    if (exploding)
     {
         moveDirection = MapCoords(0,0);
     }
-    if (!exploded && elapsedTime > 3000) // Begin explosion
+    if (!exploding && elapsedTime > 3000) // Begin explosion
     {
         mapPtr->setCoord(mapCoords, flames);
         music.explosionSound();
@@ -81,7 +94,7 @@ void Bomb::update()
         }
         texture.loadFromFile("Texture/explosion.png");
         sprite.setTexture(texture);
-        exploded = true;
+        exploding = true;
         moveDirection = MapCoords(0,0);
     }
 
@@ -103,6 +116,6 @@ void Bomb::update()
             }
         }
         mapPtr->setCoord(mapCoords, empty);
-        detonated = true;
+        burnedOut = true;
     }
 }
