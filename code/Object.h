@@ -39,7 +39,7 @@ public:
     void animate_sprite(sf::Vector2f);
 
     // Returnerar ett Object's  koordinater i en Map
-    MapCoords tileCoordinates(){return mapCoords;} const;
+    MapCoords tileCoordinates() const {return mapCoords;};
 
     // Uppdaterar koordinaterna för ett Object
     void updateMapIndex();
