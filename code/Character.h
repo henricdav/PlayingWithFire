@@ -23,40 +23,62 @@ class Character : public Object
 public:
     Character();
     ~Character() = default;
+
     //återställer timern timeToNextBomb
     void resetBombTimer();
+
     //initierar karaktärerna vid spelstart, tilldelar namn och position
     void initCharacter(std::string, int);
+
+    //sätter en sprite på karaktären, används vid spelstart eller när spelaren
+    //förlorar ett liv och då tillfälligt blir transparent.
     void setSprite();
+
     //boolean som avgör huruvida spelaren har rättighet att lägga bomb
     bool dropBomb();
+
+    //returnerar spelarens inmatade namn
     std::string getName() const;
+
     //returnerar karaktärens snabbhet
     int getSpeed() const;
+
     //returnerar karaktärens bombradie
     int getBombRadius() const;
+
     //returnerar huruvida karaktären har förmågan att flytta bomber eller inte
     bool isBombMover() {return bombMover;};
+
     //returnerar karaktärens antal kvarvarande liv
     int getLife() const;
+
     //returnerar karaktärens poäng
     int getPoints() const;
+
     //tar bort ett liv
     void eraseLife();
+
     //adderar ett liv
     void setLife();
+
     //ökar karaktärens hastighet med 1
     void setSpeed();
+
     //ökar karaktärens bombradie
     void setBombRadius();
+
     //halverar karaktärens tid mellan varje bomb
     void setBombTime();
-    //ger karaktären förmågan att flytta bomber
+
+    //  ger karaktären förmågan att flytta bomber
     void setBombMover();
+
     //adderar ett antal poäng till karaktären
     void setPoints(int);
+
     //gör karaktären odödlig i 3 sekunder efter att ha klivit på en bomb
     void setRespawnTimer();
+
     //returnerar karaktärens respawnTimer
     sf::Clock getRespawnTimer();
 
@@ -68,6 +90,7 @@ private:
     int speed{};
     int lives{};
     int color{};
+
     //tid mellan bomber
     int bombTime{};
     int points{};
