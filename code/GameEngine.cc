@@ -193,7 +193,7 @@ void GameEngine::moveObjects()
 
 void GameEngine::dropBombs()
 {
-    if (!(bombs.empty()) && (*bombs.begin())->isDetonated())
+    if (!(bombs.empty()) && (*bombs.begin())->isBurnedOut())
     {
         bombs.erase(bombs.begin());
     }
