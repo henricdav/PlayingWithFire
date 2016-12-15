@@ -1,6 +1,17 @@
 /*
-Klassen Menu
-*/
+ * FILNAMN:       Menu.h
+ * PROJEKT:       TDDC76-Projekt
+ * PROGRAMMERARE: Johan Almgren, johal611
+ *                Fredrik Björklund, frebj191
+ *                Henric Davidsson, henda274
+ *                Nils Larsén, nilla000
+ *
+ * DATUM:         2016-12-15
+ *
+ * BESKRIVNING:   Inkluderingsfil för klassen Object. Basklass för Character
+ *                och Bomb
+ */
+
 #ifndef MENU_H
 #define MENU_H
 
