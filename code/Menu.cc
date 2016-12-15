@@ -1,3 +1,15 @@
+/*
+ * FILNAMN:       Menu.cc
+ * PROJEKT:       TDDC76-Projekt
+ * PROGRAMMERARE: Johan Almgren, johal611
+ *                Fredrik Björklund, frebj191
+ *                Henric Davidsson, henda274
+ *                Nils Larsén, nilla000
+ *
+ * DATUM:         2016-12-15
+ *
+ * BESKRIVNING:   Implementeringsfil för klassen Menu.
+ */
 
 
 #include "Menu.h"
@@ -5,7 +17,7 @@
 Menu::Menu()
     :   playerNames{}, playerColors{},
         window(sf::VideoMode(X_OFFSET+TILES_X*TILE_SIZE,Y_OFFSET+TILES_Y*TILE_SIZE), "Lek inte med elden II - Aterkomsten"),
-        font{}, item_index{}
+        font{}
 
 {
     window.setFramerateLimit(60);
@@ -56,6 +68,8 @@ Menu::Menu()
     menu[2].setPosition(sf::Vector2f(width/2-35+X_OFFSET, height/(NUMBER_OF_TEXT_FIELDS)+150+Y_OFFSET));
 
     item_index = 0;
+    count1 = 0;
+    count2 = 0;
 }
 
 int Menu::run()
