@@ -118,22 +118,6 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     }
 }
 
-void GameEngine::drawText(sf::RenderWindow & window)
-{
-    text[1].setString(characters[0].getName());
-    text[2].setString(characters[1].getName());
-    text[3].setString(std::to_string(characters[0].getLife()));
-    text[4].setString(std::to_string(characters[1].getLife()));
-    text[5].setString("HEALTH:");
-    text[6].setString("HEALTH:");
-    text[7].setString(std::to_string(characters[0].getPoints()) + " p");
-    text[8].setString(std::to_string(characters[1].getPoints()) + " p");
-    for (int i{1}; i < TEXT_FIELDS; ++i)
-    {
-        window.draw(text[i]);
-    }
-
-}
 
 void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
 {
@@ -335,6 +319,23 @@ void GameEngine::showTimer(sf::RenderWindow & window)
         text[0].setString("1");
         window.draw(text[0]);
     }
+}
+
+void GameEngine::drawText(sf::RenderWindow & window)
+{
+    text[1].setString(characters[0].getName());
+    text[2].setString(characters[1].getName());
+    text[3].setString(std::to_string(characters[0].getLife()));
+    text[4].setString(std::to_string(characters[1].getLife()));
+    text[5].setString("HEALTH:");
+    text[6].setString("HEALTH:");
+    text[7].setString(std::to_string(characters[0].getPoints()) + " p");
+    text[8].setString(std::to_string(characters[1].getPoints()) + " p");
+    for (int i{1}; i < TEXT_FIELDS; ++i)
+    {
+        window.draw(text[i]);
+    }
+
 }
 
 void GameEngine::setUpText()
