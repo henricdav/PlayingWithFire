@@ -1,6 +1,16 @@
 /*
-Klassen Object
-*/
+ * FILNAMN:       Object.h
+ * PROJEKT:       TDDC76-Projekt
+ * PROGRAMMERARE: Johan Almgren, johal611
+ *                Fredrik Björklund, frebj191
+ *                Henric Davidsson, henda274
+ *                Nils Larsén, nilla000
+ *
+ * DATUM:         2016-12-15
+ *
+ * BESKRIVNING:   Inkluderingsfil för klassen Object.
+ */
+
 #ifndef OBJECT_H
 #define OBJECT_H
 
@@ -18,6 +28,7 @@ public:
     Object() = default;
     virtual ~Object() = default;
 
+    // Flyttar ett Object's sf::Sprite
     void move(sf::Vector2f, std::shared_ptr<Map>);
     bool collision(sf::Vector2f, std::shared_ptr<Map>);
     void animate_sprite(sf::Vector2f);
