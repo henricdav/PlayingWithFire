@@ -1,5 +1,5 @@
 /*
-* FILNAMN:       Map.h
+* FILNAMN:       Map.cc
 * PROJEKT:       TDDC76-Projekt
 * PROGRAMMERARE: Johan Almgren, johal611
 *                Fredrik Björklund, frebj191
@@ -71,14 +71,5 @@ private:
     // Kollar tillåtna index
     bool validIndices(MapCoords) const;
 };
-
-
-
-
-
-
-
-
-
 
 #endif

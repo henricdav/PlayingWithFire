@@ -1,3 +1,15 @@
+/*
+* FILNAMN:       Map.h
+* PROJEKT:       TDDC76-Projekt
+* PROGRAMMERARE: Johan Almgren, johal611
+*                Fredrik Björklund, frebj191
+*                Henric Davidsson, henda274
+*                Nils Larsén, nilla000
+*
+* DATUM:         2016-12-15
+*
+* BESKRIVNING:   Implementeringsfil för klassen Map.
+*/
 
 #include "Map.h"
 Map::Map()
@@ -52,8 +64,6 @@ sf::Sprite Map::getBoundings(MapCoords coords, bool bombMover) const
     }
 
     return tempStaticSprite;
-
-    //return sf::IntRect(X_OFFSET + (xCoord - 1)*TILE_WIDTH, Y_OFFSET + (yCoord - 1)*TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
 }
 
 bool Map::validIndices(MapCoords coords) const
