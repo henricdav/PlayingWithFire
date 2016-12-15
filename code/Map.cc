@@ -3,6 +3,7 @@
 Map::Map()
     : mapArray{}
 {
+    srand(std::time(NULL));
     int randIndex = rand() % 10; //Generates random number between 0..9
     std::string fileName = randomMap[randIndex];
     fileName = "./Maps/" + fileName;
