@@ -28,7 +28,7 @@ public:
     ~Bomb() = default;
 
     //
-    bool isDetonated() {return detonated;};
+    bool isBurnedOut() {return burnedOut;};
 
     // Uppdaterar bomben och hanterar sprängradien, så att tillåtna områden
     // sprängs korrekt.
@@ -48,8 +48,8 @@ private:
     int bombRadius;
     sf::Clock timer;
     Map* mapPtr;
-    bool detonated;
-    bool exploded;
+    bool burnedOut;
+    bool exploding;
     std::vector<int> explodeRange;
     std::vector<MapCoords> directions;
     std::vector<int> boxContents;
