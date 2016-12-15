@@ -8,7 +8,8 @@
  *
  * DATUM:         2016-12-15
  *
- * BESKRIVNING:   Inkluderingsfil för klassen Object.
+ * BESKRIVNING:   Inkluderingsfil för klassen Object. Basklass för Character
+ *                och Bomb
  */
 
 #ifndef OBJECT_H
@@ -30,19 +31,34 @@ public:
 
     // Flyttar ett Object's sf::Sprite
     void move(sf::Vector2f, std::shared_ptr<Map>);
+
+    // Kollar kollision med objekt i en Map. Används av move()
     bool collision(sf::Vector2f, std::shared_ptr<Map>);
+
+    // Animerar figurerna
     void animate_sprite(sf::Vector2f);
-    MapCoords tileCoordinates(){return mapCoords;};
-    sf::Sprite sprite{};
+
+    // Returnerar ett Object's  koordinater i en Map
+    MapCoords tileCoordinates(){return mapCoords;} const;
+
+    // Uppdaterar koordinaterna för ett Object
     void updateMapIndex();
 
-protected:
-    sf::IntRect rect{};
-    MapCoords mapCoords;
-    int counter_rendering{};
+    // Själva grafikobjektet
+    sf::Sprite sprite{};
 
+protected:
+    // Ruta att rita i.
+    sf::IntRect rect{};
+    // Koordinaterna i Map:en
+    MapCoords mapCoords;
+    // För animering
+    int counter_rendering{};
+    // Kan objektet flytta bomber?
     bool bombMover{};
+
 private:
+    // Gräns för att "glida" åt sidan
     const int moveThreshold{15};
 };
 
