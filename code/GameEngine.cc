@@ -20,38 +20,6 @@ GameEngine::GameEngine()
     initTextures();
 }
 
-void GameEngine::initTextures()
-{
-    static_textures.resize(TILE_TYPES);
-    static_objects.resize(TILE_TYPES);
-    std::vector<std::string> filenames{
-        "Texture/Ground_2.jpg",
-        "Texture/bomb-small.png",
-        "Texture/explosion.png",
-        "Texture/RTS_Crate.png",
-        "Texture/RTS_Crate.png",
-        "Texture/RTS_Crate.png",
-        "Texture/RTS_Crate.png",
-        "Texture/RTS_Crate.png",
-        "Texture/RTS_Crate.png",
-        "Texture/shoe-powerup.png",
-        "Texture/extrabomb-powerup.png",
-        "Texture/bombrange-powerup.png",
-        "Texture/health-powerup.png",
-        "Texture/bombmover-powerup.jpg"};
-
-    for (int i = 0; i < TILE_TYPES; ++i)
-    {
-        static_textures[i].loadFromFile(filenames[i]);
-        static_objects[i].setTexture(static_textures[i]);
-        static_objects[i].setTextureRect(sf::IntRect(0, 0, 50, 50));
-        static_object.setTexture(static_textures[0]);
-        static_object.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    }
-
-    setUpText();
-}
-
 void GameEngine::run(std::vector<std::string> & playerNames,
     std::vector<int> & playerColors,
     sf::RenderWindow & window)
@@ -118,6 +86,37 @@ void GameEngine::run(std::vector<std::string> & playerNames,
     }
 }
 
+void GameEngine::initTextures()
+{
+    static_textures.resize(TILE_TYPES);
+    static_objects.resize(TILE_TYPES);
+    std::vector<std::string> filenames{
+        "Texture/Ground_2.jpg",
+        "Texture/bomb-small.png",
+        "Texture/explosion.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/RTS_Crate.png",
+        "Texture/shoe-powerup.png",
+        "Texture/extrabomb-powerup.png",
+        "Texture/bombrange-powerup.png",
+        "Texture/health-powerup.png",
+        "Texture/bombmover-powerup.jpg"};
+
+    for (int i = 0; i < TILE_TYPES; ++i)
+    {
+        static_textures[i].loadFromFile(filenames[i]);
+        static_objects[i].setTexture(static_textures[i]);
+        static_objects[i].setTextureRect(sf::IntRect(0, 0, 50, 50));
+        static_object.setTexture(static_textures[0]);
+        static_object.setTextureRect(sf::IntRect(0, 0, 50, 50));
+    }
+
+    setUpText();
+}
 
 void GameEngine::drawWindowFromMap(sf::RenderWindow & window)
 {

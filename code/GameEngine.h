@@ -46,11 +46,11 @@ private:
     // Släpper bomber
     void dropBombs();
 
-    // Ritar ut bomber och spelare
-    void drawObjects(sf::RenderWindow &);
-
     // Uppdaterar bombens tillstånd. Flyttar om någon sparkat på den.
     void updateBombs();
+
+    // Ritar ut bomber och spelare
+    void drawObjects(sf::RenderWindow &);
 
     // Uppdaterar spelarnas attribut. Liv, bombradie, extrabomb osv.
     void updateCharacters();
