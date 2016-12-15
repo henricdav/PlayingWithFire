@@ -1,3 +1,16 @@
+/*
+ * FILNAMN:       Bomb.cc
+ * Projekt:       TDDC76-Projekt
+ * PROGRAMMERARE: Johan Almgren, johal 611
+ *                Fredrik Björklund, frebj191
+ *                Henric Davidsson, henda274'
+ *                Nils Larsén, nilla000
+ *
+ * DATUM:         2016-12-15
+ *
+ * BESKRIVNING:   Implementeringsfil som håller koll på bomber
+ */
+
 #include "Bomb.h"
 
 Bomb::Bomb(Character & player, Map & map)
