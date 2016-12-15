@@ -18,13 +18,6 @@ Klassen Gameengine
 #include "GameMusic.h"
 #include "Highscore.h"
 
-
-
-/*
-Defined in MAP_H:
-enum tile{empty = 0, wall = 1, flames, emptybox, shoebox};
-*/
-
 #define TEXT_FIELDS 9
 
 
@@ -33,10 +26,15 @@ class GameEngine
 public:
     GameEngine();
     ~GameEngine() = default;
+
+    // HUvudloop för spelsessionen. Får in spelarnamn, färger och referens till aktuellt fönster
     void run(std::vector<std::string> &, std::vector<int> &, sf::RenderWindow &);
 
 private:
+    // Laddar texturer
     void initTextures();
+
+    //
     void drawWindowFromMap(sf::RenderWindow &);
     void getCommands();
     void moveObjects();
